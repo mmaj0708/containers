@@ -20,22 +20,42 @@ namespace	ft	{
     typedef Allocator                                allocator_type;
     typedef typename allocator_type::size_type       size_type;
 
-	explicit vector (const allocator_type& alloc = allocator_type()) : _size(0), _alloc(alloc)
-	{}
+	/* default constructor */
+	explicit vector (const allocator_type& alloc = allocator_type()) : _size(0), _alloc(alloc) {}
 
-	explicit vector (size_type n, const value_type& val = value_type(),
-	const allocator_type& alloc = allocator_type()) : _size(n), _alloc(alloc)
-	{
-		size_type	i = 0;
+	/* fill constructor */
+	// explicit vector (size_type n, const value_type& val = value_type(),
+	// const allocator_type& alloc = allocator_type()) : _size(n), _alloc(alloc)
+	// {
+	// 	size_type	i = 0;
 
-		_tab = new value_type[n];
-		while (i < n)
-		{
-			_tab[i] = val;
-			i++;
-		}
-	}
-	
+	// 	_tab = _alloc.allocate(n);
+	// 	while (i < n)
+	// 	{
+	// 		_tab[i] = val;
+	// 		i++;
+	// 	}
+	// }
+
+	/* range constructor */	
+	// template <class InputIterator>
+    // vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+	// : _alloc(alloc)
+	// {
+	// 	InputIterator	i = first;
+	// 	value_type		j = 0;
+
+	// 	_tab = new value_type[last - first];
+	// 	while (i != last)
+	// 	{
+	// 		_tab[j] = *i;
+	// 		i++;
+	// 	}
+	// }
+
+void	push_back (const value_type& val);
+
+
 	value_type	& operator[]( value_type i )
 	{
 		return (_tab[i]);
