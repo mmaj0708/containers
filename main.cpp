@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "vector.hpp"
+# include "Rand_iterator.hpp"
 
 
 int main()
@@ -48,8 +49,20 @@ int main()
 	// std::cout << ft_tab2[4] << std::endl;
 
 	std::vector<int> tab2(5, 10);
-	std::vector<int>::iterator	it = tab2.begin();
-	it[0] = 5;
-	std::cout << *it << std::endl;
+	std::vector<int>::iterator	it(tab2.begin());
+	std::vector<int>::iterator	it2;
+	it[1] = 5;
+	// it2 = it.operator->();
+	// std::cout << *it2 << it.operator->() << std::endl;
+	std::cout << *(++it) << std::endl;
+
+	ft::vector<int> ft_tab2(5, 10);
+	ft::vector<int>::iterator	ft_it(ft_tab2.begin());
+	// int		*ptr = new int;
+	// *ptr = 3;
+	// ft::vector<int>::iterator	ft_it2(ptr);
+	ft_it[1] = 5;
+	// ++ft_it;
+	std::cout << *(++ft_it) << std::endl;
 	
 }

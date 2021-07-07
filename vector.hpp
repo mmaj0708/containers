@@ -7,6 +7,7 @@
 # include <vector>
 # include <cstddef>
 # include <sstream>
+# include "Rand_iterator.hpp"
 
 namespace	ft	{
 	
@@ -28,6 +29,13 @@ namespace	ft	{
     typedef typename allocator_type::const_pointer   	const_pointer;
     // typedef std::reverse_iterator<iterator>          	reverse_iterator;
     // typedef std::reverse_iterator<const_iterator>    	const_reverse_iterator;
+
+	class iterator : public randIt<value_type>
+	{
+		public:
+		iterator() : randIt<value_type>() {};
+		iterator(value_type *ptr) : randIt<value_type>(ptr) {};
+	};
 
 	/*	CONSTRUCTOR	*/
 	/* default constructor */
@@ -72,7 +80,7 @@ namespace	ft	{
 	// vector& operator= (const vector& x);
 
 	// /* ITERATOR */
-	// iterator				begin();
+	iterator				begin() { return (iterator(_tab)); }
 	// const_iterator			begin() const;
 	// iterator				end();
 	// const_iterator			end() const;
