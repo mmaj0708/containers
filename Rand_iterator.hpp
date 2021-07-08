@@ -31,7 +31,7 @@ namespace ft
 		virtual ~randIt() {}
 
 		// bool	operator==(randIt const &rhs) const;
-		// bool	operator!=(randIt const &rhs) const;
+		bool	operator!=(randIt const &rhs) const { return(_ptr != rhs._ptr ? 1 : 0); }
 		// bool	operator>(randIt const &rhs) const;
 		// bool	operator<(randIt const &rhs) const;
 		// bool	operator<=(randIt const &rhs) const;

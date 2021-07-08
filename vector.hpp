@@ -46,7 +46,7 @@ namespace	ft	{
 	explicit vector (size_type n, const value_type& val = value_type(),
 	const allocator_type& alloc = allocator_type())
 	: _size(n), _max_size(alloc.max_size()), _capacity(n), _alloc(alloc) {
-		
+		std::cout << "fill const" << std::endl;
 		size_type	i = 0;
 
 		_tab = _alloc.allocate(n);
@@ -58,18 +58,19 @@ namespace	ft	{
 	}
 
 	/* range constructor */	
-	template <class InputIterator>
-    vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
-	: _size(0), _max_size(alloc.max_size()), _capacity(0), _alloc(alloc)
-	{
-		while (first != last)
-		{
-			_size++;
-			_capacity++;
-			first++;
-			_tab = _alloc.allocate(_size + 1);
-		}
-	}
+	// template <class InputIterator>
+    // vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+	// : _size(0), _max_size(alloc.max_size()), _capacity(0), _alloc(alloc)
+	// {
+	// 	std::cout << "range const" << std::endl;
+	// 	while (first != last)
+	// 	{
+	// 		_size++;
+	// 		_capacity++;
+	// 		first++;
+	// 		_tab = _alloc.allocate(_size + 1);
+	// 	}
+	// }
 
 	// /* copy constructor */
 	// vector (const vector& x) {}
@@ -102,7 +103,28 @@ namespace	ft	{
 	// /* CAPACITY */
 	size_type	size() const { return _size; } // return number of elmt in the vector
 	size_type	max_size() const { return _max_size; }
-	// void		resize (size_type n, value_type val = value_type());
+	void		resize (size_type n, value_type val = value_type()) {	// resize(size_t n) aussi
+		value_type	*tab2;
+		size_type	i = -1;
+
+		if (n < _size)
+			while (n != _size)
+				_alloc.destroy(_tab[_size--]);
+		if (n > _size)
+		{
+			tab2 = _alloc.allocate(n);
+			while (++i < _size)
+				_alloc.construct(&tab2[i], _tab[i]);
+			while (i < n)
+				_alloc.construct(&tab2[i], val);
+			i = 0;
+			while (i < _size)
+				_alloc.destroy(&_tab[i++]);
+			_alloc.deallocate(_tab, _size);
+			_size = n;
+			_tab = tab2;
+		}
+	}
 	size_type	capacity() const { return _capacity; }	// return size of allocated storage
 	bool		empty() const { if (_size > 0) return 0; return 1; }
 	// void		reserve (size_type n);
@@ -129,9 +151,9 @@ namespace	ft	{
 
 	void		push_back (const value_type& val) {
 		if (++_size > _capacity)
-			capacity = capacity * 2;
-		if (capacity == 0)
-			capacity = 1;
+			_capacity = _capacity * 2;
+		if (_capacity == 0)
+			_capacity = 1;
 		_size = val;
 	}
 	// void		pop_back();

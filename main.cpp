@@ -57,17 +57,33 @@ int main()
 	// 	std::cout << ft_a5[i] << std::endl;
 
 	std::vector<int>	a6(0,5);
-	std::cout << "cap bef = " << a6.capacity() << std::endl;
-	a6.push_back(56);
-	std::cout << "cap bef = " << a6.capacity() << std::endl;
-	a6.push_back(56);
-	std::cout << "cap bef = " << a6.capacity() << std::endl;
-	a6.push_back(56);
-	std::cout << "cap bef = " << a6.capacity() << std::endl;
-	a6.push_back(56);
-	std::cout << "cap bef = " << a6.capacity() << std::endl;
-	a6.push_back(56);
-	std::cout << "cap bef = " << a6.capacity() << std::endl;
+	std::vector<int>::iterator it;
+	std::cout << "cap = " << a6.capacity() << std::endl;
+	std::cout << "size = " << a6.size() << std::endl;
+	// for (it = a6.begin() ; it != a6.end(); it++) {
+	// 	std::cout << *it << std::endl;
+	// }
+
+	// a6.push_back(56);
+	
+	// a6.resize(10, 0);
+	// std::cout << "\ncap = " << a6.capacity() << std::endl;
+	// std::cout << "size = " << a6.size() << std::endl;
+	// for (it = a6.begin() ; it != a6.end(); it++) {
+	// 	std::cout << *it << std::endl;
+	// }	
+	// a6.resize(5, 0);
+	// std::cout << "\ncap = " << a6.capacity() << std::endl;
+	// std::cout << "size = " << a6.size() << std::endl;
+
+	std::cout << "\n*FT::VECTOR*" << std::endl;
+	ft::vector<int>	fta6(0,10);
+	ft::vector<int>::iterator ftit;
+	std::cout << "cap = " << fta6.capacity() << std::endl;
+	std::cout << "size = " << fta6.size() << std::endl;
+	// for (ftit = fta6.begin() ; ftit != fta6.end(); ftit++) {
+	// 	std::cout << *ftit << std::endl;
+	// }
 
 	// std::cout << "ITERATOR TEST\n" << std::endl;
 	// std::cout << "*OPERATOR++*" << std::endl;
