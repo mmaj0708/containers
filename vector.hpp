@@ -57,9 +57,19 @@ namespace	ft	{
 		}
 	}
 
-	// /* range constructor */	
-	// template <class InputIterator>
-    // vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {}
+	/* range constructor */	
+	template <class InputIterator>
+    vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+	: _size(0), _max_size(alloc.max_size()), _capacity(0), _alloc(alloc)
+	{
+		while (first != last)
+		{
+			_size++;
+			_capacity++;
+			first++;
+			_tab = _alloc.allocate(_size + 1);
+		}
+	}
 
 	// /* copy constructor */
 	// vector (const vector& x) {}
@@ -82,7 +92,7 @@ namespace	ft	{
 	// /* ITERATOR */
 	iterator				begin() { return (iterator(_tab)); }
 	// const_iterator			begin() const;
-	// iterator				end();
+	iterator				end() { return(iterator(&_tab[_size])); }
 	// const_iterator			end() const;
 	// reverse_iterator		rbegin();
 	// const_reverse_iterator	rbegin() const;
@@ -117,7 +127,13 @@ namespace	ft	{
 	// void		assign (InputIterator first, InputIterator last);
 	// void		assign (size_type n, const value_type& val);
 
-	// void		push_back (const value_type& val) {}
+	void		push_back (const value_type& val) {
+		if (++_size > _capacity)
+			capacity = capacity * 2;
+		if (capacity == 0)
+			capacity = 1;
+		_size = val;
+	}
 	// void		pop_back();
 	
 	// iterator	insert (iterator position, const value_type& val);

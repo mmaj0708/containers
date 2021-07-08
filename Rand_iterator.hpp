@@ -40,7 +40,8 @@ namespace ft
 		reference	operator*(void) const { return(*_ptr); }
 		randIt		&operator++(void) { _ptr++; return(*this); } // ++ avant
 		randIt		operator++(int) { randIt tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
-		// randIt	operator--(randIt const &rhs) const;
+		randIt		&operator--(void) { _ptr--; return(*this); } // -- avant
+		randIt		operator--(int) { randIt tmp(*this); --this->_ptr; return(tmp); } // -- apres;
 		// randIt	operator+(randIt const &rhs) const;
 		// randIt	operator-(randIt const &rhs) const;
 		reference	operator[](value_type i) const { return(_ptr[i]); } // faux ds peu de tps

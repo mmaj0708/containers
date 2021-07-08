@@ -13,7 +13,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJECTS)
 
-	@${CXX} ${CXXFLAGS} -o ${NAME} $(OBJECTS)
+	${CXX} ${CXXFLAGS} -o ${NAME} $(OBJECTS)
 
 clean : 
 	@/bin/rm -f $(OBJECTS)
