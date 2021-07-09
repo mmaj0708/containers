@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Rand_iterator.hpp                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
+/*   Updated: 2021/07/09 15:29:31 by mmaj             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 // pk besoin de rajouter une classe iterator dans vector_decl.hpp ??
 // pk pas tous les operators dans rand_it ??
@@ -6,7 +18,7 @@
 
 // iterator = pointer enveloppé dans une classe
 
-// PROCHAINE FOIS CONTINUE LES ITERATEURS !!!
+PROCHAINE FOIS : DEMANDER MARC COMMENT RESIZE ALLOUE
 
 #ifndef RAND_ITERATOR_HPP
 # define RAND_ITERATOR_HPP

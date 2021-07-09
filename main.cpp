@@ -44,22 +44,39 @@ int main()
 	// std::cout << "empty : " << ft_tab2.empty() << std::endl;
 
 	// std::cout << "**RANGE CONSTRUCTOR**" << std::endl;
-	// std::cout << "*FT::VECTOR*" << std::endl;
+	// std::cout << "*STD::VECTOR*" << std::endl;
 	// std::vector<int>	a4(5, 0);
 	// std::vector<int>	a5(a4.begin(), a4.end());
 	// for(int i = 0 ; i < 5 ; i++)
 	// 	std::cout << a5[i] << std::endl;
 
 	// std::cout << "\n*FT::VECTOR*" << std::endl;
-	// ft::vector<int>	ft_a4(5, 0);
-	// ft::vector<int>	ft_a5(ft_a4.begin(), a4.end());
+	// ft::vector<int>	ft_a4(5,0);
+	// for(ft::vector<int>::iterator it = ft_a4.begin() ; it != ft_a4.end() ; it++)
+	// { std::cout << *it << std::endl; }
+	// ft::vector<int>	ft_a5(ft_a4.begin(), ft_a4.end());
 	// for(int i = 0 ; i < 5 ; i++)
 	// 	std::cout << ft_a5[i] << std::endl;
 
-	std::vector<int>	a6(0,5);
-	std::vector<int>::iterator it;
-	std::cout << "cap = " << a6.capacity() << std::endl;
-	std::cout << "size = " << a6.size() << std::endl;
+	// std::cout << "**COPY CONSTRUCTOR**" << std::endl;
+	// std::cout << "*STD::VECTOR*" << std::endl;
+	// std::vector<int>	a6(5, 0);
+	// std::vector<int>	a7(a6);
+	// for(int i = 0 ; i < 5 ; i++)
+	// 	std::cout << a7[i] << std::endl;
+
+	// std::cout << "\n*FT::VECTOR*" << std::endl;
+	// ft::vector<int>	ft_a6(5,0);
+	// ft::vector<int>	ft_a7(ft_a6);
+	// for(int i = 0 ; i < 5 ; i++)
+	// 	std::cout << ft_a6[i] << std::endl;
+
+
+
+	// std::vector<int>	a6(0,5);
+	// std::vector<int>::iterator it;
+	// std::cout << "cap = " << a6.capacity() << std::endl;
+	// std::cout << "size = " << a6.size() << std::endl;
 	// for (it = a6.begin() ; it != a6.end(); it++) {
 	// 	std::cout << *it << std::endl;
 	// }
@@ -76,11 +93,11 @@ int main()
 	// std::cout << "\ncap = " << a6.capacity() << std::endl;
 	// std::cout << "size = " << a6.size() << std::endl;
 
-	std::cout << "\n*FT::VECTOR*" << std::endl;
-	ft::vector<int>	fta6(0,10);
-	ft::vector<int>::iterator ftit;
-	std::cout << "cap = " << fta6.capacity() << std::endl;
-	std::cout << "size = " << fta6.size() << std::endl;
+	// std::cout << "\n*FT::VECTOR*" << std::endl;
+	// ft::vector<int>	fta6(0,10);
+	// ft::vector<int>::iterator ftit;
+	// std::cout << "cap = " << fta6.capacity() << std::endl;
+	// std::cout << "size = " << fta6.size() << std::endl;
 	// for (ftit = fta6.begin() ; ftit != fta6.end(); ftit++) {
 	// 	std::cout << *ftit << std::endl;
 	// }
@@ -126,4 +143,47 @@ int main()
 	// ft::vector<int>::iterator	ft_it2(ft_tab3.end());
 	// for(int i = 4 ; i >= 0 ; i--)
 	// 	std::cout << *(--ft_it2) << std::endl;
+
+	std::cout << "*RESIZE*" << std::endl;
+	std::cout << "*STD::VECTOR*" << std::endl;
+	std::vector<int>	a6(5, 0);
+	a6.resize(10);
+	std::cout << "cap = " << a6.capacity() << std::endl;
+	std::cout << "size = " << a6.size() << std::endl;
+	for(int i = 0 ; i < 10 ; i++)
+		std::cout << a6[i] << " ";
+		std::cout << std::endl;
+	a6.resize(22, 78);
+	std::cout << "cap = " << a6.capacity() << std::endl;
+	std::cout << "size = " << a6.size() << std::endl;
+	for(int i = 0 ; i < 22 ; i++)
+		std::cout << a6[i] << " ";
+		std::cout << std::endl;
+	a6.resize(40, 78);
+	std::cout << "cap = " << a6.capacity() << std::endl;
+	std::cout << "size = " << a6.size() << std::endl;
+	for(int i = 0 ; i < 40 ; i++)
+		std::cout << a6[i] << " ";
+		std::cout << std::endl;
+
+	std::cout << "\n*FT::VECTOR*" << std::endl;
+	ft::vector<int>	ft_a6(5, 0);
+	ft_a6.resize(10);
+	std::cout << "cap = " << ft_a6.capacity() << std::endl;
+	std::cout << "size = " << ft_a6.size() << std::endl;
+	for(int i = 0 ; i < 10 ; i++)
+		std::cout << ft_a6[i] << " ";
+		std::cout << std::endl;
+	ft_a6.resize(22, 78);
+	std::cout << "cap = " << ft_a6.capacity() << std::endl;
+	std::cout << "size = " << ft_a6.size() << std::endl;
+	for(int i = 0 ; i < 22 ; i++)
+		std::cout << ft_a6[i] << " ";
+		std::cout << std::endl;
+	ft_a6.resize(40, 78);
+	std::cout << "cap = " << ft_a6.capacity() << std::endl;
+	std::cout << "size = " << ft_a6.size() << std::endl;
+	for(int i = 0 ; i < 40 ; i++)
+		std::cout << ft_a6[i] << " ";
+		std::cout << std::endl;
 }
