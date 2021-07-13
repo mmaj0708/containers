@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/09 15:29:31 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/13 14:22:34 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 // iterator = pointer enveloppé dans une classe
 
-PROCHAINE FOIS : DEMANDER MARC COMMENT RESIZE ALLOUE
+// PK LA FONCTION AT A BESOIN DE CA ?
 
 #ifndef RAND_ITERATOR_HPP
 # define RAND_ITERATOR_HPP

@@ -144,7 +144,63 @@ int main()
 	// for(int i = 4 ; i >= 0 ; i--)
 	// 	std::cout << *(--ft_it2) << std::endl;
 
-	std::cout << "*RESIZE*" << std::endl;
+	// std::cout << "*OPERATOR=*" << std::endl;
+	// std::cout << "*STD::VECTOR*" << std::endl;
+	// std::vector<int>	a7(5, 0);
+	// std::vector<int>	a8(10, 21);
+	// std::cout << "cap = " << a8.capacity() << std::endl;
+	// std::cout << "size = " << a8.size() << std::endl;
+	// a7 = a8;
+	// for(int i = 0 ; i < a8.size() ; i++)
+	// 	std::cout << a8[i] << " ";
+	// 	std::cout << std::endl;
+
+	// std::cout << "\n*FT::VECTOR*" << std::endl;
+	// ft::vector<int>	ft_a7(5, 0);
+	// ft::vector<int> ft_a8(10, 21);
+	// std::cout << "cap = " << ft_a8.capacity() << std::endl;
+	// std::cout << "size = " << ft_a8.size() << std::endl;
+	// ft_a7 = ft_a8;
+	// for(int i = 0 ; i < ft_a8.size() ; i++)
+	// 	std::cout << ft_a8[i] << " ";
+	// 	std::cout << std::endl;
+
+	// 	std::cout << "*AT*" << std::endl;
+	// std::cout << "*STD::VECTOR*" << std::endl;
+	// std::vector<int>	a7(5, 0);
+	// std::cout << "AT = " << a7.at(2) << std::endl;
+
+	// std::cout << "\n*FT::VECTOR*" << std::endl;
+	// ft::vector<int>	ft_a7(5, 0);
+	// std::cout << "AT = " << ft_a7.at(2) << std::endl; // try with n > size
+
+	// std::cout << "*FRONT/BACK*" << std::endl;
+	// std::cout << "*STD::VECTOR*" << std::endl;
+  	// std::vector<int> vector;
+  	// vector.push_back(78);
+  	// vector.push_back(16);
+	// std::cout << "cap = " << vector.capacity() << std::endl;
+	// std::cout << "size = " << vector.size() << std::endl;
+  	// vector.front() -= vector.back();
+  	// std::cout << "vector.front() is now " << vector.front() << '\n';
+	// vector.pop_back();
+	// vector.pop_back();
+  	// std::cout << "empty() =  " << vector.empty() << '\n';
+
+	// std::cout << "\n*FT::VECTOR*" << std::endl;
+  	// ft::vector<int> myvector;
+  	// myvector.push_back(78);
+  	// myvector.push_back(16);
+	// std::cout << "cap = " << myvector.capacity() << std::endl;
+	// std::cout << "size = " << myvector.size() << std::endl;
+  	// myvector.front() -= myvector.back();
+  	// std::cout << "myvector.front() is now " << myvector.front() << '\n';
+  	// myvector.pop_back();
+  	// myvector.pop_back();
+	// std::cout << "empty() = " << myvector.empty() << '\n';
+
+
+	std::cout << "*RESIZE/RESERVE*" << std::endl;
 	std::cout << "*STD::VECTOR*" << std::endl;
 	std::vector<int>	a6(5, 0);
 	a6.resize(10);
@@ -153,16 +209,10 @@ int main()
 	for(int i = 0 ; i < 10 ; i++)
 		std::cout << a6[i] << " ";
 		std::cout << std::endl;
-	a6.resize(22, 78);
+	a6.resize(15);
 	std::cout << "cap = " << a6.capacity() << std::endl;
 	std::cout << "size = " << a6.size() << std::endl;
-	for(int i = 0 ; i < 22 ; i++)
-		std::cout << a6[i] << " ";
-		std::cout << std::endl;
-	a6.resize(40, 78);
-	std::cout << "cap = " << a6.capacity() << std::endl;
-	std::cout << "size = " << a6.size() << std::endl;
-	for(int i = 0 ; i < 40 ; i++)
+	for(int i = 0 ; i < 15 ; i++)
 		std::cout << a6[i] << " ";
 		std::cout << std::endl;
 
@@ -174,16 +224,11 @@ int main()
 	for(int i = 0 ; i < 10 ; i++)
 		std::cout << ft_a6[i] << " ";
 		std::cout << std::endl;
-	ft_a6.resize(22, 78);
+	ft_a6.resize(15);
 	std::cout << "cap = " << ft_a6.capacity() << std::endl;
 	std::cout << "size = " << ft_a6.size() << std::endl;
-	for(int i = 0 ; i < 22 ; i++)
+	for(int i = 0 ; i < 15 ; i++)
 		std::cout << ft_a6[i] << " ";
 		std::cout << std::endl;
-	ft_a6.resize(40, 78);
-	std::cout << "cap = " << ft_a6.capacity() << std::endl;
-	std::cout << "size = " << ft_a6.size() << std::endl;
-	for(int i = 0 ; i < 40 ; i++)
-		std::cout << ft_a6[i] << " ";
-		std::cout << std::endl;
+
 }

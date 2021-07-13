@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/09 15:19:35 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/13 15:17:08 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ namespace	ft	{
 	/*	CONSTRUCTOR	*/
 	/* default constructor */
 	explicit vector (const allocator_type& alloc = allocator_type())
-	: _size(0), _capacity(0), _alloc(alloc) { std::cout << "DEFAULT" << std::endl; }
+	: _size(0), _capacity(0), _alloc(alloc) {}
 
 	/* fill constructor */
 	explicit vector (size_type n, const value_type& val = value_type(),
 	const allocator_type& alloc = allocator_type())
 	: _size(n), _capacity(n), _alloc(alloc)
 	{	
-		std::cout << "FILL CONSTRUCT" << std::endl;
+		// std::cout << "FILL CONSTRUCT" << std::endl;
 		size_type	i = 0;
 
 		_tab = _alloc.allocate(n);
@@ -77,7 +77,7 @@ namespace	ft	{
 	InputIte last, const allocator_type& alloc = allocator_type())
 	: _size(0), _capacity(0), _alloc(alloc)
 	{
-		std::cout << "RANGE" << std::endl;
+		// std::cout << "RANGE" << std::endl;
 		size_type	i = 0;
 		size_type	_size = itlen<size_type, InputIte>(first, last);
 
@@ -96,7 +96,8 @@ namespace	ft	{
 	: _size(0), _capacity(0), _alloc(allocator_type()), _tab(NULL) { *this = x; }
 
 	/* destructor */
-	~vector() {
+	~vector()
+	{
 		size_type	i = 0;
 
 		while (i < _size)
@@ -107,14 +108,21 @@ namespace	ft	{
 		_alloc.deallocate(_tab, _size);
 	}
 
-	// /* assignation */
-	// vector& operator= (const vector& x)
-	// {
-		
-	// 	return(*this);
-	// }
+	/* assignation */
+	vector& operator= (const vector& x)
+	{
+		size_type	i = 0;
+		if (this == &x)
+			return (*this);
+		_size = x._size;
+		_capacity = x._capacity;
+		_tab = _alloc.allocate(_capacity);
+		while (++i < _size)
+			_alloc.construct(&_tab[i], x._tab[i]);
+		return(*this);
+	}
 
-	// /* ITERATOR */
+	/* ITERATOR */
 	iterator				begin() { return (iterator(_tab)); }
 	// const_iterator			begin() const;
 	iterator				end() { return(iterator(&_tab[_size])); }
@@ -124,10 +132,10 @@ namespace	ft	{
 	// reverse_iterator		rend();
 	// const_reverse_iterator	rend() const;
 
-	// /* CAPACITY */
+	/* CAPACITY */
 	size_type	size() const { return _size; } // return number of elmt in the vector
 	size_type	max_size() const { return (_alloc.max_size()); }
-	void		resize (size_type n, value_type val = value_type()) {	// resize(size_t n) aussi
+	void		resize (size_type n, value_type val = value_type()) {
 		value_type	*tab2;
 		size_type	i = -1;
 
@@ -136,7 +144,16 @@ namespace	ft	{
 				_alloc.destroy(&_tab[_size--]);
 		if (n > _size)
 		{
-			tab2 = _alloc.allocate(n);
+			if (n > _capacity * 2)
+			{
+				tab2 = _alloc.allocate(n);
+				_capacity = n;
+			}
+			else
+			{
+				tab2 = _alloc.allocate(_capacity * 2);
+				_capacity = _capacity * 2;
+			}
 			while (++i < _size)
 				_alloc.construct(&tab2[i], _tab[i]);
 			while (i < n)
@@ -146,13 +163,26 @@ namespace	ft	{
 				_alloc.destroy(&_tab[i++]);
 			_alloc.deallocate(_tab, _size);
 			_size = n;
-			_capacity = n;
 			_tab = tab2;
 		}
 	}
-	size_type	capacity() const { return _capacity; }	// return size of allocated storage
+	size_type	capacity() const { return _capacity; }
 	bool		empty() const { if (_size > 0) return 0; return 1; }
-	// void		reserve (size_type n);
+	void		reserve (size_type n)
+	{
+		value_type	*tab2;
+		size_type	i = -1;
+
+		if (n > _capacity)
+		{
+			tab2 = _alloc.allocate(_capacity * 2);
+			while (++i < _size)
+				_alloc.construct(&tab2[i], _tab[i]);
+			_alloc.deallocate(_tab, _size);
+			_tab = tab2;
+			_capacity = n;
+		}
+	}
 	
 	// /* ELEMENT ACCESS */
 	value_type			&operator[]( value_type i ) { return (_tab[i]); }
@@ -160,28 +190,55 @@ namespace	ft	{
 	// reference			operator[] (size_type n);
 	// const_reference 	operator[] (size_type n) const;
 	
-	// reference			at (size_type n);
-	// const_reference 	at (size_type n) const;
+	// AT
+	reference			at (size_type n)
+	{
+		if (n < _size)
+			return (_tab[n]);
+		std::ostringstream ostr; // GNE ??
+		ostr << "vector";
+		if (!__APPLE__)
+		{
+			ostr << "::_M_range_check: __n (which is " << n
+				<< ") >= this->size() (which is " << this->_size << ")";
+		}
+		throw std::out_of_range(ostr.str());
+	}
+	const_reference 	at (size_type n) const
+	{
+		if (n < _size)
+			return (_tab[n]);
+		std::ostringstream ostr; // GNE ??
+		ostr << "vector";
+		if (!__APPLE__)
+		{
+			ostr << "::_M_range_check: __n (which is " << n
+				<< ") >= this->size() (which is " << this->_size << ")";
+		}
+		throw std::out_of_range(ostr.str());
+	}
 	
-	// reference			front();
-	// const_reference		front() const;	
-	
-	// reference			back();
-	// const_reference		back() const;
+	reference			front() { return _tab[0]; }
+	const_reference		front() const { return _tab[0]; }	
+	reference			back() { return _tab[_size - 1]; }
+	const_reference		back() const { return _tab[_size - 1]; }
 	
 	// /* MODIFIERS */
 	// template <class InputIterator>
 	// void		assign (InputIterator first, InputIterator last);
 	// void		assign (size_type n, const value_type& val);
 
-	void		push_back (const value_type& val) {
-		if (++_size > _capacity)
-			_capacity = _capacity * 2;
-		if (_capacity == 0)
-			_capacity = 1;
-		_size = val;
+	void		push_back (const value_type& val)
+	{
+		if (_size == _capacity)
+			resize(_size + 1, val);
+		else
+			_alloc.construct(&_tab[++_size], val);
 	}
-	// void		pop_back();
+	void		pop_back()
+	{
+		resize(_size - 1);
+	}
 	
 	// iterator	insert (iterator position, const value_type& val);
 	// void		insert (iterator position, size_type n, const value_type& val);
