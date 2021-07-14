@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/13 14:22:34 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/14 17:00:46 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 // iterator = pointer enveloppé dans une classe
 
 // PK LA FONCTION AT A BESOIN DE CA ?
+
+PROCHAINE FOIS GERER INSERT AC RANGE ET PR UNE VALEUR
 
 #ifndef RAND_ITERATOR_HPP
 # define RAND_ITERATOR_HPP
@@ -35,11 +37,12 @@ namespace ft
 	    typedef T							value_type;
 		typedef	value_type&					reference;
 		typedef	value_type*					pointer;
+		typedef ptrdiff_t					difference_type;
 
 		randIt() : _ptr(NULL) { return; }
 		randIt(value_type	*ptr) { _ptr = ptr; }
 
-		// randIt &operator=(randIt const &src); // Marc a mis *a
+		randIt &operator=(randIt const &src) { _ptr = src._ptr; return *this; } // Marc a mis *a
 		virtual ~randIt() {}
 
 		// bool	operator==(randIt const &rhs) const;
@@ -54,7 +57,8 @@ namespace ft
 		randIt		operator++(int) { randIt tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
 		randIt		&operator--(void) { _ptr--; return(*this); } // -- avant
 		randIt		operator--(int) { randIt tmp(*this); --this->_ptr; return(tmp); } // -- apres;
-		// randIt	operator+(randIt const &rhs) const;
+		// randIt		operator+(difference_type n) const;
+		// randIt		operator-(difference_type n) const;
 		// randIt	operator-(randIt const &rhs) const;
 		reference	operator[](value_type i) const { return(_ptr[i]); } // faux ds peu de tps
 

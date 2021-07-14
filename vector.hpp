@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/13 15:17:08 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/14 16:58:15 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ namespace	ft	{
 		public:
 		iterator() : randIt<value_type>() {};
 		iterator(value_type *ptr) : randIt<value_type>(ptr) {};
+
+		iterator	operator+(difference_type n) { return (iterator(randIt<value_type>::_ptr + n)); }
 	};
 
 	/*	CONSTRUCTOR	*/
@@ -124,9 +126,9 @@ namespace	ft	{
 
 	/* ITERATOR */
 	iterator				begin() { return (iterator(_tab)); }
-	// const_iterator			begin() const;
+	// const_iterator			begin() const { return (iterator(_tab)); }
 	iterator				end() { return(iterator(&_tab[_size])); }
-	// const_iterator			end() const;
+	// const_iterator			end() const { return(iterator(&_tab[_size])); }
 	// reverse_iterator		rbegin();
 	// const_reverse_iterator	rbegin() const;
 	// reverse_iterator		rend();
@@ -224,9 +226,50 @@ namespace	ft	{
 	const_reference		back() const { return _tab[_size - 1]; }
 	
 	// /* MODIFIERS */
-	// template <class InputIterator>
-	// void		assign (InputIterator first, InputIterator last);
-	// void		assign (size_type n, const value_type& val);
+	template <class InputIte>
+	void		assign (typename ft::enable_if<!std::numeric_limits<InputIte>::is_integer, InputIte>::type first, InputIte last)
+	{
+		size_type	i = 0;
+		size_type	len = itlen<size_type, InputIte>(first, last);
+		value_type	*tab2;
+
+		while (i < _size)
+			_alloc.destroy(&_tab[i++]);
+		_alloc.deallocate(_tab, _size);
+		if (len > _size)
+		{
+			tab2 = _alloc.allocate(len);
+			_capacity = len;
+		}
+		else
+			tab2 = _alloc.allocate(_capacity);
+		i = -1;
+		while (++i < len)
+			_alloc.construct(&tab2[i], first[i]);
+		_size = len;
+		_tab = tab2;
+	}
+	void		assign (size_type n, const value_type& val)
+	{
+		size_type	i = 0;
+		value_type	*tab2;
+
+		while (i < _size)
+			_alloc.destroy(&_tab[i++]);
+		_alloc.deallocate(_tab, _size);
+		if (n > _size)
+		{
+			tab2 = _alloc.allocate(n);
+			_capacity = n;
+		}
+		else
+			tab2 = _alloc.allocate(_capacity);
+		i = -1;
+		while (++i < n)
+			_alloc.construct(&tab2[i], val);
+		_size = n;
+		_tab = tab2;
+	}
 
 	void		push_back (const value_type& val)
 	{
@@ -240,8 +283,36 @@ namespace	ft	{
 		resize(_size - 1);
 	}
 	
+	void		insert (iterator position, size_type n, const value_type& val)
+	{
+		size_type	i = 0;
+		size_type	sv = _size;
+		value_type	*tab2;
+		iterator	first = begin();
+		// std::cout << _size + n << " " << _capacity << std::endl;
+		if (n == 0)
+			return;
+		if (_size + n > _capacity)
+		{
+			_capacity = _capacity * 2;
+			tab2 = _alloc.allocate(_capacity);
+		}
+		else
+			tab2 = _alloc.allocate(_capacity);
+		while (first != position)
+			_alloc.construct(&tab2[i++], *(first++));
+		_size = _size + n;
+		while (n > 0)
+		{
+			_alloc.construct(&tab2[i++], val);
+			n--;
+		}
+		while (first != end())
+			_alloc.construct(&tab2[i++], *(first++));
+		_clear_all(sv);
+		_tab = tab2;
+	}
 	// iterator	insert (iterator position, const value_type& val);
-	// void		insert (iterator position, size_type n, const value_type& val);
 	// template <class InputIterator>
     // void		insert (iterator position, InputIterator first, InputIterator last);
 
@@ -258,6 +329,15 @@ namespace	ft	{
 	size_type		_capacity;
 	allocator_type	_alloc;
 	value_type		*_tab;
+
+	void			_clear_all(size_type oldsize)
+	{
+		size_type	i = 0;
+		while (i < _size)
+			_alloc.destroy(&_tab[i++]);
+		if (oldsize)
+			_alloc.deallocate(_tab, oldsize);
+	}
 
 	};
 }
