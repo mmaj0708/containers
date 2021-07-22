@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/22 20:55:43 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/22 21:09:35 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,7 @@ namespace	ft	{
 		_size = final_size;
 		_tab = tab2;
 	}
+	
 	iterator	insert (iterator position, const value_type& val)
 	{
 		size_type	len = itlen<size_type, iterator>(begin(), position);
@@ -322,8 +323,19 @@ namespace	ft	{
 		iterator	ret(&_tab[len]);
 		return (ret);
 	}
-	// template <class InputIterator>
-    // void		insert (iterator position, InputIterator first, InputIterator last);
+	template <class InputIte>
+    void		insert (iterator position, InputIte first, InputIte last)
+	{
+		size_type	i = 0;
+		size_type	len = itlen<size_type, InputIte>(first, last);
+
+		while (i < len)
+		{
+			position = insert(position, *first);
+			i++;
+			first++;
+		}
+	}
 
 	// iterator	erase (iterator position);
 	// iterator	erase (iterator first, iterator last);
