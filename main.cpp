@@ -271,11 +271,11 @@ int main()
 	std::vector<int>	a12(21, 20);
 	std::cout << "cap = " << a11.capacity() << std::endl;
 	std::cout << "size = " << a11.size() << std::endl;
-	a11.insert(it + 1, 3, 6);
+	a11.insert(it + 1, 5, 6);
 	it = a11.begin();
 	std::cout << "cap = " << a11.capacity() << std::endl;
 	std::cout << "size = " << a11.size() << std::endl;
-	a11.insert(it + 1, 3, 6);
+	std::cout << *(a11.insert(it + 5, 999)) << std::endl;
 	it = a11.begin();
 	std::cout << "cap = " << a11.capacity() << std::endl;
 	std::cout << "size = " << a11.size() << std::endl;
@@ -290,17 +290,15 @@ int main()
 	ft::vector<int>	ft_a12(21, 20);
 	std::cout << "cap = " << ft_a11.capacity() << std::endl;
 	std::cout << "size = " << ft_a11.size() << std::endl;
-	ft_a11.insert(ft_it + 1, 3, 6);
+	ft_a11.insert(ft_it + 1, 5, 6);
 	ft_it = ft_a11.begin();
 	std::cout << "cap = " << ft_a11.capacity() << std::endl;
 	std::cout << "size = " << ft_a11.size() << std::endl;
-	ft_a11.insert(ft_it + 1, 3, 6);
+	std::cout << *(ft_a11.insert(ft_it + 5, 999)) << std::endl;
 	ft_it = ft_a11.begin();
 	std::cout << "cap = " << ft_a11.capacity() << std::endl;
 	std::cout << "size = " << ft_a11.size() << std::endl;
-
 	for(int i = 0 ; i < ft_a11.size() ; i++)
 		std::cout << ft_a11[i] << " ";
 	std::cout << std::endl;
-
 }

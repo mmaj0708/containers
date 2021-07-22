@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/14 16:58:15 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/22 20:55:43 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ namespace	ft	{
 			return (_tab[n]);
 		std::ostringstream ostr; // GNE ??
 		ostr << "vector";
-		if (!__APPLE__)
+		if (!__FILE__) // __APPLE__ on mac :O
 		{
 			ostr << "::_M_range_check: __n (which is " << n
 				<< ") >= this->size() (which is " << this->_size << ")";
@@ -212,7 +212,7 @@ namespace	ft	{
 			return (_tab[n]);
 		std::ostringstream ostr; // GNE ??
 		ostr << "vector";
-		if (!__APPLE__)
+		if (!__FILE__)
 		{
 			ostr << "::_M_range_check: __n (which is " << n
 				<< ") >= this->size() (which is " << this->_size << ")";
@@ -278,21 +278,23 @@ namespace	ft	{
 		else
 			_alloc.construct(&_tab[++_size], val);
 	}
-	void		pop_back()
-	{
-		resize(_size - 1);
-	}
+	void		pop_back() { resize(_size - 1); }
 	
 	void		insert (iterator position, size_type n, const value_type& val)
 	{
 		size_type	i = 0;
-		size_type	sv = _size;
+		size_type	final_size = _size + n;
 		value_type	*tab2;
 		iterator	first = begin();
-		// std::cout << _size + n << " " << _capacity << std::endl;
+		// std::cout << final_size << " " << _capacity << std::endl;
 		if (n == 0)
 			return;
-		if (_size + n > _capacity)
+		if (final_size > _capacity * 2)
+		{
+			_capacity = final_size;
+			tab2 = _alloc.allocate(_capacity);
+		}
+		else if (final_size > _capacity) // if fs > 2 * cap => cap préc : 
 		{
 			_capacity = _capacity * 2;
 			tab2 = _alloc.allocate(_capacity);
@@ -301,7 +303,6 @@ namespace	ft	{
 			tab2 = _alloc.allocate(_capacity);
 		while (first != position)
 			_alloc.construct(&tab2[i++], *(first++));
-		_size = _size + n;
 		while (n > 0)
 		{
 			_alloc.construct(&tab2[i++], val);
@@ -309,10 +310,18 @@ namespace	ft	{
 		}
 		while (first != end())
 			_alloc.construct(&tab2[i++], *(first++));
-		_clear_all(sv);
+		_clear_all(_size);
+		_size = final_size;
 		_tab = tab2;
 	}
-	// iterator	insert (iterator position, const value_type& val);
+	iterator	insert (iterator position, const value_type& val)
+	{
+		size_type	len = itlen<size_type, iterator>(begin(), position);
+
+		insert(position, 1, val);
+		iterator	ret(&_tab[len]);
+		return (ret);
+	}
 	// template <class InputIterator>
     // void		insert (iterator position, InputIterator first, InputIterator last);
 
