@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/22 21:09:40 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/22 21:20:02 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 // iterator = pointer enveloppé dans une classe
 
-// PK LA FONCTION AT A BESOIN DE CA ?
+// PK LA FONCTION AT A BESOIN DE CA ? 
 
 // PROCHAINE FOIS GERER LA LAST FTC INSERT, USE CELLE DEJA FAIT ?
 
