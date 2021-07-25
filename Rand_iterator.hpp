@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/22 21:27:59 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/25 19:32:48 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 // PK LA FONCTION AT A BESOIN DE CA ?
 
-PROCHAINE FOIS GERER LA LAST FTC INSERT, USE CELLE DEJA FAIT ?
+PROCHAINE FOIS FINIR LES DERNIERES FCT PUIS TESTER LE TESTEUR DE MARC
 
 #ifndef RAND_ITERATOR_HPP
 # define RAND_ITERATOR_HPP

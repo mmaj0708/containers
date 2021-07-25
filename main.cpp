@@ -264,41 +264,131 @@ int main()
 	// 	std::cout << ft_a9[i] << " ";
 	// 	std::cout << std::endl;
 
-	std::cout << "*INSERT*" << std::endl;
+	// std::cout << "*INSERT*" << std::endl;
+	// std::cout << "*STD::VECTOR*" << std::endl;
+	// std::vector<int>	a11(3, 0);
+	// std::vector<int>::iterator it = a11.begin();
+	// std::vector<int>	a12(10, 20);
+	// std::cout << "cap = " << a11.capacity() << std::endl;
+	// std::cout << "size = " << a11.size() << std::endl;
+	// a11.insert(it + 1, 5, 6);
+	// it = a11.begin();
+	// std::cout << "cap = " << a11.capacity() << std::endl;
+	// std::cout << "size = " << a11.size() << std::endl;
+	// std::cout << *(a11.insert(it + 5, 999)) << std::endl;
+	// it = a11.begin();
+	// std::cout << "cap = " << a11.capacity() << std::endl;
+	// std::cout << "size = " << a11.size() << std::endl;
+	// a11.insert(it + 2, a12.begin(), a12.end());
+	// it = a11.begin();
+	// std::cout << "cap = " << a11.capacity() << std::endl;
+	// std::cout << "size = " << a11.size() << std::endl;
+	// for(int i = 0 ; i < a11.size() ; i++)
+	// 	std::cout << a11[i] << " ";
+	// std::cout << std::endl;
+
+
+	// std::cout << "\n*FT::VECTOR*" << std::endl;
+	// ft::vector<int>	ft_a11(3, 0);
+	// ft::vector<int>::iterator ft_it = ft_a11.begin();
+	// ft::vector<int>	ft_a12(10, 20);
+	// std::cout << "cap = " << ft_a11.capacity() << std::endl;
+	// std::cout << "size = " << ft_a11.size() << std::endl;
+	// ft_a11.insert(ft_it + 1, 5, 6);
+	// ft_it = ft_a11.begin();
+	// std::cout << "cap = " << ft_a11.capacity() << std::endl;
+	// std::cout << "size = " << ft_a11.size() << std::endl;
+	// std::cout << *(ft_a11.insert(ft_it + 5, 999)) << std::endl;
+	// ft_it = ft_a11.begin();
+	// std::cout << "cap = " << ft_a11.capacity() << std::endl;
+	// std::cout << "size = " << ft_a11.size() << std::endl;
+	// ft_a11.insert(ft_it + 2, ft_a12.begin(), ft_a12.end());
+	// ft_it = ft_a11.begin();
+	// std::cout << "cap = " << ft_a11.capacity() << std::endl;
+	// std::cout << "size = " << ft_a11.size() << std::endl;
+	// for(int i = 0 ; i < ft_a11.size() ; i++)
+	// 	std::cout << ft_a11[i] << " ";
+	// std::cout << std::endl;
+
+	// std::cout << "*ERASE*" << std::endl;
+	// std::cout << "*STD::VECTOR*" << std::endl;
+	// std::vector<int>	a13(10, 11);
+	// a13.push_back(34);
+	// a13.push_back(13);
+	// a13.push_back(67);
+	// std::vector<int>::iterator it = a13.begin();
+	// std::cout << "cap = " << a13.capacity() << std::endl;
+	// std::cout << "size = " << a13.size() << std::endl;
+	// a13.erase(it + 3);
+	// it = a13.begin();
+	// std::cout << "cap = " << a13.capacity() << std::endl;
+	// std::cout << "size = " << a13.size() << std::endl;
+	// a13.erase(it + 3, it + 7);
+	// it = a13.begin();
+	// std::cout << "cap = " << a13.capacity() << std::endl;
+	// std::cout << "size = " << a13.size() << std::endl;
+	// for(int i = 0 ; i < a13.size() ; i++)
+	// 	std::cout << a13[i] << " ";
+	// std::cout << std::endl;
+
+
+	// std::cout << "\n*FT::VECTOR*" << std::endl;
+	// ft::vector<int>	ft_a13(10, 11);
+	// ft_a13.push_back(34);
+	// ft_a13.push_back(13);
+	// ft_a13.push_back(67);
+	// ft::vector<int>::iterator ft_it = ft_a13.begin();
+	// std::cout << "cap = " << ft_a13.capacity() << std::endl;
+	// std::cout << "size = " << ft_a13.size() << std::endl;
+	// ft_a13.erase(ft_it + 3);
+	// ft_it = ft_a13.begin();
+	// std::cout << "cap = " << ft_a13.capacity() << std::endl;
+	// std::cout << "size = " << ft_a13.size() << std::endl;
+	// ft_a13.erase(ft_it + 3, ft_it + 7);
+	// ft_it = ft_a13.begin();
+	// std::cout << "cap = " << ft_a13.capacity() << std::endl;
+	// std::cout << "size = " << ft_a13.size() << std::endl;
+	// for(int i = 0 ; i < ft_a13.size() ; i++)
+	// 	std::cout << ft_a13[i] << " ";
+	// std::cout << std::endl;
+
+	std::cout << "*SWAP*" << std::endl;
 	std::cout << "*STD::VECTOR*" << std::endl;
-	std::vector<int>	a11(3, 0);
-	std::vector<int>::iterator it = a11.begin();
-	std::vector<int>	a12(21, 20);
-	std::cout << "cap = " << a11.capacity() << std::endl;
-	std::cout << "size = " << a11.size() << std::endl;
-	a11.insert(it + 1, 5, 6);
-	it = a11.begin();
-	std::cout << "cap = " << a11.capacity() << std::endl;
-	std::cout << "size = " << a11.size() << std::endl;
-	std::cout << *(a11.insert(it + 5, 999)) << std::endl;
-	it = a11.begin();
-	std::cout << "cap = " << a11.capacity() << std::endl;
-	std::cout << "size = " << a11.size() << std::endl;
-	for(int i = 0 ; i < a11.size() ; i++)
-		std::cout << a11[i] << " ";
+	std::vector<int>	a14(10, 11);
+	a14.push_back(34);
+	a14.push_back(13);
+	a14.push_back(67);
+	std::vector<int>	a15(10, 11);
+	std::vector<int>::iterator it = a14.begin();
+	std::cout << "cap = " << a14.capacity() << std::endl;
+	std::cout << "size = " << a14.size() << std::endl;
+	a14.swap(a15);
+	std::cout << "cap = " << a14.capacity() << std::endl;
+	std::cout << "size = " << a14.size() << std::endl;
+	for(int i = 0 ; i < a14.size() ; i++)
+		std::cout << a14[i] << " ";
 	std::cout << std::endl;
+	for(int i = 0 ; i < a15.size() ; i++)
+		std::cout << a15[i] << " ";
+	std::cout << std::endl;	
 
 
 	std::cout << "\n*FT::VECTOR*" << std::endl;
-	ft::vector<int>	ft_a11(3, 0);
-	ft::vector<int>::iterator ft_it = ft_a11.begin();
-	ft::vector<int>	ft_a12(21, 20);
-	std::cout << "cap = " << ft_a11.capacity() << std::endl;
-	std::cout << "size = " << ft_a11.size() << std::endl;
-	ft_a11.insert(ft_it + 1, 5, 6);
-	ft_it = ft_a11.begin();
-	std::cout << "cap = " << ft_a11.capacity() << std::endl;
-	std::cout << "size = " << ft_a11.size() << std::endl;
-	std::cout << *(ft_a11.insert(ft_it + 5, 999)) << std::endl;
-	ft_it = ft_a11.begin();
-	std::cout << "cap = " << ft_a11.capacity() << std::endl;
-	std::cout << "size = " << ft_a11.size() << std::endl;
-	for(int i = 0 ; i < ft_a11.size() ; i++)
-		std::cout << ft_a11[i] << " ";
+	ft::vector<int>	ft_a14(10, 11);
+	ft_a14.push_back(34);
+	ft_a14.push_back(13);
+	ft_a14.push_back(67);
+	ft::vector<int>	ft_a15(10, 11);
+	ft::vector<int>::iterator ft_it = ft_a14.begin();
+	std::cout << "cap = " << ft_a14.capacity() << std::endl;
+	std::cout << "size = " << ft_a14.size() << std::endl;
+	ft_a14.swap(ft_a15);
+	std::cout << "cap = " << ft_a14.capacity() << std::endl;
+	std::cout << "size = " << ft_a14.size() << std::endl;
+	for(int i = 0 ; i < ft_a14.size() ; i++)
+		std::cout << ft_a14[i] << " ";
 	std::cout << std::endl;
+	for(int i = 0 ; i < ft_a15.size() ; i++)
+		std::cout << ft_a15[i] << " ";
+	std::cout << std::endl;	
 }

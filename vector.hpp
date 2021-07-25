@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/22 21:09:35 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/25 19:31:25 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ namespace	ft	{
 	const allocator_type& alloc = allocator_type())
 	: _size(n), _capacity(n), _alloc(alloc)
 	{	
-		// std::cout << "FILL CONSTRUCT" << std::endl;
 		size_type	i = 0;
 
 		_tab = _alloc.allocate(n);
@@ -79,7 +78,6 @@ namespace	ft	{
 	InputIte last, const allocator_type& alloc = allocator_type())
 	: _size(0), _capacity(0), _alloc(alloc)
 	{
-		// std::cout << "RANGE" << std::endl;
 		size_type	i = 0;
 		size_type	_size = itlen<size_type, InputIte>(first, last);
 
@@ -276,7 +274,7 @@ namespace	ft	{
 		if (_size == _capacity)
 			resize(_size + 1, val);
 		else
-			_alloc.construct(&_tab[++_size], val);
+			_alloc.construct(&_tab[_size++], val);
 	}
 	void		pop_back() { resize(_size - 1); }
 	
@@ -286,7 +284,7 @@ namespace	ft	{
 		size_type	final_size = _size + n;
 		value_type	*tab2;
 		iterator	first = begin();
-		// std::cout << final_size << " " << _capacity << std::endl;
+
 		if (n == 0)
 			return;
 		if (final_size > _capacity * 2)
@@ -323,26 +321,106 @@ namespace	ft	{
 		iterator	ret(&_tab[len]);
 		return (ret);
 	}
+	
 	template <class InputIte>
-    void		insert (iterator position, InputIte first, InputIte last)
+    void		insert (iterator position, InputIte first, typename ft::enable_if<!std::numeric_limits<InputIte>::is_integer, InputIte>::type last)
 	{
 		size_type	i = 0;
-		size_type	len = itlen<size_type, InputIte>(first, last);
+		size_type	n = itlen<size_type, InputIte>(first, last);
+		size_type	final_size = _size + n;
+		value_type	*tab2;
+		iterator	deb = begin();
 
-		while (i < len)
+		if (n == 0)
+			return;
+		if (final_size - 1 ==  _capacity) // vrmt débil comme cdt
 		{
-			position = insert(position, *first);
-			i++;
+			_capacity = final_size + 1;
+			tab2 = _alloc.allocate(_capacity);
+		}
+		else if (final_size > _capacity)
+		{
+			_capacity = final_size;
+			tab2 = _alloc.allocate(_capacity);
+		}
+		else
+			tab2 = _alloc.allocate(_capacity);
+		while (deb != position)
+			_alloc.construct(&tab2[i++], *(deb++));
+		while (n > 0)
+		{
+			_alloc.construct(&tab2[i++], *(first));
+			n--;
 			first++;
 		}
+		while (deb != end())
+			_alloc.construct(&tab2[i++], *(deb++));
+		_clear_all(_size);
+		_size = final_size;
+		_tab = tab2;
 	}
 
-	// iterator	erase (iterator position);
-	// iterator	erase (iterator first, iterator last);
+	iterator	erase (iterator position) // verif le ret pr les 2 fct
+	{
+		size_type	i = 0;
+		size_type	final_size = _size - 1;
+		value_type	*tab2;
+		iterator	it = begin();
 
-	// void 		swap (vector& x);
+		tab2 = _alloc.allocate(_capacity);
+		while (it != position)
+			_alloc.construct(&tab2[i++], *(it++));
+		it++;
+		iterator	sv(&tab2[i]);
+		while (it != end())
+			_alloc.construct(&tab2[i++], *(it++));
+		_clear_all(_size);
+		_size = final_size;
+		_tab = tab2;
+		return (sv);
+	}
 
-	// void clear();
+	iterator	erase (iterator first, iterator last)
+	{
+		size_type	i = 0;
+		size_type	n = itlen<size_type, iterator>(first, last);
+		size_type	final_size = _size - n;
+		value_type	*tab2;
+		iterator	deb = begin();
+
+		if (n == 0)
+			return first;
+		tab2 = _alloc.allocate(_capacity);
+		while (deb != first)
+			_alloc.construct(&tab2[i++], *(deb++));
+		iterator	sv(&tab2[i]);
+		while (n > 0)
+		{
+			n--;
+			deb++;
+		}
+		while (deb != end())
+			_alloc.construct(&tab2[i++], *(deb++));
+		_clear_all(_size);
+		_size = final_size;
+		_tab = tab2;
+		return sv;
+	}
+
+	void 		swap (vector& x)
+	{
+		vector<value_type>	tmp;
+	
+		tmp._cpy_content(x);
+		x._cpy_content(*this);
+		_cpy_content(tmp);	
+	}
+
+	void clear()
+	{
+		while (_size > 0)
+			_alloc.destroy(&_tab[--_size]);
+	}
 
 	private:
 
@@ -358,6 +436,15 @@ namespace	ft	{
 			_alloc.destroy(&_tab[i++]);
 		if (oldsize)
 			_alloc.deallocate(_tab, oldsize);
+	}
+
+	void			_cpy_content(vector<value_type> &vct)
+	{
+		_size = vct.size();
+		_capacity = vct.capacity();
+		_tab = vct._tab;
+		_alloc = vct._alloc;
+		vct._capacity = 0; vct._size = 0; vct._tab = NULL;
 	}
 
 	};
