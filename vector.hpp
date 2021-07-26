@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/25 19:31:25 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/26 20:07:37 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <cstddef>
 # include <sstream>
 # include "Rand_iterator.hpp"
+# include "Rand_const_iterator.hpp"
 # include "base.hpp"
 
 namespace	ft	{
@@ -35,13 +36,9 @@ namespace	ft	{
     typedef typename allocator_type::size_type       	size_type;
     typedef typename allocator_type::reference       	reference;
     typedef typename allocator_type::const_reference 	const_reference;
-    // typedef implementation-defined                   	iterator;
-    // typedef implementation-defined                   	const_iterator;
     typedef typename allocator_type::difference_type 	difference_type;
     typedef typename allocator_type::pointer         	pointer;
     typedef typename allocator_type::const_pointer   	const_pointer;
-    // typedef std::reverse_iterator<iterator>          	reverse_iterator;
-    // typedef std::reverse_iterator<const_iterator>    	const_reverse_iterator;
 
 	class iterator : public randIt<value_type>
 	{
@@ -50,12 +47,23 @@ namespace	ft	{
 		iterator(value_type *ptr) : randIt<value_type>(ptr) {};
 
 		iterator	operator+(difference_type n) { return (iterator(randIt<value_type>::_ptr + n)); }
+		iterator	operator-(difference_type n) { return (iterator(randIt<value_type>::_ptr - n)); }
+	};
+
+	class const_iterator : public const_randIt<value_type>
+	{
+		public:
+		const_iterator() : const_randIt<value_type>() {};
+		const_iterator(value_type *ptr) : const_randIt<value_type>(ptr) {};
+
+		const_iterator	operator+(difference_type n) { return (const_iterator(const_randIt<value_type>::_ptr + n)); }
+		const_iterator	operator-(difference_type n) { return (const_iterator(const_randIt<value_type>::_ptr - n)); }
 	};
 
 	/*	CONSTRUCTOR	*/
 	/* default constructor */
 	explicit vector (const allocator_type& alloc = allocator_type())
-	: _size(0), _capacity(0), _alloc(alloc) {}
+	: _size(0), _capacity(0), _alloc(alloc), _tab(NULL) {}
 
 	/* fill constructor */
 	explicit vector (size_type n, const value_type& val = value_type(),
@@ -98,14 +106,11 @@ namespace	ft	{
 	/* destructor */
 	~vector()
 	{
-		size_type	i = 0;
-
-		while (i < _size)
-		{
-			_alloc.destroy(&_tab[i]);
-			i++;
-		}
-		_alloc.deallocate(_tab, _size);
+		if (!this->_tab)
+			return;
+		clear();
+		_alloc.deallocate(_tab, _capacity);
+		_capacity = 0; _size = 0; _tab = NULL;
 	}
 
 	/* assignation */
@@ -124,9 +129,9 @@ namespace	ft	{
 
 	/* ITERATOR */
 	iterator				begin() { return (iterator(_tab)); }
-	// const_iterator			begin() const { return (iterator(_tab)); }
+	const_iterator			begin() const { return (const_iterator(_tab)); }
 	iterator				end() { return(iterator(&_tab[_size])); }
-	// const_iterator			end() const { return(iterator(&_tab[_size])); }
+	const_iterator			end() const { return(const_iterator(&_tab[_size])); }
 	// reverse_iterator		rbegin();
 	// const_reverse_iterator	rbegin() const;
 	// reverse_iterator		rend();
@@ -166,6 +171,7 @@ namespace	ft	{
 			_tab = tab2;
 		}
 	}
+	
 	size_type	capacity() const { return _capacity; }
 	bool		empty() const { if (_size > 0) return 0; return 1; }
 	void		reserve (size_type n)
@@ -184,11 +190,9 @@ namespace	ft	{
 		}
 	}
 	
-	// /* ELEMENT ACCESS */
-	value_type			&operator[]( value_type i ) { return (_tab[i]); }
-	
-	// reference			operator[] (size_type n);
-	// const_reference 	operator[] (size_type n) const;
+	// /* ELEMENT ACCESS */	
+	reference			operator[] (size_type n) { return (_tab[n]); }
+	const_reference 	operator[] (size_type n) const { return (_tab[n]); }
 	
 	// AT
 	reference			at (size_type n)
@@ -234,7 +238,7 @@ namespace	ft	{
 		while (i < _size)
 			_alloc.destroy(&_tab[i++]);
 		_alloc.deallocate(_tab, _size);
-		if (len > _size)
+		if (len > _capacity)
 		{
 			tab2 = _alloc.allocate(len);
 			_capacity = len;
@@ -255,7 +259,7 @@ namespace	ft	{
 		while (i < _size)
 			_alloc.destroy(&_tab[i++]);
 		_alloc.deallocate(_tab, _size);
-		if (n > _size)
+		if (n > _capacity)
 		{
 			tab2 = _alloc.allocate(n);
 			_capacity = n;

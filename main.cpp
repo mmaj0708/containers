@@ -4,6 +4,42 @@
 #include "vector.hpp"
 # include "Rand_iterator.hpp"
 
+#define TESTED_TYPE int
+#define TESTED_NAMESPACE ft
+
+template <typename T>
+void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = 1)
+{
+	std::cout << "size: " << vct.size() << std::endl;
+	std::cout << "capacity: " << vct.capacity() << std::endl;
+	std::cout << "max_size: " << vct.max_size() << std::endl;
+	if (print_content)
+	{
+		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
+		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << *it << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
+}
+
+class foo {
+	public:
+		foo(void) { };
+		~foo(void) { };
+		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
+		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
+		foo &operator=(int src) { this->value = src; return *this; };
+		int getValue(void) const { return this->value; };
+	private:
+		int	value;
+};
+
+std::ostream	&operator<<(std::ostream &o, foo const &bar) {
+	o << bar.getValue();
+	return o;
+}
 
 int main()
 {
@@ -164,6 +200,56 @@ int main()
 	// for(int i = 0 ; i < ft_a8.size() ; i++)
 	// 	std::cout << ft_a8[i] << " ";
 	// 	std::cout << std::endl;
+
+	// std::cout << "\n*STD::Vector*" << std::endl;
+	// std::vector<int>			tab_for_it(10, 3);
+	// std::vector<int>			tab_for_it2(10, 3);
+	// std::vector<int>::iterator	it_test = tab_for_it.begin();
+	// std::vector<int>::iterator	it_test2 = tab_for_it2.begin();
+	// std::cout << "*==*"  << " ";
+	// std::cout << (it_test == it_test2) << " ";
+	// std::cout << (it_test == tab_for_it.begin()) << " ";
+	// std::cout << "*!=*"  << " ";
+	// std::cout << (it_test != it_test2)  << " ";
+	// std::cout << (it_test != tab_for_it.begin()) << " ";
+	// std::cout << "*>*"  << " ";
+	// std::cout << (it_test > it_test + 1) << " ";
+	// std::cout << (it_test > tab_for_it.begin()) << " ";
+	// std::cout << "*<*"  << " ";
+	// std::cout << (it_test < it_test - 1)  << " ";
+	// std::cout << (it_test < tab_for_it.begin())  << " ";
+	// std::cout << "*>=*"  << " ";
+	// std::cout << (it_test >= it_test2) << " ";
+	// std::cout << (it_test >= tab_for_it.begin()) << " ";
+	// std::cout << "*<=*"  << " ";
+	// std::cout << (it_test <= it_test2)  << " ";
+	// std::cout << (it_test <= tab_for_it.begin()) << " ";
+
+	// std::cout << "\n*FT::Vector*" << std::endl;
+	// ft::vector<int>				ft_tab_for_it(10, 3);
+	// ft::vector<int>				ft_tab_for_it2(10, 3);
+	// ft::vector<int>::iterator	ft_it_test = ft_tab_for_it.begin();
+	// ft::vector<int>::iterator	ft_it_test2 = ft_tab_for_it2.begin();
+	// std::cout << "*==*"  << " ";
+	// std::cout << (ft_it_test == ft_it_test2)  << " ";
+	// std::cout << (ft_it_test == ft_tab_for_it.begin())  << " ";
+	// std::cout << "*!=*"  << " ";
+	// std::cout << (ft_it_test != ft_it_test2)  << " ";
+	// std::cout << (ft_it_test != ft_tab_for_it.begin())  << " ";
+	// std::cout << "*>*"  << " ";
+	// std::cout << (ft_it_test > ft_it_test + 1)  << " ";
+	// std::cout << (ft_it_test > ft_tab_for_it.begin())  << " ";
+	// std::cout << "*<*"  << " ";
+	// std::cout << (ft_it_test < ft_it_test - 1)  << " ";
+	// std::cout << (ft_it_test < ft_tab_for_it.begin())  << " ";
+	// std::cout << "*>=*"  << " ";
+	// std::cout << (ft_it_test >= ft_it_test2)  << " ";
+	// std::cout << (ft_it_test >= ft_tab_for_it.begin())  << " ";
+	// std::cout << "*<=*"  << " ";
+	// std::cout << (ft_it_test <= ft_it_test2)  << " ";
+	// std::cout << (ft_it_test <= ft_tab_for_it.begin())  << " ";
+	// std::cout << std::endl;
+	
 
 	// 	std::cout << "*AT*" << std::endl;
 	// std::cout << "*STD::VECTOR*" << std::endl;
@@ -352,43 +438,53 @@ int main()
 	// 	std::cout << ft_a13[i] << " ";
 	// std::cout << std::endl;
 
-	std::cout << "*SWAP*" << std::endl;
-	std::cout << "*STD::VECTOR*" << std::endl;
-	std::vector<int>	a14(10, 11);
-	a14.push_back(34);
-	a14.push_back(13);
-	a14.push_back(67);
-	std::vector<int>	a15(10, 11);
-	std::vector<int>::iterator it = a14.begin();
-	std::cout << "cap = " << a14.capacity() << std::endl;
-	std::cout << "size = " << a14.size() << std::endl;
-	a14.swap(a15);
-	std::cout << "cap = " << a14.capacity() << std::endl;
-	std::cout << "size = " << a14.size() << std::endl;
-	for(int i = 0 ; i < a14.size() ; i++)
-		std::cout << a14[i] << " ";
-	std::cout << std::endl;
-	for(int i = 0 ; i < a15.size() ; i++)
-		std::cout << a15[i] << " ";
-	std::cout << std::endl;	
+	// std::cout << "*SWAP*" << std::endl;
+	// std::cout << "*STD::VECTOR*" << std::endl;
+	// std::vector<int>	a14(10, 11);
+	// a14.push_back(34);
+	// a14.push_back(13);
+	// a14.push_back(67);
+	// std::vector<int>	a15(10, 11);
+	// std::vector<int>::iterator it = a14.begin();
+	// std::cout << "cap = " << a14.capacity() << std::endl;
+	// std::cout << "size = " << a14.size() << std::endl;
+	// a14.swap(a15);
+	// std::cout << "cap = " << a14.capacity() << std::endl;
+	// std::cout << "size = " << a14.size() << std::endl;
+	// for(int i = 0 ; i < a14.size() ; i++)
+	// 	std::cout << a14[i] << " ";
+	// std::cout << std::endl;
+	// for(int i = 0 ; i < a15.size() ; i++)
+	// 	std::cout << a15[i] << " ";
+	// std::cout << std::endl;
+	// a14.clear();
+	// std::cout << "cap = " << a14.capacity() << std::endl;
+	// std::cout << "size = " << a14.size() << std::endl;
 
 
-	std::cout << "\n*FT::VECTOR*" << std::endl;
-	ft::vector<int>	ft_a14(10, 11);
-	ft_a14.push_back(34);
-	ft_a14.push_back(13);
-	ft_a14.push_back(67);
-	ft::vector<int>	ft_a15(10, 11);
-	ft::vector<int>::iterator ft_it = ft_a14.begin();
-	std::cout << "cap = " << ft_a14.capacity() << std::endl;
-	std::cout << "size = " << ft_a14.size() << std::endl;
-	ft_a14.swap(ft_a15);
-	std::cout << "cap = " << ft_a14.capacity() << std::endl;
-	std::cout << "size = " << ft_a14.size() << std::endl;
-	for(int i = 0 ; i < ft_a14.size() ; i++)
-		std::cout << ft_a14[i] << " ";
-	std::cout << std::endl;
-	for(int i = 0 ; i < ft_a15.size() ; i++)
-		std::cout << ft_a15[i] << " ";
-	std::cout << std::endl;	
+	// std::cout << "\n*FT::VECTOR*" << std::endl;
+	// ft::vector<int>	ft_a14(10, 11);
+	// ft_a14.push_back(34);
+	// ft_a14.push_back(13);
+	// ft_a14.push_back(67);
+	// ft::vector<int>	ft_a15(10, 11);
+	// ft::vector<int>::iterator ft_it = ft_a14.begin();
+	// std::cout << "cap = " << ft_a14.capacity() << std::endl;
+	// std::cout << "size = " << ft_a14.size() << std::endl;
+	// ft_a14.swap(ft_a15);
+	// std::cout << "cap = " << ft_a14.capacity() << std::endl;
+	// std::cout << "size = " << ft_a14.size() << std::endl;
+	// for(int i = 0 ; i < ft_a14.size() ; i++)
+	// 	std::cout << ft_a14[i] << " ";
+	// std::cout << std::endl;
+	// for(int i = 0 ; i < ft_a15.size() ; i++)
+	// 	std::cout << ft_a15[i] << " ";
+	// std::cout << std::endl;
+	// ft_a14.clear();
+	// std::cout << "cap = " << ft_a14.capacity() << std::endl;
+	// std::cout << "size = " << ft_a14.size() << std::endl;
+
+	
+
+	return (0);
 }
