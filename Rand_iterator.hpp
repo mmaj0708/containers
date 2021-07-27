@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/26 18:27:51 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/27 12:24:00 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ namespace ft
 		randIt		&operator--(void) { _ptr--; return(*this); } // -- avant
 		randIt		operator--(int) { randIt tmp(*this); --this->_ptr; return(tmp); } // -- apres;
 		reference	operator[](value_type i) const { return(_ptr[i]); }
+
+		difference_type	operator-(const randIt<value_type> &n) { return (randIt<value_type>::_ptr - n._ptr); }
+		difference_type	operator+(const randIt<value_type> &n) { return (randIt<value_type>::_ptr + n._ptr); }
 
 	protected:
 		value_type							*_ptr;

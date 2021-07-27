@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/26 20:07:37 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/07/27 12:44:30 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # include "Rand_iterator.hpp"
 # include "Rand_const_iterator.hpp"
 # include "base.hpp"
+# include <iostream>
 
 namespace	ft	{
-	
+
 	template < class T, class Allocator = std::allocator<T> >
 	class vector
 	{
@@ -46,8 +47,10 @@ namespace	ft	{
 		iterator() : randIt<value_type>() {};
 		iterator(value_type *ptr) : randIt<value_type>(ptr) {};
 
-		iterator	operator+(difference_type n) { return (iterator(randIt<value_type>::_ptr + n)); }
-		iterator	operator-(difference_type n) { return (iterator(randIt<value_type>::_ptr - n)); }
+		iterator		operator+(difference_type n) { return (iterator(randIt<value_type>::_ptr + n)); }
+		iterator		operator-(difference_type n) { return (iterator(randIt<value_type>::_ptr - n)); }
+		difference_type	operator-(const randIt<value_type> &n) { return (randIt<value_type>::operator-(n)); }
+		difference_type	operator+(const randIt<value_type> &n) { return (randIt<value_type>::operator+(n)); }
 	};
 
 	class const_iterator : public const_randIt<value_type>
@@ -69,7 +72,7 @@ namespace	ft	{
 	explicit vector (size_type n, const value_type& val = value_type(),
 	const allocator_type& alloc = allocator_type())
 	: _size(n), _capacity(n), _alloc(alloc)
-	{	
+	{
 		size_type	i = 0;
 
 		_tab = _alloc.allocate(n);
@@ -80,23 +83,24 @@ namespace	ft	{
 		}
 	}
 
-	/* range constructor */	
+	/* range constructor */
 	template <class InputIte>
     vector (typename ft::enable_if<!std::numeric_limits<InputIte>::is_integer, InputIte>::type first,
 	InputIte last, const allocator_type& alloc = allocator_type())
 	: _size(0), _capacity(0), _alloc(alloc)
 	{
 		size_type	i = 0;
-		size_type	_size = itlen<size_type, InputIte>(first, last);
+		size_type	len = itlen<size_type, InputIte>(first, last);
 
-		_tab = _alloc.allocate(_size);
+		_tab = _alloc.allocate(len);
 		while (first != last)
 		{
 			_alloc.construct(&_tab[i], *first);
 			first++;
 			i++;
 		}
-		_capacity = _size;
+		_capacity = len;
+		_size = len;
 	}
 
 	/* copy constructor */
@@ -116,11 +120,12 @@ namespace	ft	{
 	/* assignation */
 	vector& operator= (const vector& x)
 	{
-		size_type	i = 0;
+		size_type	i = -1;
 		if (this == &x)
 			return (*this);
 		_size = x._size;
-		_capacity = x._capacity;
+		if(x._size > _capacity)
+			_capacity = x._size;
 		_tab = _alloc.allocate(_capacity);
 		while (++i < _size)
 			_alloc.construct(&_tab[i], x._tab[i]);
@@ -171,7 +176,7 @@ namespace	ft	{
 			_tab = tab2;
 		}
 	}
-	
+
 	size_type	capacity() const { return _capacity; }
 	bool		empty() const { if (_size > 0) return 0; return 1; }
 	void		reserve (size_type n)
@@ -189,11 +194,11 @@ namespace	ft	{
 			_capacity = n;
 		}
 	}
-	
-	// /* ELEMENT ACCESS */	
+
+	// /* ELEMENT ACCESS */
 	reference			operator[] (size_type n) { return (_tab[n]); }
 	const_reference 	operator[] (size_type n) const { return (_tab[n]); }
-	
+
 	// AT
 	reference			at (size_type n)
 	{
@@ -221,12 +226,12 @@ namespace	ft	{
 		}
 		throw std::out_of_range(ostr.str());
 	}
-	
+
 	reference			front() { return _tab[0]; }
-	const_reference		front() const { return _tab[0]; }	
+	const_reference		front() const { return _tab[0]; }
 	reference			back() { return _tab[_size - 1]; }
 	const_reference		back() const { return _tab[_size - 1]; }
-	
+
 	// /* MODIFIERS */
 	template <class InputIte>
 	void		assign (typename ft::enable_if<!std::numeric_limits<InputIte>::is_integer, InputIte>::type first, InputIte last)
@@ -235,6 +240,7 @@ namespace	ft	{
 		size_type	len = itlen<size_type, InputIte>(first, last);
 		value_type	*tab2;
 
+		// std::cout << "len = " << len << std::endl;
 		while (i < _size)
 			_alloc.destroy(&_tab[i++]);
 		_alloc.deallocate(_tab, _size);
@@ -247,7 +253,7 @@ namespace	ft	{
 			tab2 = _alloc.allocate(_capacity);
 		i = -1;
 		while (++i < len)
-			_alloc.construct(&tab2[i], first[i]);
+			_alloc.construct(&tab2[i], *first++);
 		_size = len;
 		_tab = tab2;
 	}
@@ -281,7 +287,7 @@ namespace	ft	{
 			_alloc.construct(&_tab[_size++], val);
 	}
 	void		pop_back() { resize(_size - 1); }
-	
+
 	void		insert (iterator position, size_type n, const value_type& val)
 	{
 		size_type	i = 0;
@@ -296,7 +302,7 @@ namespace	ft	{
 			_capacity = final_size;
 			tab2 = _alloc.allocate(_capacity);
 		}
-		else if (final_size > _capacity) // if fs > 2 * cap => cap préc : 
+		else if (final_size > _capacity) // if fs > 2 * cap => cap préc :
 		{
 			_capacity = _capacity * 2;
 			tab2 = _alloc.allocate(_capacity);
@@ -316,7 +322,7 @@ namespace	ft	{
 		_size = final_size;
 		_tab = tab2;
 	}
-	
+
 	iterator	insert (iterator position, const value_type& val)
 	{
 		size_type	len = itlen<size_type, iterator>(begin(), position);
@@ -325,7 +331,7 @@ namespace	ft	{
 		iterator	ret(&_tab[len]);
 		return (ret);
 	}
-	
+
 	template <class InputIte>
     void		insert (iterator position, InputIte first, typename ft::enable_if<!std::numeric_limits<InputIte>::is_integer, InputIte>::type last)
 	{
@@ -414,10 +420,10 @@ namespace	ft	{
 	void 		swap (vector& x)
 	{
 		vector<value_type>	tmp;
-	
+
 		tmp._cpy_content(x);
 		x._cpy_content(*this);
-		_cpy_content(tmp);	
+		_cpy_content(tmp);
 	}
 
 	void clear()
