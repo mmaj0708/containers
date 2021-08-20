@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/27 12:44:30 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/20 12:50:14 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,68 @@ namespace	ft	{
 
 	class iterator : public randIt<value_type>
 	{
+		typedef	value_type&					reference;
+		typedef	value_type*					pointer;
+		
+		protected:
+		iterator(value_type *ptr) : randIt<value_type>(ptr) {};
+
+		private:
+		iterator(const randIt<value_type> &src) : randIt<value_type>(src) {};
+		
 		public:
 		iterator() : randIt<value_type>() {};
-		iterator(value_type *ptr) : randIt<value_type>(ptr) {};
+		iterator(const iterator &src) : randIt<value_type>(src) {};
+
+		pointer			operator->(void) const { return(*this->_ptr); }
+		reference		operator*(void) const { return(*this->_ptr); }
+		reference		operator[](value_type i) const { return(this->_ptr[i]); }
+		
+		iterator		&operator+=(difference_type i) { this->_ptr = this->_ptr + i; return (*this); }
+		iterator		&operator-=(difference_type i) { this->_ptr = this->_ptr - i; return (*this); }
+		iterator		&operator++(void) { this->_ptr++; return(*this); } // ++ avant
+		iterator		operator++(int) { randIt<value_type> tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
+		iterator		&operator--(void) { this->_ptr--; return(*this); } // -- avant
+		iterator		operator--(int) { randIt<value_type> tmp(*this); --this->_ptr; return(tmp); } // -- apres;
 
 		iterator		operator+(difference_type n) { return (iterator(randIt<value_type>::_ptr + n)); }
 		iterator		operator-(difference_type n) { return (iterator(randIt<value_type>::_ptr - n)); }
 		difference_type	operator-(const randIt<value_type> &n) { return (randIt<value_type>::operator-(n)); }
 		difference_type	operator+(const randIt<value_type> &n) { return (randIt<value_type>::operator+(n)); }
+		
+		friend class vector;
 	};
 
-	class const_iterator : public const_randIt<value_type>
+	class const_iterator : public randIt<value_type>
 	{
-		public:
-		const_iterator() : const_randIt<value_type>() {};
-		const_iterator(value_type *ptr) : const_randIt<value_type>(ptr) {};
+		typedef	value_type&					reference;
+		typedef	value_type*					pointer;
 
-		const_iterator	operator+(difference_type n) { return (const_iterator(const_randIt<value_type>::_ptr + n)); }
-		const_iterator	operator-(difference_type n) { return (const_iterator(const_randIt<value_type>::_ptr - n)); }
+		protected:
+		const_iterator(value_type *ptr) : randIt<value_type>(ptr) {};
+
+		public:
+		const_iterator() : randIt<value_type>() {};
+		const_iterator(const randIt<value_type> &src) : randIt<value_type>(src) {};
+		
+		pointer				operator->(void) const { return(*this->_ptr); }
+		reference			operator*(void) const { return(*this->_ptr); }
+		reference			operator[](value_type i) const { return(this->_ptr[i]); }
+
+		const_iterator		&operator+=(difference_type i) { this->_ptr = this->_ptr + i; return (*this); }
+		const_iterator		&operator-=(difference_type i) { this->_ptr = this->_ptr - i; return (*this); }
+		const_iterator		&operator++(void) { this->_ptr++; return(*this); } // ++ avant
+		const_iterator		operator++(int) { randIt<value_type> tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
+		const_iterator		&operator--(void) { this->_ptr--; return(*this); } // -- avant
+		const_iterator		operator--(int) { randIt<value_type> tmp(*this); --this->_ptr; return(tmp); } // -- apres;
+
+		
+		const_iterator	operator+(difference_type n) { return (const_iterator(randIt<value_type>::_ptr + n)); }
+		const_iterator	operator-(difference_type n) { return (const_iterator(randIt<value_type>::_ptr - n)); }
+		difference_type	operator-(const randIt<value_type> &n) const { return (randIt<value_type>::operator-(n)); }
+		difference_type	operator+(const randIt<value_type> &n) { return (randIt<value_type>::operator+(n)); }
+		
+		friend class vector;
 	};
 
 	/*	CONSTRUCTOR	*/

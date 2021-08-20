@@ -2,12 +2,46 @@
 
 #define TESTED_TYPE std::string
 
+
+// class randit {
+
+// public:
+
+// 	int d;
+// 	int e;
+// 	randit() : d(4), e(5) {}
+// 	randit(randit & a) { d = a.d ; e = a.e;}
+
+// };
+
+// class vec {
+
+// public:
+
+// 	class it : public randit {
+// 		public:
+// 		it() : randit() {}
+// 		// it(randit &a) : randit(a) {}
+// 	};
+// 	class cit : public randit {
+// 		public:
+// 		cit() : randit() {}
+// 		cit(it & a) : randit(a) {}
+// 	};
+
+// };
+
+// void	check(vec::cit a2)
+// {
+// 	std::cout << a2.d << std::endl;
+// }
+
 void	checkErase(TESTED_NAMESPACE::vector<TESTED_TYPE> const &vct,
 					TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator const &it)
 {
 	std::cout << *it << std::endl;
-	// static int i = 0;
-	// std::cout << "[" << i++ << "] " << "erase: " << it - vct.begin() << std::endl;
+	static int i = 0;
+	std::cout << "[" << i++ << "] " << "erase: " << it - vct.begin() << std::endl;
 	printSize(vct);
 }
 
@@ -21,8 +55,8 @@ int		main(void)
 
 	checkErase(vct, vct.erase(vct.begin() + 2));
 
-	// checkErase(vct, vct.erase(vct.begin()));
-	// checkErase(vct, vct.erase(vct.end() - 1));
+	checkErase(vct, vct.erase(vct.begin()));
+	checkErase(vct, vct.erase(vct.end() - 1)); // PROBLEME ICI 
 
 	// checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
 	// checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));

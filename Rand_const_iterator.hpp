@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/26 18:18:28 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/20 12:41:37 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,16 @@ namespace ft
 		bool	operator<=(const_randIt const &rhs) const  { return(_ptr <= rhs._ptr ? 1 : 0); }
 		bool	operator>=(const_randIt const &rhs) const { return(_ptr >= rhs._ptr ? 1 : 0); }
 		
-		reference	operator*(void) const { return(*_ptr); }
-		const_randIt		&operator++(void) { _ptr++; return(*this); } // ++ avant
-		const_randIt		operator++(int) { const_randIt tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
-		const_randIt		&operator--(void) { _ptr--; return(*this); } // -- avant
-		const_randIt		operator--(int) { const_randIt tmp(*this); --this->_ptr; return(tmp); } // -- apres;
+		// reference			operator*(void) const { return(*_ptr); }
+		// const_randIt		&operator++(void) { _ptr++; return(*this); } // ++ avant
+		// const_randIt		operator++(int) { const_randIt tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
+		// const_randIt		&operator--(void) { _ptr--; return(*this); } // -- avant
+		// const_randIt		operator--(int) { const_randIt tmp(*this); --this->_ptr; return(tmp); } // -- apres;
 		// const_randIt		operator+(difference_type n) const;
 		// const_randIt		operator-(difference_type n) const;
 		// const_randIt	operator-(const_randIt const &rhs) const;
+		difference_type	operator-(const const_randIt<value_type> &n) const { return (const_randIt<value_type>::_ptr - n._ptr); }
+		difference_type	operator+(const const_randIt<value_type> &n) { return (const_randIt<value_type>::_ptr + n._ptr); }
 		reference	operator[](value_type i) const { return(_ptr[i]); } // faux ds peu de tps
 
 	protected:

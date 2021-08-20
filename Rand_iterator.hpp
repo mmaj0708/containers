@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
-/*   Updated: 2021/07/27 12:24:00 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/20 12:50:52 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ namespace ft
 
 		randIt() : _ptr(NULL) { return; }
 		randIt(value_type	*ptr) { _ptr = ptr; }
+		// randIt(const randIt &src) { *this = src; }
 
 		randIt &operator=(randIt const &src) { _ptr = src._ptr; return *this; }
 		virtual ~randIt() {}
@@ -51,16 +52,16 @@ namespace ft
 		bool	operator<(randIt const &rhs) const { return(_ptr < rhs._ptr ? 1 : 0); }
 		bool	operator<=(randIt const &rhs) const  { return(_ptr <= rhs._ptr ? 1 : 0); }
 		bool	operator>=(randIt const &rhs) const { return(_ptr >= rhs._ptr ? 1 : 0); }
-		
-		reference	operator*(void) const { return(*_ptr); }
-		pointer		operator->(void) const { return(*_ptr); }
-		randIt		&operator++(void) { _ptr++; return(*this); } // ++ avant
-		randIt		operator++(int) { randIt tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
-		randIt		&operator--(void) { _ptr--; return(*this); } // -- avant
-		randIt		operator--(int) { randIt tmp(*this); --this->_ptr; return(tmp); } // -- apres;
-		reference	operator[](value_type i) const { return(_ptr[i]); }
 
-		difference_type	operator-(const randIt<value_type> &n) { return (randIt<value_type>::_ptr - n._ptr); }
+		// reference	operator*(void) const { return(*_ptr); }
+		// pointer		operator->(void) const { return(*_ptr); }
+		// randIt		&operator++(void) { _ptr++; return(*this); } // ++ avant
+		// randIt		operator++(int) { randIt tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
+		// randIt		&operator--(void) { _ptr--; return(*this); } // -- avant
+		// randIt		operator--(int) { randIt tmp(*this); --this->_ptr; return(tmp); } // -- apres;
+		// reference	operator[](value_type i) const { return(_ptr[i]); }
+
+		difference_type	operator-(const randIt<value_type> &n) const { return (randIt<value_type>::_ptr - n._ptr); }
 		difference_type	operator+(const randIt<value_type> &n) { return (randIt<value_type>::_ptr + n._ptr); }
 
 	protected:
