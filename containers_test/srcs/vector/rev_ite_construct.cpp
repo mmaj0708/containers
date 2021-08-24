@@ -4,8 +4,6 @@
 
 int		main(void)
 {
-	std::vector<int>::reverse_iterator test;
-
 	TESTED_NAMESPACE::vector<TESTED_TYPE> vct;
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit = vct.begin();
