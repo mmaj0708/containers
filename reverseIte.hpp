@@ -6,16 +6,16 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 16:20:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/25 12:08:38 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/25 15:53:27 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REVERSEITE_HPP
 # define REVERSEITE_HPP
 
-#include "Rand_iterator.hpp"
+// #include "Rand_iterator.hpp"
 #include "base.hpp"
-#include <iostream>
+// #include <iostream>
 
 namespace ft
 {

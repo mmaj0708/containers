@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:50 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/25 12:04:57 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/25 15:16:11 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ namespace ft
 		randIt &operator=(randIt const &src) { _ptr = src._ptr; return *this; }
 		virtual ~randIt() {}
 
-		// pointer	getValue(void) const { return _ptr; };
 		bool	operator==(randIt const &rhs) const { return(_ptr == rhs._ptr ? 1 : 0); }
 		bool	operator!=(randIt const &rhs) const { return(_ptr != rhs._ptr ? 1 : 0); }
 		bool	operator>(randIt const &rhs) const { return(_ptr > rhs._ptr ? 1 : 0); }

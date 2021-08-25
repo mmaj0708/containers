@@ -1,49 +1,17 @@
 
-#include <vector>
+// #include <vector>
+// #include <stack>
 #include <iostream>
+#include "stack.hpp"
 #include "vector.hpp"
 # include "Rand_iterator.hpp"
 
-#define TESTED_TYPE int
-#define TESTED_NAMESPACE ft
-
-template <typename T>
-void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = 1)
-{
-	std::cout << "size: " << vct.size() << std::endl;
-	std::cout << "capacity: " << vct.capacity() << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
-	{
-		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
-		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
-	}
-	std::cout << "###############################################" << std::endl;
-}
-
-class foo {
-	public:
-		foo(void) { };
-		~foo(void) { };
-		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
-		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
-		foo &operator=(int src) { this->value = src; return *this; };
-		int getValue(void) const { return this->value; };
-	private:
-		int	value;
-};
-
-std::ostream	&operator<<(std::ostream &o, foo const &bar) {
-	o << bar.getValue();
-	return o;
-}
-
 int main()
 {
-	std::cout << "***VECTOR TEST***\n" << std::endl;
+	std::cout << "***STACK TEST***\n" << std::endl;
+	ft::stack<int> stck;
+
+	// std::cout << "***VECTOR TEST***\n" << std::endl;
 	// std::cout << "**DEFAULT CONSTRUCTOR TEST**\n" << std::endl;
 	// std::cout << "*STD::VECTOR*" << std::endl;
 	// std::vector<int> tab;
@@ -338,6 +306,7 @@ int main()
 	// ft::vector<int>	ft_a9(25, 0);
 	// ft::vector<int>	ft_a10(21, 20);
 	// ft_a9.assign(ft_a10.begin(), ft_a10.end());
+
 	// std::cout << "cap = " << ft_a9.capacity() << std::endl;
 	// std::cout << "size = " << ft_a9.size() << std::endl;
 	// for(int i = 0 ; i < ft_a9.size() ; i++)
@@ -484,7 +453,6 @@ int main()
 	// std::cout << "cap = " << ft_a14.capacity() << std::endl;
 	// std::cout << "size = " << ft_a14.size() << std::endl;
 
-	
 
 	return (0);
 }

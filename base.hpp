@@ -6,12 +6,12 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/25 11:12:42 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/25 15:20:05 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE__HPP
-# define BASE__HPP
+#ifndef BASE_HPP
+# define BASE_HPP
 
 namespace ft
 {
