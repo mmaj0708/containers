@@ -1,4 +1,5 @@
 #include "common.hpp"
+#include <stack>
 
 #define TESTED_TYPE int
 
@@ -6,7 +7,6 @@ void	is_empty(TESTED_NAMESPACE::vector<TESTED_TYPE> const &vct)
 {
 	std::cout << "is_empty: " << vct.empty() << std::endl;
 }
-
 int		main(void)
 {
 	const int start_size = 7;

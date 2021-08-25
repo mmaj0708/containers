@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/23 12:15:35 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/25 11:12:42 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,37 @@
 
 namespace ft
 {
+	template <class Iterator> class iterator_traits
+	{
+		public:
+		typedef typename Iterator::difference_type				difference_type;
+		typedef typename Iterator::value_type					value_type;
+		typedef typename Iterator::pointer						pointer;
+		typedef typename Iterator::reference					reference;
+		typedef typename std::random_access_iterator_tag	iterator_category;
+	};
+	
+	template <class It> class iterator_traits<It*>
+	{
+		public:
+			typedef It											value_type;
+			typedef	value_type&									reference;
+			typedef	value_type const&							const_reference;
+			typedef	value_type*									pointer;
+			typedef ptrdiff_t									difference_type;
+			typedef typename std::random_access_iterator_tag	iterator_category;
+	};
+
+	template <class It> class iterator_traits<const It*>
+	{
+		public:
+			typedef It											value_type;
+			typedef	value_type&									reference;
+			typedef	value_type const&							const_reference;
+			typedef	value_type*									pointer;
+			typedef ptrdiff_t									difference_type;
+			typedef typename std::random_access_iterator_tag	iterator_category;
+	};
 	
 	template <bool Cond, class T = void>
 	struct enable_if;
@@ -49,8 +80,7 @@ namespace ft
 	}
 
 	template <class Ite1, class Ite2>
-	bool lexicographical_compare (Ite1 first1, Ite1 last1,
-    								Ite2 first2, Ite2 last2)
+	bool lexicographical_compare (Ite1 first1, Ite1 last1, Ite2 first2, Ite2 last2)
 	{
 		while (first1!=last1)
 		{

@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:39 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/23 12:26:19 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/25 12:07:56 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <cstddef>
 # include <sstream>
 # include "Rand_iterator.hpp"
-# include "Rand_const_iterator.hpp"
+# include "reverseIte.hpp"
 # include "base.hpp"
 # include <iostream>
 
@@ -43,17 +43,18 @@ namespace	ft	{
 
 	class iterator : public randIt<value_type>
 	{
-		typedef	value_type&					reference;
-		typedef	value_type*					pointer;
 		
-		protected:
-		iterator(value_type *ptr) : randIt<value_type>(ptr) {};
+		// protected:
 
 		private:
 		iterator(const randIt<value_type> &src) : randIt<value_type>(src) {};
 		
 		public:
+		typedef	value_type&					reference;
+		typedef	value_type*					pointer;
+	
 		iterator() : randIt<value_type>() {};
+		iterator(value_type *ptr) : randIt<value_type>(ptr) {};
 		iterator(const iterator &src) : randIt<value_type>(src) {};
 
 		pointer			operator->(void) const { return(this->_ptr); }
@@ -61,31 +62,32 @@ namespace	ft	{
 		reference		operator[](difference_type i) const { return(this->_ptr[i]); }
 		
 		iterator		&operator+=(difference_type i) { this->_ptr = this->_ptr + i; return (*this); }
-		iterator		&operator-=(difference_type i) { this->_ptr = this->_ptr - i; return (*this); }
+		iterator		&operator-=(difference_type i) { this->_ptr -= i; return (*this); }
 		iterator		&operator++(void) { this->_ptr++; return(*this); } // ++ avant
 		iterator		operator++(int) { randIt<value_type> tmp(*this); ++this->_ptr; return(tmp); } // ++ apres;
 		iterator		&operator--(void) { this->_ptr--; return(*this); } // -- avant
 		iterator		operator--(int) { randIt<value_type> tmp(*this); --this->_ptr; return(tmp); } // -- apres;
 
 		friend iterator	operator+(difference_type n, iterator & rhs) { return (rhs.operator+(n)); }
-		iterator		operator+(difference_type n) { return (iterator(randIt<value_type>::_ptr + n)); }
-		iterator		operator-(difference_type n) { return (iterator(randIt<value_type>::_ptr - n)); }
-		difference_type	operator-(const randIt<value_type> &n) { return (randIt<value_type>::operator-(n)); }
-		difference_type	operator+(const randIt<value_type> &n) { return (randIt<value_type>::operator+(n)); }
+		iterator		operator+(difference_type n) const { return (iterator(randIt<value_type>::_ptr + n)); }
+		iterator		operator-(difference_type n) const { return (iterator(randIt<value_type>::_ptr - n)); }
+		difference_type	operator-(const randIt<value_type> &n) const { return (randIt<value_type>::operator-(n)); }
+		difference_type	operator+(const randIt<value_type> &n) const { return (randIt<value_type>::operator+(n)); }
 		
 		friend class vector;
 	};
 
 	class const_iterator : public randIt<value_type>
 	{
-		typedef	const value_type&					reference;
-		typedef	const value_type*					pointer;
 
-		protected:
-		const_iterator(value_type *ptr) : randIt<value_type>(ptr) {};
+		// protected:
 
 		public:
+		typedef	const value_type&					reference;
+		typedef	const value_type*					pointer;
+		
 		const_iterator() : randIt<value_type>() {};
+		const_iterator(value_type *ptr) : randIt<value_type>(ptr) {};
 		const_iterator(const randIt<value_type> &src) : randIt<value_type>(src) {};
 		
 		pointer				operator->(void) const { return(this->_ptr); }
@@ -101,13 +103,16 @@ namespace	ft	{
 
 
 		friend const_iterator	operator+(difference_type n, const_iterator & rhs) { return (rhs.operator+(n)); }
-		const_iterator			operator+(difference_type n) { return (const_iterator(randIt<value_type>::_ptr + n)); }
-		const_iterator			operator-(difference_type n) { return (const_iterator(randIt<value_type>::_ptr - n)); }
+		const_iterator			operator+(difference_type n) const { return (const_iterator(randIt<value_type>::_ptr + n)); }
+		const_iterator			operator-(difference_type n) const { return (const_iterator(randIt<value_type>::_ptr - n)); }
 		difference_type			operator-(const randIt<value_type> &n) const { return (randIt<value_type>::operator-(n)); }
-		difference_type			operator+(const randIt<value_type> &n) { return (randIt<value_type>::operator+(n)); }
+		difference_type			operator+(const randIt<value_type> &n) const { return (randIt<value_type>::operator+(n)); }
 		
 		friend class vector;
 	};
+
+	typedef	ft::reverse_iterator<iterator>			reverse_iterator;
+	typedef	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 	/*	CONSTRUCTOR	*/
 	/* default constructor */
@@ -183,10 +188,10 @@ namespace	ft	{
 	const_iterator			begin() const { return (const_iterator(_tab)); }
 	iterator				end() { return(iterator(&_tab[_size])); }
 	const_iterator			end() const { return(const_iterator(&_tab[_size])); }
-	// reverse_iterator		rbegin();
-	// const_reverse_iterator	rbegin() const;
-	// reverse_iterator		rend();
-	// const_reverse_iterator	rend() const;
+	reverse_iterator		rbegin() { return (reverse_iterator(end())); }
+	const_reverse_iterator	rbegin() const { return (const_reverse_iterator(end())); }
+	reverse_iterator		rend() { return(reverse_iterator(begin())); }
+	const_reverse_iterator	rend() const { return(const_reverse_iterator(begin())); }
 
 	/* CAPACITY */
 	size_type	size() const { return _size; } // return number of elmt in the vector
@@ -205,11 +210,13 @@ namespace	ft	{
 				tab2 = _alloc.allocate(n);
 				_capacity = n;
 			}
-			else
+			else if (n > _capacity)
 			{
 				tab2 = _alloc.allocate(_capacity * 2);
 				_capacity = _capacity * 2;
 			}
+			else
+				tab2 = _alloc.allocate(_capacity);
 			while (++i < _size)
 				_alloc.construct(&tab2[i], _tab[i]);
 			while (i < n)
@@ -493,7 +500,7 @@ bool operator== (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs)
 	if (lhs.size() != rhs.size())
 		return false;
 	
-	return (ft::equal<ft::vector<T, Alloc>::iterator Ite1, ft::vector<T, Alloc>::iterator Ite2>(lhs.begin(), lhs.end(), rhs.begin());
+	return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 
 }
 
@@ -502,13 +509,22 @@ bool operator!= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs)
 {
 	if (lhs.size() != rhs.size())
 		return true;
-	return (ft::equal<ft::vector<T, Alloc>::iterator Ite1, ft::vector<T, Alloc>::iterator Ite2>(lhs.begin(), lhs.end(), rhs.begin());
+	return (!(lhs == rhs));
 }
 
 template <class T, class Alloc>
 bool operator< (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs)
 {
-
+	return (ft::lexicographical_compare<>(lhs.begin(), lhs.end(), rhs.begin(), rhs.end())); // true if the first range compares lexicographically less than the second
 }
+
+template <class T, class Alloc>
+bool operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) { return !(rhs < lhs); }
+
+template <class T, class Alloc>
+bool operator>  (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) { return rhs < lhs; }
+
+template <class T, class Alloc>
+bool operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) { return !(lhs < rhs); }
 
 #endif
