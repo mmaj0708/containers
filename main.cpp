@@ -1,6 +1,7 @@
 
-// #include <vector>
-// #include <stack>
+#include <vector>
+#include <stack>
+#include <map>
 #include <iostream>
 #include "stack.hpp"
 #include "vector.hpp"
@@ -10,7 +11,7 @@ int main()
 {
 	std::cout << "***STACK TEST***\n" << std::endl;
 	ft::stack<int> stck;
-
+	std::map<char, std::string> mp;
 	// std::cout << "***VECTOR TEST***\n" << std::endl;
 	// std::cout << "**DEFAULT CONSTRUCTOR TEST**\n" << std::endl;
 	// std::cout << "*STD::VECTOR*" << std::endl;
