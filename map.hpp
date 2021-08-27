@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/27 15:22:08 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/27 17:03:06 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,19 @@ namespace	ft	{
                   // le premier insert est toujours le root ?
                   // root = plus petite key ?
                   // A new key is always inserted at the leaf
-                 
+
                   // 1. Start from the root. 
                   // 2. Compare the inserting element with root, if less than root, then recurse for left, else recurse for right. 
-                  // 3. After reaching the end, just insert that node at left(if less than current) else right. 
-                  return (make_pair(iterator(), true));
+                  // 3. After reaching the end, just insert that node at left(if less than current) else right.
+                  iterator    ret;
+                  node_ptr    newNode;
+
+                  // check si key exist pas deja
+
+                  newNode->data.second = val->second;
+                  newNode->data.first = val->first;
+
+                  return (make_pair(ret, true));
             }
 
             // iterator insert (iterator position, const value_type& val);
