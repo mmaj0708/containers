@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/26 15:07:18 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/27 09:41:07 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,17 @@ namespace ft
 		}
 		return (first2!=last2);
 	}
+
+	template <typename T>
+	struct node
+	{
+		T		data;
+		node	*parent;
+		node	*left;
+		node	*right;
+
+		node(const T &src = T()) : data(src), parent(NULL), left(NULL), right(NULL) {}
+	};
 
 	template <class T1, class T2> 
 	struct pair
