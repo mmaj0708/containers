@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/27 17:03:06 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/27 17:06:00 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ namespace	ft	{
 
                   // check si key exist pas deja
 
-                  newNode->data.second = val->second;
-                  newNode->data.first = val->first;
+                  newNode->data.second = val.second;
+                  // newNode->data.first = val.first;
 
                   return (make_pair(ret, true));
             }
