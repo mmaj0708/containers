@@ -6,10 +6,12 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/27 14:55:42 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/27 17:07:03 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+FINIR INSERT, AFFICHER MON ARBRE
 
 #ifndef MAPIT_HPP
 # define MAPIT_HPP
