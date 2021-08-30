@@ -10,13 +10,18 @@ int main()
 	std::cout << "***MAP TEST***\n" << std::endl;
 	std::map<char, int>				mp;
 
+	mp.insert( std::pair<char, int>('x', 2) );
 	mp.insert( std::pair<char, int>('c', 3) );
 	mp.insert( std::pair<char, int>('d', 4) );
 	mp.insert( std::pair<char, int>('a', 1) );
 	mp.insert( std::pair<char, int>('b', 2) );
-	std::map<char, int>::iterator	mp_it;
+	std::map<char, int>::iterator	mp_it = mp.begin();
 
-	std::cout << "STD\n" << mp.begin()->first << std::endl;
+	std::cout << "STD\n" << mp_it->first << std::endl;
+	std::cout << (++mp_it)->first << std::endl;
+	std::cout << (++mp_it)->first << std::endl;
+	std::cout << (++mp_it)->first << std::endl;
+	std::cout << (++mp_it)->first << std::endl;
 	// for (mp_it = mp.begin() ; mp_it != mp.end() ; mp_it++)
 	// {
 	// 	std::cout << "KEY   " << mp_it->first << std::endl;
@@ -28,10 +33,11 @@ int main()
 	std::cout << "\nFT" << std::endl;
 	ft::map<char, int>		ft_mp;
 
-	ft_mp.insert( ft::pair<char, int>('c', 3) );
-	ft_mp.insert( ft::pair<char, int>('d', 4) );
-	ft_mp.insert( ft::pair<char, int>('a', 1) );
+	ft_mp.insert( ft::pair<char, int>('x', 4) );
 	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	ft_mp.insert( ft::pair<char, int>('c', 3) );
+	ft_mp.insert( ft::pair<char, int>('a', 1) );
+	ft_mp.insert( ft::pair<char, int>('d', 4) );
 
 	ft_mp.showTree();
 

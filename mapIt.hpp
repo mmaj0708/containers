@@ -6,11 +6,14 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/30 13:53:13 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/30 17:06:06 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// on utilise pas _alloc.allocate ?
+// UTILISER AllOCATE DANS INSERT
+// FAIRE LES ITERATORS
+// COMPLETER INSERT (avec le bon retour)
+// FAIRE LES AUTRES INSERT
 
 #ifndef MAPIT_HPP
 # define MAPIT_HPP

@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/30 14:59:31 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/30 17:03:45 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,18 @@ namespace	ft	{
                 return;
                 }
                 inOrder(node->left);
-                inOrder(node->right);
                 std::cout << "KEY " << node->data.first << std::endl;
-                std::cout << "VAL " << node->data.second << std::endl;
+                inOrder(node->right);
             }
 
             void showTree()
             {
-                // inOrder(_tree);
-                std::cout << _tree->left->data.first << std::endl;
+                inOrder(_tree);
+                // std::cout << _tree->left->data.first << std::endl;
+                // std::cout << fullLeft(_tree)->data.first << std::endl;
+                // std::cout << fullLeft(_tree)->right->data.first << std::endl;
+                // std::cout << fullLeft(_tree)->parent->data.first << std::endl;
+                // std::cout << fullLeft(_tree)->parent->right->data.first << std::endl;
             }
 
             /* CONSTRUCTOR */
@@ -116,16 +119,7 @@ namespace	ft	{
             /* MODIFIERS */
             pair<iterator,bool> insert (const value_type& val)
             {
-                  // (void) val;
-                  // le premier insert est toujours le root ?
-                  // root = plus petite key ?
-                  // A new key is always inserted at the leaf
-
-                  // 1. Start from the root. 
-                  // 2. Compare the inserting element with root, if less than root, then recurse for left, else recurse for right. 
-                  // 3. After reaching the end, just insert that node at left(if less than current) else right.
-                  // check si key exist pas deja
-                
+                // if find(val) : return it;
                 iterator    ret;
                 node_ptr    newNode = new node_type(val);
                 node_ptr    checker = _tree;
@@ -134,7 +128,6 @@ namespace	ft	{
                 {
                     _tree = newNode;
                     _size++;
-                    // std::cout << "CHECK" << std::endl;
                 }
                 else
                 {
@@ -162,15 +155,9 @@ namespace	ft	{
                             }
                             checker = checker->right;
                         }
-                    // std::cout << "CHECK" << std::endl;
                     }
                 }
-
-                //   newNode->data(val.first, val.second);
-                // std::cout << newNode->data.first << std::endl;
-                // std::cout << newNode->data.second << std::endl;
-
-                  return (make_pair(ret, true));
+                return (make_pair(ret, true));
             }
 
             // iterator insert (iterator position, const value_type& val);
@@ -227,8 +214,6 @@ namespace	ft	{
             key_compare		_key_cmp;
             allocator_type	_alloc;
             node_ptr   		_tree;
-            // node_ptr   		_root;
-
 	};
 }
 
