@@ -28,6 +28,7 @@ int main()
 
 	ft_mp.insert( ft::pair<char, int>('a', 1) );
 
+	ft_mp.showTree();
 
 	return (0);
 }

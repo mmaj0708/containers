@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/27 17:06:00 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/30 12:18:16 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,21 @@ namespace	ft	{
             
             // typedef __insert_return_type<iterator, node_type> insert_return_type;
 
+            void inOrder(node_ptr node)
+            {
+                if (node == NULL) {
+                return;
+                }
+                inOrder(node->left);
+                inOrder(node->right);
+                std::cout << "KEY " << node->data.first << std::endl;
+                std::cout << "VAL " << node->data.second << std::endl;
+            }
+
+            void showTree()
+            {
+                inOrder(_tree);
+            }
 
             /* CONSTRUCTOR */
             explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -108,13 +123,23 @@ namespace	ft	{
                   // 1. Start from the root. 
                   // 2. Compare the inserting element with root, if less than root, then recurse for left, else recurse for right. 
                   // 3. After reaching the end, just insert that node at left(if less than current) else right.
-                  iterator    ret;
-                  node_ptr    newNode;
-
                   // check si key exist pas deja
+                iterator    ret;
+                node_ptr    newNode = new node_type(val);
+                  
+                if (_size == 0)
+                    _tree = newNode;
 
-                  newNode->data.second = val.second;
-                  // newNode->data.first = val.first;
+                while ()
+                {
+                    /* code */
+                }
+                
+
+                _size++;
+                //   newNode->data(val.first, val.second);
+                // std::cout << newNode->data.first << std::endl;
+                // std::cout << newNode->data.second << std::endl;
 
                   return (make_pair(ret, true));
             }
@@ -173,6 +198,7 @@ namespace	ft	{
             key_compare		_key_cmp;
             allocator_type	_alloc;
             node_ptr   		_tree;
+            // node_ptr   		_root;
 
 	};
 }
