@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/30 12:18:16 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/08/30 14:59:31 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,13 @@ namespace	ft	{
 
             void showTree()
             {
-                inOrder(_tree);
+                // inOrder(_tree);
+                std::cout << _tree->left->data.first << std::endl;
             }
 
             /* CONSTRUCTOR */
             explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL) { _tree = new node_type; }
+            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL) { /*_tree = new node_type;*/ }
 
             // template <class InputIterator>
             // map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
@@ -124,19 +125,47 @@ namespace	ft	{
                   // 2. Compare the inserting element with root, if less than root, then recurse for left, else recurse for right. 
                   // 3. After reaching the end, just insert that node at left(if less than current) else right.
                   // check si key exist pas deja
+                
                 iterator    ret;
                 node_ptr    newNode = new node_type(val);
-                  
+                node_ptr    checker = _tree;
+
                 if (_size == 0)
-                    _tree = newNode;
-
-                while ()
                 {
-                    /* code */
+                    _tree = newNode;
+                    _size++;
+                    // std::cout << "CHECK" << std::endl;
                 }
-                
+                else
+                {
+                    while (checker != NULL && checker != NULL)
+                    {
+                        if (val.first < checker->data.first)
+                        {
+                            if (checker->left == NULL)
+                            {
+                                newNode->parent = checker;
+                                checker->left = newNode;
+                                _size++;
+                                return (make_pair(ret, true));
+                            }
+                            checker = checker->left;
+                        }
+                        else if (val.first > checker->data.first)
+                        {
+                            if (checker->right == NULL)
+                            {
+                                newNode->parent = checker;
+                                checker->right = newNode;
+                                _size++;
+                                return (make_pair(ret, true));
+                            }
+                            checker = checker->right;
+                        }
+                    // std::cout << "CHECK" << std::endl;
+                    }
+                }
 
-                _size++;
                 //   newNode->data(val.first, val.second);
                 // std::cout << newNode->data.first << std::endl;
                 // std::cout << newNode->data.second << std::endl;
