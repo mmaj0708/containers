@@ -10,7 +10,9 @@ int main()
 	std::cout << "***MAP TEST***\n" << std::endl;
 	std::map<char, int>				mp;
 
+	// std::cout << mp.find('x')->first << std::endl;
 	mp.insert( std::pair<char, int>('x', 2) );
+	std::cout << (mp['h'] = 7) << std::endl;
 	mp.insert( std::pair<char, int>('c', 3) );
 	mp.insert( std::pair<char, int>('d', 4) );
 	mp.insert( std::pair<char, int>('a', 1) );
@@ -33,11 +35,56 @@ int main()
 	std::cout << "\nFT" << std::endl;
 	ft::map<char, int>		ft_mp;
 
-	ft_mp.insert( ft::pair<char, int>('x', 4) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('c', 3) );
-	ft_mp.insert( ft::pair<char, int>('a', 1) );
+	std::cout << ft_mp.insert( ft::pair<char, int>('a', 1) ).first->second << std::endl;
 	ft_mp.insert( ft::pair<char, int>('d', 4) );
+	ft_mp.insert( ft::pair<char, int>('c', 3) );
+	ft_mp.insert( ft::pair<char, int>('x', 5) );
+	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+
+	ft::map<char, int>::iterator		ft_it = ft_mp.begin();
+
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+
+
+	--ft_it;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	--ft_it;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	--ft_it;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	--ft_it;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+
+
+	std::cout << "\nFIND" << std::endl;
+	std::cout << ft_mp.find('c')->first << ft_mp.find('c')->second << std::endl;
+	std::cout << ft_mp.find('h')->first << ft_mp.find('h')->second << std::endl;
+	std::cout << ft_mp.count('c') << std::endl;
+	std::cout << ft_mp.count('h') << std::endl;
+
+	std::cout << "\n[]" << std::endl;
+	std::cout << ft_mp['a'] << std::endl;
+	std::cout << ft_mp['b'] << std::endl;
+	std::cout << ft_mp['c'] << std::endl;
+	std::cout << ft_mp['d'] << std::endl;
+	std::cout << (ft_mp['h'] = 7) << std::endl;
 
 	ft_mp.showTree();
 

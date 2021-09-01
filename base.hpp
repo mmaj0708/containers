@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/30 15:38:58 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/01 17:45:28 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ namespace ft
 		node	*right;
 
 		node(const T &src = T()) : data(src), parent(NULL), left(NULL), right(NULL) {}
+		node() : data(NULL), parent(NULL), left(NULL), right(NULL) {}
 	};
 
 	template <class T1, class T2> 
@@ -152,10 +153,60 @@ namespace ft
 	node<T>		*fullLeft(node<T> *root)
 	{
 		node<T>	*ret = root;
+	
+// std::cout << "CHECK" << std::endl;
+		while (ret->left != NULL)
+		{
+			ret = ret->left;
+
+		}
+		return ret;
+	}
+
+	template<typename T>
+	node<T>		*fullRight(node<T> *root)
+	{
+		node<T>	*ret = root;
 		
+		while (ret->right != NULL)
+			ret = ret->right;
+		return ret;
+	}
+
+	template<typename T>
+	bool		is_end(node<T> *n)
+	{
+		node<T>	*ret = n;
+
+		while (ret->parent != NULL) // get root
+			ret = ret->parent;
+		while (ret->right != NULL)
+			ret = ret->right;
+		if (ret == n)
+			return true;
+		return false;
+	}
+
+	template<typename T>
+	bool		is_begin(node<T> *n)
+	{
+		node<T>	*ret = n;
+
+		while (ret->parent != NULL) // get root
+			ret = ret->parent;
 		while (ret->left != NULL)
 			ret = ret->left;
-		return ret;
+		if (ret == n)
+			return true;
+		return false;
+	}
+
+	template<typename T>
+	bool		is_root(node<T> *n)
+	{
+		if (n->parent == NULL)
+			return true;
+		return false;
 	}
 
 } // namespace ft

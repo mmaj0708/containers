@@ -6,14 +6,21 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/30 17:06:06 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/01 18:13:29 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// UTILISER AllOCATE DANS INSERT
-// FAIRE LES ITERATORS
-// COMPLETER INSERT (avec le bon retour)
-// FAIRE LES AUTRES INSERT
+// constructors
+// destruct
+// reverse it
+// insert
+// erase
+// swap
+// clear
+// value_comp
+// lower_bound
+// upper_bound
+// equal_range
 
 #ifndef MAPIT_HPP
 # define MAPIT_HPP
@@ -34,6 +41,7 @@ class mapIt
 		typedef value_type*				pointer;
 
         mapIt() : _node(NULL) {}
+        mapIt(node_type *src) { _node = src; }
         mapIt(const mapIt &src) { *this = src; }
         mapIt&   operator=(const mapIt &src) {_node = src._node; return *this;}
 
@@ -42,19 +50,50 @@ class mapIt
         bool    operator==(const mapIt &src) { return (_node == src._node ? 1 : 0); }
         bool    operator!=(const mapIt &src) { return (_node != src._node ? 1 : 0); }
 
-        reference      operator*(void) const { return (*this->_node->data); }
-        pointer        operator->(void) const { return (this->_node->data); }
-        
-
-        // *a = t
-        // ++a
-        // a++
-        // *a++
-
-        // --a
-        // a--
-        // *a--
-
+        reference      operator*(void) const { return (this->_node->data); }
+        pointer        operator->(void) const { return (&this->operator*()); }
+        mapIt          operator++(void)
+        {
+            if (is_end(_node))
+                return (*this);
+            if (_node->right == NULL)
+            {
+                while (_node->parent->left != _node) // est ce un parent dont il est la branche left ?
+                    _node = _node->parent;
+                _node = _node->parent;
+                return *this;
+            }
+            else
+            {
+                _node = _node->right;
+                while (_node->left != NULL)
+                    _node = _node->left;
+                return *this;
+            }
+        }
+        mapIt           operator++(int) {mapIt	tmp(*this); ++(*this); return (tmp);}
+        mapIt          operator--(void)
+        {
+            if (is_begin(_node))
+                return (*this);
+            if (_node->left == NULL)
+            {
+                while (_node->parent->right != _node) // est ce un parent dont il est la branche left ?
+                {
+                    _node = _node->parent;
+                }
+                _node = _node->parent;
+                return *this;
+            }
+            else
+            {
+                _node = _node->left;
+                while (_node->right != NULL)
+                    _node = _node->right;
+                return *this;
+            }
+        }
+        mapIt           operator--(int) {mapIt	tmp(*this); --(*this); return (tmp);}
 };
 
 #endif

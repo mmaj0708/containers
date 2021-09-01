@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/08/30 17:03:45 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/01 18:13:23 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,14 @@ namespace	ft	{
             typedef typename allocator_type::const_pointer         const_pointer;
             typedef typename allocator_type::reference             reference;
             typedef typename allocator_type::const_reference       const_reference;
-            typedef size_t                                         size_type;
+            typedef typename allocator_type::size_type       	   size_type;
             typedef ptrdiff_t                                      difference_type;
  
-            // class value_compare : public std::binary_function<value_type, value_type, bool>
-            // {
-            //     friend class map;
-            //     protected:
-            //         key_compare comp;
-            //         value_compare(key_compare c) : comp(c) {}
-            //     public:
-            //         bool operator()(const value_type& x, const value_type& y) const {return comp(x.first, y.first);}
-            // };
             typedef ft::node<value_type>						node_type;
             typedef node_type*           						node_ptr;
-            
-            typedef mapIt<value_type, node_type>                        iterator;
-            // typedef __map_const_iterator<typename __base::const_iterator> const_iterator;
-            // typedef _VSTD::reverse_iterator<iterator>               reverse_iterator;
-            // typedef _VSTD::reverse_iterator<const_iterator>         const_reverse_iterator;
-            
-            // typedef __insert_return_type<iterator, node_type> insert_return_type;
+            typedef mapIt<value_type, node_type>                iterator;
+            typedef mapIt<const value_type, node_type>          const_iterator;
+
 
             void inOrder(node_ptr node)
             {
@@ -77,15 +64,7 @@ namespace	ft	{
                 inOrder(node->right);
             }
 
-            void showTree()
-            {
-                inOrder(_tree);
-                // std::cout << _tree->left->data.first << std::endl;
-                // std::cout << fullLeft(_tree)->data.first << std::endl;
-                // std::cout << fullLeft(_tree)->right->data.first << std::endl;
-                // std::cout << fullLeft(_tree)->parent->data.first << std::endl;
-                // std::cout << fullLeft(_tree)->parent->right->data.first << std::endl;
-            }
+            void showTree() { inOrder(_tree); }
 
             /* CONSTRUCTOR */
             explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
@@ -99,10 +78,10 @@ namespace	ft	{
             ~map() { delete _tree; }
             
             /* ITERATOR */
-            //               iterator begin();
-            //         const_iterator begin() const;
-            //               iterator end();
-            //         const_iterator end() const;
+            iterator begin() { return iterator(fullLeft(_tree)); }
+            const_iterator begin() const { return const_iterator(fullLeft(_tree)); }
+            iterator end() { return iterator(fullRight(_tree)); }
+            const_iterator end() const { return const_iterator(fullRight(_tree)); }
             //       reverse_iterator rbegin();
             // const_reverse_iterator rbegin() const;
             //       reverse_iterator rend();
@@ -114,14 +93,15 @@ namespace	ft	{
             size_type max_size() const { return (_alloc.max_size()); }
 
             /* ELMT ACCESS */
-            // mapped_type& operator[] (const key_type& k); // (*((this->insert(make_pair(k,mapped_type()))).first)).second
+            mapped_type& operator[] (const key_type& k) {return((*((this->insert(make_pair(k,mapped_type()))).first)).second);}
 
             /* MODIFIERS */
             pair<iterator,bool> insert (const value_type& val)
             {
-                // if find(val) : return it;
-                iterator    ret;
-                node_ptr    newNode = new node_type(val);
+                if (_tree != NULL && count(val.first))
+                    return (make_pair(find(val.first), false));
+
+                node_ptr    newNode = _createNode(val);
                 node_ptr    checker = _tree;
 
                 if (_size == 0)
@@ -130,8 +110,7 @@ namespace	ft	{
                     _size++;
                 }
                 else
-                {
-                    while (checker != NULL && checker != NULL)
+                    while (checker != NULL)
                     {
                         if (val.first < checker->data.first)
                         {
@@ -140,7 +119,7 @@ namespace	ft	{
                                 newNode->parent = checker;
                                 checker->left = newNode;
                                 _size++;
-                                return (make_pair(ret, true));
+                                return (make_pair(iterator(newNode), true));
                             }
                             checker = checker->left;
                         }
@@ -151,13 +130,12 @@ namespace	ft	{
                                 newNode->parent = checker;
                                 checker->right = newNode;
                                 _size++;
-                                return (make_pair(ret, true));
+                                return (make_pair(newNode, true));
                             }
                             checker = checker->right;
                         }
                     }
-                }
-                return (make_pair(ret, true));
+                return (make_pair(newNode, true));
             }
 
             // iterator insert (iterator position, const value_type& val);
@@ -171,30 +149,53 @@ namespace	ft	{
             // void clear();
 
             /* OBSERVERS */
-            // key_compare key_comp() const;
-            // value_compare value_comp() const;
-            // template <class Key, class T, class Compare, class Alloc>
+            key_compare key_comp() const { return key_compare(); }
+            // value_compare value_comp() const { return value_compare(key_compare()); }
+    
             // class map<Key,T,Compare,Alloc>::value_compare
-            // {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
-            // friend class map;
-            // protected:
-            // Compare comp;
-            // value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
-            // public:
-            // typedef bool result_type;
-            // typedef value_type first_argument_type;
-            // typedef value_type second_argument_type;
-            // bool operator() (const value_type& x, const value_type& y) const
             // {
-            // return comp(x.first, y.first);
-            // }
-            // }
+            //     friend class map;
+            //     protected:
+            //     Compare comp;
+            //     value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+            //     public:
+            //     typedef bool result_type;
+            //     typedef value_type first_argument_type;
+            //     typedef value_type second_argument_type;
+            //     bool operator() (const value_type& x, const value_type& y) const
+            //     {
+            //         return comp(x.first, y.first);
+            //     }
+            // };
 
             // /* OPERATIONS */
-            // iterator find (const key_type& k);
-            // const_iterator find (const key_type& k) const;
+            iterator find (const key_type& k)
+            {
+                iterator    it(begin()), it_end(end());
 
-            // size_type count (const key_type& k) const;
+                while (!_equal_key(it->first, k) && it != it_end)
+                    it++;
+                return it;
+            }
+            const_iterator find (const key_type& k) const
+            {
+                const_iterator    it(begin()), it_end(end());
+
+                while (!_equal_key(it->first, k) && it != it_end)
+                    it++;
+                return it;
+            }
+
+            size_type count (const key_type& k) const
+            {
+                const_iterator    it = this->begin(), it_end = this->end();
+
+                while (!_equal_key(it->first, k) && it != it_end)
+                    it++;
+                if (!_equal_key(it->first, k))
+                    return 0;
+                return 1;
+            }
 
             // iterator lower_bound (const key_type& k);
             // const_iterator lower_bound (const key_type& k) const;
@@ -208,12 +209,25 @@ namespace	ft	{
             /* ALLOCATOR */
             allocator_type get_allocator() const { return _alloc; }
 
-
         private:
-            size_type		_size;
-            key_compare		_key_cmp;
-            allocator_type	_alloc;
-            node_ptr   		_tree;
+            size_type		            _size;
+            key_compare		            _key_cmp;
+            allocator_type	            _alloc;
+            std::allocator<node_type>   _allocNode;
+            node_ptr   		            _tree;
+
+            node_ptr    _createNode(const value_type &val)
+            {
+                node_ptr newNode = _allocNode.allocate(1);
+                _alloc.construct(&newNode->data, val);
+                newNode->left = NULL;
+                newNode->right = NULL;
+                newNode->parent = NULL;
+                return newNode;
+            }
+
+            bool        _equal_key(const key_type &k1, const key_type &k2) const {return (!_key_cmp(k1, k2) && !_key_cmp(k2, k1));}
+
 	};
 }
 
