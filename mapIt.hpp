@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/01 18:13:29 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/02 10:41:20 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 // lower_bound
 // upper_bound
 // equal_range
+// relationnal op
 
 #ifndef MAPIT_HPP
 # define MAPIT_HPP

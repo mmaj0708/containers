@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/01 18:13:23 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/02 12:05:56 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,27 @@ namespace	ft	{
 
             /* CONSTRUCTOR */
             explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL) { /*_tree = new node_type;*/ }
+            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL) {}
 
-            // template <class InputIterator>
-            // map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
-            // map (const map& x);
+            template <class Ite>
+            map (Ite first, Ite last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL)
+            {
+                while (first != last)
+                {
+                    insert(make_pair(first->first, first->second));
+                    first++;
+                }
+            }
+
+            map (const map& x) { *this = x; }
+
+            map& operator= (const map& x)
+            {
+                clear();
+                insert(make_pair(x.begin(), x.end()));
+                return (*this); 
+            }
 
             /* DESTRUCTOR */
             ~map() { delete _tree; }
@@ -138,7 +154,7 @@ namespace	ft	{
                 return (make_pair(newNode, true));
             }
 
-            // iterator insert (iterator position, const value_type& val);
+            iterator insert (iterator position, const value_type& val);
             // template <class InputIterator> void insert (InputIterator first, InputIterator last);
 
             // void erase (iterator position);
@@ -146,7 +162,27 @@ namespace	ft	{
             // void erase (iterator first, iterator last);
 
             // void swap (map& x);
-            // void clear();
+            void clear()
+            {
+                _clear_inorder(_tree);
+            }
+
+            void _clear_inorder(node_ptr node) // private
+            {
+                if (node == NULL) {
+                    return;
+                }
+                _clear_inorder(node->left);
+                std::cout << "KEY " << node->data.first << std::endl;
+                _clear_inorder(node->right);
+
+                if (node == NULL)
+                    return;
+                _alloc.destroy(&node->data);
+                _allocNode.deallocate(node, 1);
+                _size--;
+                node = NULL;
+            }
 
             /* OBSERVERS */
             key_compare key_comp() const { return key_compare(); }
@@ -209,6 +245,14 @@ namespace	ft	{
             /* ALLOCATOR */
             allocator_type get_allocator() const { return _alloc; }
 
+        /* RELATIONAL OPERATOR */
+        // bool operator== ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
+        // bool operator!= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
+        // bool operator<  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
+        // bool operator<= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
+        // bool operator>  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
+        // bool operator>= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
+
         private:
             size_type		            _size;
             key_compare		            _key_cmp;
@@ -230,5 +274,8 @@ namespace	ft	{
 
 	};
 }
+
+
+            
 
 #endif

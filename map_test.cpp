@@ -86,7 +86,12 @@ int main()
 	std::cout << ft_mp['d'] << std::endl;
 	std::cout << (ft_mp['h'] = 7) << std::endl;
 
-	ft_mp.showTree();
+	// ft_mp.showTree();
+
+	ft_mp.clear();
+	std::cout << ft_mp.size() << std::endl;
+
+	// ft_mp.showTree();
 
 	return (0);
 }
