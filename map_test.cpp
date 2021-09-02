@@ -57,41 +57,49 @@ int main()
 	std::cout << ft_it->first << ft_it->second << std::endl;
 	ft_it++;
 	std::cout << ft_it->first << ft_it->second << std::endl;
-	ft_it++;
-	std::cout << ft_it->first << ft_it->second << std::endl;
-	ft_it++;
-	std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
 
 
-	--ft_it;
-	std::cout << ft_it->first << ft_it->second << std::endl;
-	--ft_it;
-	std::cout << ft_it->first << ft_it->second << std::endl;
-	--ft_it;
-	std::cout << ft_it->first << ft_it->second << std::endl;
-	--ft_it;
-	std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
 
 
-	std::cout << "\nFIND" << std::endl;
-	std::cout << ft_mp.find('c')->first << ft_mp.find('c')->second << std::endl;
-	std::cout << ft_mp.find('h')->first << ft_mp.find('h')->second << std::endl;
-	std::cout << ft_mp.count('c') << std::endl;
-	std::cout << ft_mp.count('h') << std::endl;
+	// std::cout << "\nFIND" << std::endl;
+	// std::cout << ft_mp.find('c')->first << ft_mp.find('c')->second << std::endl;
+	// std::cout << ft_mp.find('h')->first << ft_mp.find('h')->second << std::endl;
+	// std::cout << ft_mp.count('c') << std::endl;
+	// std::cout << ft_mp.count('h') << std::endl;
 
-	std::cout << "\n[]" << std::endl;
-	std::cout << ft_mp['a'] << std::endl;
-	std::cout << ft_mp['b'] << std::endl;
-	std::cout << ft_mp['c'] << std::endl;
-	std::cout << ft_mp['d'] << std::endl;
-	std::cout << (ft_mp['h'] = 7) << std::endl;
+	// std::cout << "\n[]" << std::endl;
+	// std::cout << ft_mp['a'] << std::endl;
+	// std::cout << ft_mp['b'] << std::endl;
+	// std::cout << ft_mp['c'] << std::endl;
+	// std::cout << ft_mp['d'] << std::endl;
+	// std::cout << (ft_mp['h'] = 7) << std::endl;
 
-	// ft_mp.showTree();
+	// // ft_mp.showTree();
 
-	ft_mp.clear();
-	std::cout << ft_mp.size() << std::endl;
+	// // ft_mp.clear();
+	ft_mp.erase(ft_mp.end());
+	std::cout << "END : "<< ft_mp.end()->first << std::endl;
 
-	// ft_mp.showTree();
+	ft_mp.erase(ft_mp.end()); // marche pas parce que 'd' a des enfants
+
+	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
+
+	// ft_mp.erase(ft_mp.end());
+	// std::cout << ft_mp.size() << std::endl;
+
+	ft_mp.showTree();
 
 	return (0);
 }

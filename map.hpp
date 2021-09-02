@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/02 12:05:56 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/02 16:07:38 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,32 +157,50 @@ namespace	ft	{
             iterator insert (iterator position, const value_type& val);
             // template <class InputIterator> void insert (InputIterator first, InputIterator last);
 
-            // void erase (iterator position);
+            void erase (iterator pos)
+            {
+                // case : node is leaf
+                iterator    tmp;
+
+                if (pos._node->left == NULL && pos._node->right == NULL)
+                {
+                    tmp = pos;
+                    if (_isLeftBranch(tmp._node))
+                        tmp._node->parent->left = NULL;
+                    else
+                        tmp._node->parent->right = NULL;
+                    _deleteNode(pos._node);
+                }
+
+                // case : node has one child
+                else if ( )
+                // else
+                // {
+                //     std::cout << "NOT LEAF ?" << (++pos)->first << std::endl;
+                // }
+            }
             // size_type erase (const key_type& k);
             // void erase (iterator first, iterator last);
 
             // void swap (map& x);
-            void clear()
-            {
-                _clear_inorder(_tree);
-            }
+            void clear() {}
 
-            void _clear_inorder(node_ptr node) // private
-            {
-                if (node == NULL) {
-                    return;
-                }
-                _clear_inorder(node->left);
-                std::cout << "KEY " << node->data.first << std::endl;
-                _clear_inorder(node->right);
+            // void _clear_inorder(node_ptr node) // private
+            // {
+            //     if (node == NULL) {
+            //         return;
+            //     }
+            //     _clear_inorder(node->left);
+            //     std::cout << "KEY " << node->data.first << std::endl;
+            //     _clear_inorder(node->right);
 
-                if (node == NULL)
-                    return;
-                _alloc.destroy(&node->data);
-                _allocNode.deallocate(node, 1);
-                _size--;
-                node = NULL;
-            }
+            //     if (node == NULL)
+            //         return;
+            //     _alloc.destroy(&node->data);
+            //     _allocNode.deallocate(node, 1);
+            //     _size--;
+            //     node = NULL;
+            // }
 
             /* OBSERVERS */
             key_compare key_comp() const { return key_compare(); }
@@ -270,8 +288,39 @@ namespace	ft	{
                 return newNode;
             }
 
-            bool        _equal_key(const key_type &k1, const key_type &k2) const {return (!_key_cmp(k1, k2) && !_key_cmp(k2, k1));}
+            void        _deleteNode(node_ptr n)
+            {
+                _alloc.destroy(&n->data);
+                n->left = NULL;
+                n->right = NULL;
+                n->parent = NULL;
+                _allocNode.deallocate(n, 1);
+            }
 
+            bool        _isLeftBranch(node_ptr n)
+            {
+                if (n->parent->left == n)
+                    return (true);
+                return (false);
+            }
+
+            // node_ptr    _itetonode(iterator pos)
+            // {
+            //     node_ptr    it_node = _tree;
+
+            //     while (pos->first != it_node->data.first && !is_end(It_node))
+            //     {
+            //         it_node->
+            //     }
+                
+            // }
+
+            // node_ptr    _node_increment(node_ptr n)
+            // {
+
+            // }
+
+            bool        _equal_key(const key_type &k1, const key_type &k2) const {return (!_key_cmp(k1, k2) && !_key_cmp(k2, k1));}
 	};
 }
 

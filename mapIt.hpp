@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/02 10:41:20 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/02 16:05:44 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,15 @@
 // equal_range
 // relationnal op
 
+FAIRE ERASE PUIS CLEAR PUIS '='
+
 #ifndef MAPIT_HPP
 # define MAPIT_HPP
 
 #include "base.hpp"
 #include <cstddef>
+
+namespace ft {
 
 template <typename T, typename node_type>
 class mapIt
@@ -40,6 +44,8 @@ class mapIt
 		typedef ptrdiff_t				difference_type;
 		typedef value_type&				reference;
 		typedef value_type*				pointer;
+        
+
 
         mapIt() : _node(NULL) {}
         mapIt(node_type *src) { _node = src; }
@@ -95,6 +101,12 @@ class mapIt
             }
         }
         mapIt           operator--(int) {mapIt	tmp(*this); --(*this); return (tmp);}
-};
 
+        template <class, class, class, class>
+		friend class map;
+        
+		template <class, class>
+		friend class mapIt;
+};
+}
 #endif
