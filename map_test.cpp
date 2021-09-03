@@ -53,15 +53,15 @@ int main()
 
 	ft::map<char, int>::iterator		ft_it = ft_mp.begin();
 
-	std::cout << ft_it->first << ft_it->second << std::endl;
-	ft_it++;
-	std::cout << ft_it->first << ft_it->second << std::endl;
-	ft_it++;
-	std::cout << ft_it->first << ft_it->second << std::endl;
-	ft_it++;
-	std::cout << ft_it->first << ft_it->second << std::endl;
-	ft_it++;
-	std::cout << ft_it->first << ft_it->second << std::endl;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
 	// ft_it++;
 	// std::cout << ft_it->first << ft_it->second << std::endl;
 	// ft_it++;
@@ -94,14 +94,33 @@ int main()
 	// // ft_mp.showTree();
 
 	// // ft_mp.clear();
-	ft_mp.erase(ft_it);
-	std::cout << "END : "<< ft_mp.end()->first << std::endl;
+	ft_mp.erase('a');
+	ft_mp.erase('b');
+	// ft_mp.erase('c');
+	// ft_mp.erase('d');
+	// ft_mp.erase('e');
+	// ft_mp.erase('h');
+	// ft_mp.erase('f');
+	// ft_mp.erase('j');
+	// ft_mp.showTree();
+	// std::cout << std::endl;
+	// ft_mp.erase('b');
+	// ft_mp.showTree();
+	// std::cout << std::endl;
+	// ft_mp.erase('h');
+	// ft_mp.showTree();
+	// std::cout << std::endl;
+	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
 
-	std::cout << "IT AFTER ERASE " << ft_it->first << std::endl;
+	// std::cout << "IT AFTER ERASE " << ft_it->first << std::endl;
 
-	ft_mp.erase(ft_it);
-	std::cout << "IT AFTER ERASE " << ft_it->first << std::endl;
-	std::cout << "END : "<< ft_mp.end()->first << std::endl;
+	// std::cout << "IT AFTER ERASE " << ft_it->first << std::endl;
+	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
+	ft_mp.showTree();
+
+	// ft_mp.clear();
+
+
 
 	// ft_mp.erase(ft_mp.end());
 
@@ -119,7 +138,7 @@ int main()
 	// ft_mp.erase(ft_mp.end());
 	// std::cout << ft_mp.size() << std::endl;
 
-	ft_mp.showTree();
+	// ft_mp.showTree();
 
 	return (0);
 }

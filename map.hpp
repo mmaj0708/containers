@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/03 12:09:19 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/03 15:17:32 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,9 +236,14 @@ namespace	ft	{
                     if (_isLeftBranch(tmp._node))
                     {
                         std::cout << "node has one RIGHT child and sits on LEFT branch parent" << std::endl;
-                        tmp._node->parent->left = tmp._node->right;
                         tmp._node->right->parent = tmp._node->parent;
-                        _deleteNode(pos._node);
+                        tmp._node->parent->left = tmp._node->right;
+                        _alloc.destroy(&pos._node->data);
+                        pos._node->left = NULL;
+                        pos._node->right = NULL;
+                        pos._node->parent = NULL;
+                        _allocNode.deallocate(pos._node, 1);
+                        // _deleteNode(pos._node);
                     }
                     // node sits on right branch parent
                     if (!_isLeftBranch(tmp._node))
@@ -249,7 +254,7 @@ namespace	ft	{
                         _deleteNode(pos._node);
                     }
                 }
-
+                
                 // case : node has TWO children
                 else if (pos._node->right != NULL && pos._node->left != NULL)
                 {
@@ -257,30 +262,32 @@ namespace	ft	{
 
                     std::cout << "node has TWO children" << std::endl;
                     nextNode++;
-                    // node sits on left branch parent
-                    // if (_isLeftBranch(pos._node))
-                    // {
-
-                    // }
-                    // // node sits on right branch parent
-                    // if (!_isLeftBranch(pos._node))
-                    // {
                     _alloc.construct(&pos._node->data, nextNode._node->data); // copy content of inorder successor
                     erase(nextNode);
-                    // }
                 }
-
-                // else
-                // {
-                //     std::cout << "NOT LEAF ?" << (++pos)->first << std::endl;
-                // }
                 _size--;
             }
-            // size_type erase (const key_type& k);
-            // void erase (iterator first, iterator last);
+            size_type erase (const key_type& k)
+            {
+                if (!count(k))
+                    return 0;
+                erase(find(k));
+                return 1;
+            }
+            void erase (iterator first, iterator last)
+            {
+                while (first != last)
+                {
+                    erase(first);
+                    first++;
+                }
+            }
 
             // void swap (map& x);
-            void clear() {}
+            void clear()
+            {
+                erase(begin(), end());
+            }
 
             // void _clear_inorder(node_ptr node) // private
             // {
