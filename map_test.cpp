@@ -35,13 +35,14 @@ int main()
 	
 	std::cout << "\nFT" << std::endl;
 	ft::map<char, int>		ft_mp;
+	ft::map<char, int>		ft_mp2;
 
 	ft_mp.insert( ft::pair<char, int>('e', 5) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	ft_mp.insert( ft_mp.begin(), ft::pair<char, int>('b', 2) );
 	ft_mp.insert( ft::pair<char, int>('h', 8) );
 	ft_mp.insert( ft::pair<char, int>('f', 6) );
 	ft_mp.insert( ft::pair<char, int>('j', 10) );
-	std::cout << ft_mp.insert( ft::pair<char, int>('a', 1) ).first->second << std::endl;
+	ft_mp.insert( ft::pair<char, int>('a', 1) );
 	ft_mp.insert( ft::pair<char, int>('c', 3) );
 	ft_mp.insert( ft::pair<char, int>('d', 4) );
 	// ft_mp.insert( ft::pair<char, int>('x', 5) );
@@ -50,6 +51,8 @@ int main()
 	// ft_mp.insert( ft::pair<char, int>('b', 2) );
 	// ft_mp.insert( ft::pair<char, int>('b', 2) );
 	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+
+	ft_mp2.insert(ft_mp.begin(), ft_mp.end());
 
 	ft::map<char, int>::iterator		ft_it = ft_mp.begin();
 
@@ -93,14 +96,15 @@ int main()
 
 	// // ft_mp.showTree();
 
-	// // ft_mp.clear();
-	ft_mp.erase('a');
-	ft_mp.erase('b');
+	// ft_mp.clear();
+	ft_mp.erase(ft_mp.begin(), ft_mp.end());
+	// ft_mp.erase('a');
+	// ft_mp.erase('b');
 	// ft_mp.erase('c');
 	// ft_mp.erase('d');
 	// ft_mp.erase('e');
-	// ft_mp.erase('h');
 	// ft_mp.erase('f');
+	// ft_mp.erase('h');
 	// ft_mp.erase('j');
 	// ft_mp.showTree();
 	// std::cout << std::endl;
@@ -117,6 +121,7 @@ int main()
 	// std::cout << "IT AFTER ERASE " << ft_it->first << std::endl;
 	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
 	ft_mp.showTree();
+	ft_mp2.showTree();
 
 	// ft_mp.clear();
 
@@ -132,7 +137,7 @@ int main()
 
 	// ft_mp.erase(ft_mp.end());
 
-	// std::cout << "EMPTY ? "<< ft_mp.empty() << std::endl;
+	std::cout << "EMPTY ? "<< ft_mp.empty() << std::endl;
 	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
 
 	// ft_mp.erase(ft_mp.end());

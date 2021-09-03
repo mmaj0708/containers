@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/03 15:17:32 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/03 16:38:32 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,17 @@ namespace	ft	{
                 return (make_pair(newNode, true));
             }
 
-            iterator insert (iterator position, const value_type& val);
-            // template <class InputIterator> void insert (InputIterator first, InputIterator last);
+            iterator insert (iterator position, const value_type& val) { return insert(val).first; }
+            
+            template <class InputIterator> void insert (InputIterator first, InputIterator last)
+            {
+                while (first != last)
+                {
+                    insert(*first);
+                    first++;
+                }
+                insert(*first);
+            }
 
             void erase (iterator pos)
             {
@@ -235,18 +244,19 @@ namespace	ft	{
                     // node sits on left branch parent
                     if (_isLeftBranch(tmp._node))
                     {
+                        // std::cout << "key : " << tmp._node->parent->data.first << std::endl;
                         std::cout << "node has one RIGHT child and sits on LEFT branch parent" << std::endl;
-                        tmp._node->right->parent = tmp._node->parent;
                         tmp._node->parent->left = tmp._node->right;
-                        _alloc.destroy(&pos._node->data);
-                        pos._node->left = NULL;
-                        pos._node->right = NULL;
-                        pos._node->parent = NULL;
-                        _allocNode.deallocate(pos._node, 1);
+                        tmp._node->right->parent = tmp._node->parent;
+                        _alloc.destroy(&tmp._node->data);
+                        // tmp._node->left = NULL;
+                        // tmp._node->right = NULL;
+                        // tmp._node->parent = NULL;
+                        // _allocNode.deallocate(tmp._node, 1);
                         // _deleteNode(pos._node);
                     }
                     // node sits on right branch parent
-                    if (!_isLeftBranch(tmp._node))
+                    else if (!_isLeftBranch(tmp._node))
                     {
                         std::cout << "node has one RIGHT child and sits on RIGHT branch parent" << std::endl;
                         tmp._node->parent->right = tmp._node->right;
@@ -276,35 +286,18 @@ namespace	ft	{
             }
             void erase (iterator first, iterator last)
             {
-                while (first != last)
+                iterator    tmp = first;
+                while (tmp != last)
                 {
+                    tmp++;
                     erase(first);
-                    first++;
+                    first = tmp;
                 }
+                erase(tmp);
             }
 
             // void swap (map& x);
-            void clear()
-            {
-                erase(begin(), end());
-            }
-
-            // void _clear_inorder(node_ptr node) // private
-            // {
-            //     if (node == NULL) {
-            //         return;
-            //     }
-            //     _clear_inorder(node->left);
-            //     std::cout << "KEY " << node->data.first << std::endl;
-            //     _clear_inorder(node->right);
-
-            //     if (node == NULL)
-            //         return;
-            //     _alloc.destroy(&node->data);
-            //     _allocNode.deallocate(node, 1);
-            //     _size--;
-            //     node = NULL;
-            // }
+            void clear() { erase(begin(), end()); }
 
             /* OBSERVERS */
             key_compare key_comp() const { return key_compare(); }
@@ -355,11 +348,55 @@ namespace	ft	{
                 return 1;
             }
 
-            // iterator lower_bound (const key_type& k);
-            // const_iterator lower_bound (const key_type& k) const;
+            iterator lower_bound (const key_type& k)
+            {
+                iterator it = this->begin(), ite = this->end();
 
-            // iterator upper_bound (const key_type& k);
-            // const_iterator upper_bound (const key_type& k) const;
+                while (it != ite)
+                {
+                    if (!this->_key_cmp(it->first, k))
+                        break;
+                    ++it;
+                }
+                return (it);
+            }
+            const_iterator lower_bound (const key_type& k) const 
+            {
+                const_iterator it = this->begin(), ite = this->end();
+
+                while (it != ite)
+                {
+                    if (!this->_key_cmp(it->first, k))
+                        break;
+                    ++it;
+                }
+                return (it);
+            }
+
+            iterator upper_bound (const key_type& k)
+            {
+                iterator it = this->begin(), ite = this->end();
+
+                while (it != ite)
+                {
+                    if (this->_key_cmp(it->first, k))
+                        break;
+                    ++it;
+                }
+                return (it);
+            }
+            const_iterator upper_bound (const key_type& k) const
+            {
+                const_iterator it = this->begin(), ite = this->end();
+
+                while (it != ite)
+                {
+                    if (this->_key_cmp(it->first, k))
+                        break;
+                    ++it;
+                }
+                return (it);                
+            }
 
             // pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
             // pair<iterator,iterator>             equal_range (const key_type& k);
