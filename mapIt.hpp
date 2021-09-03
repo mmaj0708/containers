@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/02 16:05:44 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/03 09:10:49 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 // upper_bound
 // equal_range
 // relationnal op
-
-FAIRE ERASE PUIS CLEAR PUIS '='
 
 #ifndef MAPIT_HPP
 # define MAPIT_HPP

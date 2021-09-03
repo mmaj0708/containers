@@ -10,6 +10,7 @@ int main()
 	std::cout << "***MAP TEST***\n" << std::endl;
 	std::map<char, int>				mp;
 
+	// std::cout << "END : "<< mp.end()->first << std::endl; // quand rien, cas indeterminé
 	// std::cout << mp.find('x')->first << std::endl;
 	mp.insert( std::pair<char, int>('x', 2) );
 	std::cout << (mp['h'] = 7) << std::endl;
@@ -35,14 +36,18 @@ int main()
 	std::cout << "\nFT" << std::endl;
 	ft::map<char, int>		ft_mp;
 
+	ft_mp.insert( ft::pair<char, int>('e', 5) );
+	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	ft_mp.insert( ft::pair<char, int>('h', 8) );
+	ft_mp.insert( ft::pair<char, int>('f', 6) );
+	ft_mp.insert( ft::pair<char, int>('j', 10) );
 	std::cout << ft_mp.insert( ft::pair<char, int>('a', 1) ).first->second << std::endl;
-	ft_mp.insert( ft::pair<char, int>('d', 4) );
 	ft_mp.insert( ft::pair<char, int>('c', 3) );
-	ft_mp.insert( ft::pair<char, int>('x', 5) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	ft_mp.insert( ft::pair<char, int>('d', 4) );
+	// ft_mp.insert( ft::pair<char, int>('x', 5) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
 	// ft_mp.insert( ft::pair<char, int>('b', 2) );
 	// ft_mp.insert( ft::pair<char, int>('b', 2) );
 
@@ -89,11 +94,26 @@ int main()
 	// // ft_mp.showTree();
 
 	// // ft_mp.clear();
-	ft_mp.erase(ft_mp.end());
+	ft_mp.erase(ft_it);
 	std::cout << "END : "<< ft_mp.end()->first << std::endl;
 
-	ft_mp.erase(ft_mp.end()); // marche pas parce que 'd' a des enfants
+	std::cout << "IT AFTER ERASE " << ft_it->first << std::endl;
 
+	ft_mp.erase(ft_it);
+	std::cout << "IT AFTER ERASE " << ft_it->first << std::endl;
+	std::cout << "END : "<< ft_mp.end()->first << std::endl;
+
+	// ft_mp.erase(ft_mp.end());
+
+	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
+
+	// ft_mp.erase(ft_mp.end());
+
+	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
+
+	// ft_mp.erase(ft_mp.end());
+
+	// std::cout << "EMPTY ? "<< ft_mp.empty() << std::endl;
 	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
 
 	// ft_mp.erase(ft_mp.end());

@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/02 16:07:38 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/03 12:09:19 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,11 +159,46 @@ namespace	ft	{
 
             void erase (iterator pos)
             {
-                // case : node is leaf
                 iterator    tmp;
 
-                if (pos._node->left == NULL && pos._node->right == NULL)
+                // case : node is root without children
+                if (is_root(pos._node) && (pos._node->left == NULL && pos._node->right == NULL))
                 {
+                    std::cout << "node is root without children" << std::endl;
+                    _alloc.destroy(&pos._node->data);
+                    pos._node = NULL;
+                    _allocNode.deallocate(_tree, 1);
+                    _tree = NULL;
+                    _size--;
+                    return;
+                }
+
+                // case : node is root with one LEFT child
+                else if (is_root(pos._node) && (pos._node->left != NULL && pos._node->right == NULL))
+                {
+                    std::cout << "node is ROOT with one LEFT child" << std::endl;
+                    _tree = pos._node->left;
+                    pos._node->left->parent = NULL;
+                    _deleteNode(pos._node);
+                    _size--;
+                    return;
+                }
+
+                // case : node is root with one RIGHT child
+                else if (is_root(pos._node) && (pos._node->left == NULL && pos._node->right != NULL))
+                {
+                    std::cout << "node is ROOT with one RIGHT child" << std::endl;
+                    _tree = pos._node->right;
+                    pos._node->right->parent = NULL;
+                    _deleteNode(pos._node);
+                    _size--;
+                    return;
+                }
+                
+                // case : node is leaf
+                else if (pos._node->left == NULL && pos._node->right == NULL)
+                {
+                    std::cout << "node is LEAF" << std::endl;
                     tmp = pos;
                     if (_isLeftBranch(tmp._node))
                         tmp._node->parent->left = NULL;
@@ -172,12 +207,74 @@ namespace	ft	{
                     _deleteNode(pos._node);
                 }
 
-                // case : node has one child
-                else if ( )
+                // case : node has one LEFT child
+                else if ( (pos._node->left != NULL && pos._node->right == NULL) )
+                {
+                    tmp = pos;
+                    // node sits on left branch parent
+                    if (_isLeftBranch(tmp._node))
+                    {
+                        std::cout << "node has one LEFT child and sits on LEFT branch parent" << std::endl;
+                        tmp._node->parent->left = tmp._node->left;
+                        tmp._node->left->parent = tmp._node->parent;
+                        _deleteNode(pos._node);
+                    }
+                    // node sits on right branch parent
+                    if (!_isLeftBranch(tmp._node))
+                    {
+                        std::cout << "node has one LEFT child and sits on RIGHT branch parent" << std::endl;
+                        tmp._node->parent->right = tmp._node->left;
+                        tmp._node->left->parent = tmp._node->parent;
+                        _deleteNode(pos._node);
+                    }
+                }
+                // case : node has one RIGHT child
+                else if ((pos._node->right != NULL && pos._node->left == NULL))
+                {
+                    tmp = pos;
+                    // node sits on left branch parent
+                    if (_isLeftBranch(tmp._node))
+                    {
+                        std::cout << "node has one RIGHT child and sits on LEFT branch parent" << std::endl;
+                        tmp._node->parent->left = tmp._node->right;
+                        tmp._node->right->parent = tmp._node->parent;
+                        _deleteNode(pos._node);
+                    }
+                    // node sits on right branch parent
+                    if (!_isLeftBranch(tmp._node))
+                    {
+                        std::cout << "node has one RIGHT child and sits on RIGHT branch parent" << std::endl;
+                        tmp._node->parent->right = tmp._node->right;
+                        tmp._node->right->parent = tmp._node->parent;
+                        _deleteNode(pos._node);
+                    }
+                }
+
+                // case : node has TWO children
+                else if (pos._node->right != NULL && pos._node->left != NULL)
+                {
+                    iterator    nextNode = pos;
+
+                    std::cout << "node has TWO children" << std::endl;
+                    nextNode++;
+                    // node sits on left branch parent
+                    // if (_isLeftBranch(pos._node))
+                    // {
+
+                    // }
+                    // // node sits on right branch parent
+                    // if (!_isLeftBranch(pos._node))
+                    // {
+                    _alloc.construct(&pos._node->data, nextNode._node->data); // copy content of inorder successor
+                    erase(nextNode);
+                    // }
+                }
+
                 // else
                 // {
                 //     std::cout << "NOT LEAF ?" << (++pos)->first << std::endl;
                 // }
+                _size--;
             }
             // size_type erase (const key_type& k);
             // void erase (iterator first, iterator last);
@@ -303,6 +400,8 @@ namespace	ft	{
                     return (true);
                 return (false);
             }
+
+
 
             // node_ptr    _itetonode(iterator pos)
             // {
