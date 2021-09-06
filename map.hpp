@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/03 16:38:32 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/06 12:31:51 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ namespace	ft	{
             }
 
             /* DESTRUCTOR */
-            ~map() { delete _tree; }
+            ~map() { clear(); }
             
             /* ITERATOR */
             iterator begin() { return iterator(fullLeft(_tree)); }
@@ -249,10 +249,6 @@ namespace	ft	{
                         tmp._node->parent->left = tmp._node->right;
                         tmp._node->right->parent = tmp._node->parent;
                         _alloc.destroy(&tmp._node->data);
-                        // tmp._node->left = NULL;
-                        // tmp._node->right = NULL;
-                        // tmp._node->parent = NULL;
-                        // _allocNode.deallocate(tmp._node, 1);
                         // _deleteNode(pos._node);
                     }
                     // node sits on right branch parent
@@ -296,8 +292,16 @@ namespace	ft	{
                 erase(tmp);
             }
 
-            // void swap (map& x);
-            void clear() { erase(begin(), end()); }
+            void swap (map& x)
+            {
+
+            }
+
+            void clear()
+            {
+                if (_tree != NULL)
+                    erase(begin(), end());
+            }
 
             /* OBSERVERS */
             key_compare key_comp() const { return key_compare(); }

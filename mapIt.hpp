@@ -6,19 +6,15 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/03 16:40:22 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/06 12:31:29 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// destruct
 // reverse it
 // swap
 // value_comp
 // equal_range
 // relationnal op
-
-MIEUX CMPRENDRE LOWER BOUND ET UPPER BOUND
-TERMINER MAP
 
 #ifndef MAPIT_HPP
 # define MAPIT_HPP
