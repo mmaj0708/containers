@@ -121,8 +121,25 @@ int main()
 	// std::cout << "IT AFTER ERASE " << ft_it->first << std::endl;
 	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
 	ft_mp.showTree();
+
+	std::cout << "\ninsert by range\n" << std::endl;
+
+
 	ft_mp2.showTree();
 
+	std::cout << "\nSWAP\n" << std::endl;
+
+	ft::map<char, int>	swapMap;
+
+	swapMap.insert(ft::pair<char, int>('x', 1));
+	swapMap.insert(ft::pair<char, int>('y', 2));
+	swapMap.insert(ft::pair<char, int>('z', 3));
+
+	swapMap.swap(ft_mp2);
+	std::cout << "swaped tab" << std::endl;
+	swapMap.showTree();
+	std::cout << "\nft_mp2" << std::endl;
+	ft_mp2.showTree();
 	// ft_mp.clear();
 
 
@@ -138,12 +155,46 @@ int main()
 	// ft_mp.erase(ft_mp.end());
 
 	std::cout << "EMPTY ? "<< ft_mp.empty() << std::endl;
-	// std::cout << "END : "<< ft_mp.end()->first << std::endl;
 
-	// ft_mp.erase(ft_mp.end());
-	// std::cout << ft_mp.size() << std::endl;
+	std::cout << "\nREVERSE IT\n";
 
-	// ft_mp.showTree();
+	std::map<char,int> stdmap;
+	ft::map<char,int> mymap;
+
+	mymap['x']=1001;
+	mymap['y']=2002;
+	mymap['z']=3003;
+
+	stdmap['x']=1001;
+	stdmap['y']=2002;
+	stdmap['z']=3003;
+
+	// std::cout << "\nmymap contains:\n";
+
+	// ft::pair<char,int> highest = *mymap.rbegin();          // last element
+
+	// ft::map<char,int>::iterator it = mymap.begin();
+	// do {
+	// 	std::cout << it->first << " => " << it->second << '\n';
+	// } while ( mymap.value_comp()(*it++, highest) );
+
+	std::map<char,int>::reverse_iterator stdit = stdmap.rbegin();
+	std::cout << "stdit->first : " << stdit->first << std::endl;
+	++stdit;
+	std::cout << "stdit->first : " << stdit->first << std::endl;
+	++stdit;
+	std::cout << "stdit->first : " << stdit->first << std::endl;
+
+	std::cout << "\nmymap contains:\n";
+
+	// ft::pair<char,int> highest = *mymap.rbegin();          // last element
+
+	ft::map<char,int>::reverse_iterator it = mymap.rbegin();
+	std::cout << "it->first : " << it->first << std::endl;
+	++it;
+	std::cout << "it->first : " << it->first << std::endl;
+	++it;
+	std::cout << "it->first : " << it->first << std::endl;
 
 	return (0);
 }

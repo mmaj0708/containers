@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/06 12:31:51 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/06 14:33:52 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include <cstddef>
 # include <sstream>
 # include <iostream>
-// # include "Rand_iterator.hpp"
-# include "reverseIte.hpp"
+# include "reverseIteMap.hpp"
 # include "base.hpp"
 # include "mapIt.hpp"
 
@@ -52,7 +51,8 @@ namespace	ft	{
             typedef node_type*           						node_ptr;
             typedef mapIt<value_type, node_type>                iterator;
             typedef mapIt<const value_type, node_type>          const_iterator;
-
+	        typedef ft::reverse_iterator<iterator>				reverse_iterator;
+        	typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
             void inOrder(node_ptr node)
             {
@@ -98,10 +98,11 @@ namespace	ft	{
             const_iterator begin() const { return const_iterator(fullLeft(_tree)); }
             iterator end() { return iterator(fullRight(_tree)); }
             const_iterator end() const { return const_iterator(fullRight(_tree)); }
-            //       reverse_iterator rbegin();
-            // const_reverse_iterator rbegin() const;
-            //       reverse_iterator rend();
-            // const_reverse_iterator rend() const;
+
+            reverse_iterator rbegin() { return reverse_iterator(fullRight(_tree)); }
+            const_reverse_iterator rbegin() const { return const_reverse_iterator(fullRight(_tree)); }
+            reverse_iterator rend() { return reverse_iterator(fullLeft(_tree)); }
+            const_reverse_iterator rend() const { return const_reverse_iterator(fullLeft(_tree)); }
 
             /* CAPACITY */
             bool empty() const { return (_size == 0 ? 1 : 0); }
@@ -173,7 +174,7 @@ namespace	ft	{
                 // case : node is root without children
                 if (is_root(pos._node) && (pos._node->left == NULL && pos._node->right == NULL))
                 {
-                    std::cout << "node is root without children" << std::endl;
+                    // std::cout << "node is root without children" << std::endl;
                     _alloc.destroy(&pos._node->data);
                     pos._node = NULL;
                     _allocNode.deallocate(_tree, 1);
@@ -185,7 +186,7 @@ namespace	ft	{
                 // case : node is root with one LEFT child
                 else if (is_root(pos._node) && (pos._node->left != NULL && pos._node->right == NULL))
                 {
-                    std::cout << "node is ROOT with one LEFT child" << std::endl;
+                    // std::cout << "node is ROOT with one LEFT child" << std::endl;
                     _tree = pos._node->left;
                     pos._node->left->parent = NULL;
                     _deleteNode(pos._node);
@@ -196,7 +197,7 @@ namespace	ft	{
                 // case : node is root with one RIGHT child
                 else if (is_root(pos._node) && (pos._node->left == NULL && pos._node->right != NULL))
                 {
-                    std::cout << "node is ROOT with one RIGHT child" << std::endl;
+                    // std::cout << "node is ROOT with one RIGHT child" << std::endl;
                     _tree = pos._node->right;
                     pos._node->right->parent = NULL;
                     _deleteNode(pos._node);
@@ -207,7 +208,7 @@ namespace	ft	{
                 // case : node is leaf
                 else if (pos._node->left == NULL && pos._node->right == NULL)
                 {
-                    std::cout << "node is LEAF" << std::endl;
+                    // std::cout << "node is LEAF" << std::endl;
                     tmp = pos;
                     if (_isLeftBranch(tmp._node))
                         tmp._node->parent->left = NULL;
@@ -223,7 +224,7 @@ namespace	ft	{
                     // node sits on left branch parent
                     if (_isLeftBranch(tmp._node))
                     {
-                        std::cout << "node has one LEFT child and sits on LEFT branch parent" << std::endl;
+                        // std::cout << "node has one LEFT child and sits on LEFT branch parent" << std::endl;
                         tmp._node->parent->left = tmp._node->left;
                         tmp._node->left->parent = tmp._node->parent;
                         _deleteNode(pos._node);
@@ -231,7 +232,7 @@ namespace	ft	{
                     // node sits on right branch parent
                     if (!_isLeftBranch(tmp._node))
                     {
-                        std::cout << "node has one LEFT child and sits on RIGHT branch parent" << std::endl;
+                        // std::cout << "node has one LEFT child and sits on RIGHT branch parent" << std::endl;
                         tmp._node->parent->right = tmp._node->left;
                         tmp._node->left->parent = tmp._node->parent;
                         _deleteNode(pos._node);
@@ -244,8 +245,7 @@ namespace	ft	{
                     // node sits on left branch parent
                     if (_isLeftBranch(tmp._node))
                     {
-                        // std::cout << "key : " << tmp._node->parent->data.first << std::endl;
-                        std::cout << "node has one RIGHT child and sits on LEFT branch parent" << std::endl;
+                        // std::cout << "node has one RIGHT child and sits on LEFT branch parent" << std::endl;
                         tmp._node->parent->left = tmp._node->right;
                         tmp._node->right->parent = tmp._node->parent;
                         _alloc.destroy(&tmp._node->data);
@@ -254,7 +254,7 @@ namespace	ft	{
                     // node sits on right branch parent
                     else if (!_isLeftBranch(tmp._node))
                     {
-                        std::cout << "node has one RIGHT child and sits on RIGHT branch parent" << std::endl;
+                        // std::cout << "node has one RIGHT child and sits on RIGHT branch parent" << std::endl;
                         tmp._node->parent->right = tmp._node->right;
                         tmp._node->right->parent = tmp._node->parent;
                         _deleteNode(pos._node);
@@ -266,7 +266,7 @@ namespace	ft	{
                 {
                     iterator    nextNode = pos;
 
-                    std::cout << "node has TWO children" << std::endl;
+                    // std::cout << "node has TWO children" << std::endl;
                     nextNode++;
                     _alloc.construct(&pos._node->data, nextNode._node->data); // copy content of inorder successor
                     erase(nextNode);
@@ -294,7 +294,11 @@ namespace	ft	{
 
             void swap (map& x)
             {
-
+                _swap(_size, x._size);
+                _swap(_key_cmp, x._key_cmp);
+                _swap(_alloc, x._alloc);
+                _swap(_allocNode, x._allocNode);
+                _swap(_tree, x._tree);
             }
 
             void clear()
@@ -305,23 +309,22 @@ namespace	ft	{
 
             /* OBSERVERS */
             key_compare key_comp() const { return key_compare(); }
-            // value_compare value_comp() const { return value_compare(key_compare()); }
-    
-            // class map<Key,T,Compare,Alloc>::value_compare
-            // {
-            //     friend class map;
-            //     protected:
-            //     Compare comp;
-            //     value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
-            //     public:
-            //     typedef bool result_type;
-            //     typedef value_type first_argument_type;
-            //     typedef value_type second_argument_type;
-            //     bool operator() (const value_type& x, const value_type& y) const
-            //     {
-            //         return comp(x.first, y.first);
-            //     }
-            // };
+            class value_compare
+            {
+                friend class map;
+                protected:
+                Compare comp;
+                value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+                public:
+                typedef bool result_type;
+                typedef value_type first_argument_type;
+                typedef value_type second_argument_type;
+                bool operator() (const value_type& x, const value_type& y) const
+                {
+                    return comp(x.first, y.first);
+                }
+            };
+            value_compare value_comp() const { return value_compare(key_compare()); }
 
             // /* OPERATIONS */
             iterator find (const key_type& k)
@@ -402,8 +405,8 @@ namespace	ft	{
                 return (it);                
             }
 
-            // pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
-            // pair<iterator,iterator>             equal_range (const key_type& k);
+            pair<const_iterator,const_iterator> equal_range (const key_type& k) const { return (make_pair<iterator, iterator>(lower_bound(k),  upper_bound(k))); }
+            pair<iterator,iterator>     equal_range (const key_type& k) { return (make_pair<iterator, iterator>(lower_bound(k),  upper_bound(k))); }
 
             /* ALLOCATOR */
             allocator_type get_allocator() const { return _alloc; }
@@ -431,6 +434,14 @@ namespace	ft	{
                 newNode->right = NULL;
                 newNode->parent = NULL;
                 return newNode;
+            }
+
+            template <typename U>
+            void _swap(U& a, U& b)
+            {
+                U tmp = a;
+                a = b;
+                b = tmp;
             }
 
             void        _deleteNode(node_ptr n)
