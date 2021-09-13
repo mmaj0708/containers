@@ -196,5 +196,9 @@ int main()
 	++it;
 	std::cout << "it->first : " << it->first << std::endl;
 
+	std::cout << "\nRELATIONAL OP" << std::endl;
+	std::cout << "TRUE  " << (mymap == mymap) << std::endl;
+	std::cout << "FALSE " << (ft_mp2 == mymap) << std::endl;
+
 	return (0);
 }

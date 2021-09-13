@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/06 14:33:52 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/13 12:12:09 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,11 @@ namespace	ft	{
                 return (make_pair(newNode, true));
             }
 
-            iterator insert (iterator position, const value_type& val) { return insert(val).first; }
+            iterator insert (iterator position, const value_type& val)
+            {
+                static_cast<void>(position);
+                return insert(val).first;
+            }
             
             template <class InputIterator> void insert (InputIterator first, InputIterator last)
             {
@@ -405,19 +409,12 @@ namespace	ft	{
                 return (it);                
             }
 
-            pair<const_iterator,const_iterator> equal_range (const key_type& k) const { return (make_pair<iterator, iterator>(lower_bound(k),  upper_bound(k))); }
+            pair<const_iterator,const_iterator> equal_range (const key_type& k) const { return (make_pair<const_iterator, const_iterator>(lower_bound(k),  upper_bound(k))); }
             pair<iterator,iterator>     equal_range (const key_type& k) { return (make_pair<iterator, iterator>(lower_bound(k),  upper_bound(k))); }
 
             /* ALLOCATOR */
             allocator_type get_allocator() const { return _alloc; }
 
-        /* RELATIONAL OPERATOR */
-        // bool operator== ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
-        // bool operator!= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
-        // bool operator<  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
-        // bool operator<= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
-        // bool operator>  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
-        // bool operator>= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
 
         private:
             size_type		            _size;
@@ -459,27 +456,30 @@ namespace	ft	{
                     return (true);
                 return (false);
             }
-
-
-
-            // node_ptr    _itetonode(iterator pos)
-            // {
-            //     node_ptr    it_node = _tree;
-
-            //     while (pos->first != it_node->data.first && !is_end(It_node))
-            //     {
-            //         it_node->
-            //     }
-                
-            // }
-
-            // node_ptr    _node_increment(node_ptr n)
-            // {
-
-            // }
-
             bool        _equal_key(const key_type &k1, const key_type &k2) const {return (!_key_cmp(k1, k2) && !_key_cmp(k2, k1));}
 	};
+    
+    /* RELATIONAL OPERATOR */
+    template <class Key, class T, class Compare, class Alloc>
+    bool operator== ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+    {
+        if (lhs.size() != rhs.size())
+            return false;
+        return (equal(lhs.begin(), lhs.end(), rhs.begin()));
+    }
+    template <class Key, class T, class Compare, class Alloc>
+    bool operator!= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) { return (!(lhs == rhs)); }
+    template <class Key, class T, class Compare, class Alloc>
+    bool operator<  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+    {
+        return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+    }
+    template <class Key, class T, class Compare, class Alloc>
+    bool operator<= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) { return (!(rhs < lhs)); }
+    template <class Key, class T, class Compare, class Alloc>
+    bool operator>  ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) { return (rhs < lhs); }
+    template <class Key, class T, class Compare, class Alloc>
+    bool operator>= ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ) { return (!(lhs < rhs)); }
 }
 
 

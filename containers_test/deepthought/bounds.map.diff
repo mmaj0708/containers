@@ -1,0 +1,56 @@
+2c2
+< max_size: 461168601842738790
+---
+> max_size: 1537228672809129301
+14d13
+< - key: 10 | value: 30
+19c18
+< upper_bound: key: 1 | value: 3
+---
+> upper_bound: end()
+24c23
+< upper_bound: key: 2 | value: 6
+---
+> upper_bound: end()
+29c28
+< upper_bound: key: 6 | value: 18
+---
+> upper_bound: key: 1 | value: 3
+33,34c32,33
+< lower_bound: key: 10 | value: 30
+< upper_bound: end()
+---
+> lower_bound: end()
+> upper_bound: key: 1 | value: 3
+39c38
+< upper_bound: end()
+---
+> upper_bound: key: 1 | value: 3
+42c41
+< max_size: 461168601842738790
+---
+> max_size: 1537228672809129301
+54d52
+< - key: 10 | value: 30
+59c57
+< upper_bound: key: 6 | value: 18
+---
+> upper_bound: key: 1 | value: 842
+64c62
+< upper_bound: key: 8 | value: 842
+---
+> upper_bound: key: 1 | value: 842
+67c65
+< max_size: 461168601842738790
+---
+> max_size: 1537228672809129301
+70c68
+< - key: 1 | value: 3
+---
+> - key: 1 | value: 842
+77c75
+< - key: 8 | value: 842
+---
+> - key: 8 | value: 24
+79d76
+< - key: 10 | value: 30

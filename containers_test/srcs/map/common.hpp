@@ -25,10 +25,14 @@ void	printSize(T_MAP const &mp, bool print_content = 1)
 	std::cout << "max_size: " << mp.max_size() << std::endl;
 	if (print_content)
 	{
+		// typename T_MAP::const_iterator ite = mp.end();
+		// std::cout << ite->first << " " << ite->second << std::endl;
+		// std::cout << mp.end()->first << " " << mp.end()->second << std::endl;
 		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
 		std::cout << std::endl << "Content is:" << std::endl;
 		for (; it != ite; ++it)
 			std::cout << "- " << printPair(it, false) << std::endl;
+		std::cout << "- " << printPair(it, false) << std::endl;	
 	}
 	std::cout << "###############################################" << std::endl;
 }

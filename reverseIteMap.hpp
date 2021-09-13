@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 16:20:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/06 14:30:24 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/13 11:35:05 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ namespace ft
 	
 	iterator base() const {return _current;}
 	
-	reference			operator*() const {iterator tmp = _current; return *--tmp;}
+	reference			operator*() const {iterator tmp = _current; return *tmp;}
 	pointer				operator->() const {return &this->operator*();}
 	reference			operator[](difference_type n) {return *(*this + n);}
-    
+
 	reverse_iterator&	operator++() { this->_current.operator--(); return *this; }
     reverse_iterator	operator++(int) { return reverse_iterator(this->_base.operator--(0)); }
     reverse_iterator&	operator--() {++_current; return *this;}
