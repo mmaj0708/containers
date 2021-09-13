@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 11:12:28 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/13 15:18:13 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include "base.hpp"
 #include <cstddef>
+
+AJOUTER _LASTELEMT
 
 namespace ft {
 

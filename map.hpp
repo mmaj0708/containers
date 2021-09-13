@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 12:12:09 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/13 15:17:41 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ namespace	ft	{
 	        typedef ft::reverse_iterator<iterator>				reverse_iterator;
         	typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
-            void inOrder(node_ptr node)
+            void inOrder(node_ptr node) // a virer
             {
                 if (node == NULL) {
                 return;
@@ -68,12 +68,22 @@ namespace	ft	{
 
             /* CONSTRUCTOR */
             explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL) {}
+            : _size(0), _key_cmp(comp), _alloc(alloc)
+            {
+                _lastEle = _createNode(pair<key_type, mapped_type>());
+                _tree = _lastEle;
+                _lastEle->left = _lastEle;
+                _lastEle->right = _lastEle;
+            }
 
             template <class Ite>
             map (Ite first, Ite last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL)
+            : _size(0), _key_cmp(comp), _alloc(alloc)
             {
+                _lastEle = _createNode(pair<key_type, mapped_type>());
+                _tree = _lastEle;
+                _lastEle->left = _lastEle;
+                _lastEle->right = _lastEle;
                 while (first != last)
                 {
                     insert(make_pair(first->first, first->second));
@@ -115,7 +125,7 @@ namespace	ft	{
             /* MODIFIERS */
             pair<iterator,bool> insert (const value_type& val)
             {
-                if (_tree != NULL && count(val.first))
+                if (_tree != _lastEle && count(val.first))
                     return (make_pair(find(val.first), false));
 
                 node_ptr    newNode = _createNode(val);
@@ -136,6 +146,7 @@ namespace	ft	{
                                 newNode->parent = checker;
                                 checker->left = newNode;
                                 _size++;
+
                                 return (make_pair(iterator(newNode), true));
                             }
                             checker = checker->left;
@@ -147,11 +158,17 @@ namespace	ft	{
                                 newNode->parent = checker;
                                 checker->right = newNode;
                                 _size++;
+
                                 return (make_pair(newNode, true));
                             }
                             checker = checker->right;
                         }
                     }
+
+                // fullRight(_tree)->right = ghost;
+                // ghost->left = NULL;
+                // ghost->right = NULL;
+                // ghost->parent = fullRight(_tree);
                 return (make_pair(newNode, true));
             }
 
@@ -168,7 +185,7 @@ namespace	ft	{
                     insert(*first);
                     first++;
                 }
-                insert(*first);
+                // insert(*first); 
             }
 
             void erase (iterator pos)
@@ -293,7 +310,7 @@ namespace	ft	{
                     erase(first);
                     first = tmp;
                 }
-                erase(tmp);
+                // erase(tmp);
             }
 
             void swap (map& x)
@@ -422,6 +439,7 @@ namespace	ft	{
             allocator_type	            _alloc;
             std::allocator<node_type>   _allocNode;
             node_ptr   		            _tree;
+            node_ptr                    _lastEle;
 
             node_ptr    _createNode(const value_type &val)
             {

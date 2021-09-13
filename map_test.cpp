@@ -178,27 +178,36 @@ int main()
 	// 	std::cout << it->first << " => " << it->second << '\n';
 	// } while ( mymap.value_comp()(*it++, highest) );
 
-	std::map<char,int>::reverse_iterator stdit = stdmap.rbegin();
-	std::cout << "stdit->first : " << stdit->first << std::endl;
-	++stdit;
-	std::cout << "stdit->first : " << stdit->first << std::endl;
-	++stdit;
-	std::cout << "stdit->first : " << stdit->first << std::endl;
+	std::map<char,int>::iterator stdit = stdmap.begin();
+	// std::cout << "stdit->first : " << stdit->first << std::endl;
+	// ++stdit;
+	// std::cout << "stdit->first : " << stdit->first << std::endl;
+	// ++stdit;
+	// std::cout << "stdit->first : " << stdit->first << std::endl;
+	for (;stdit != stdmap.end();stdit++)
+		std::cout << "stdit->first : " << stdit->first << std::endl;
+
+
+
 
 	std::cout << "\nmymap contains:\n";
 
 	// ft::pair<char,int> highest = *mymap.rbegin();          // last element
 
-	ft::map<char,int>::reverse_iterator it = mymap.rbegin();
-	std::cout << "it->first : " << it->first << std::endl;
-	++it;
-	std::cout << "it->first : " << it->first << std::endl;
-	++it;
-	std::cout << "it->first : " << it->first << std::endl;
+	ft::map<char,int>::iterator it = mymap.begin();
+	// std::cout << "it->first : " << it->first << std::endl;
+	// ++it;
+	// std::cout << "it->first : " << it->first << std::endl;
+	// ++it;
+	// std::cout << "it->first : " << it->first << std::endl;
+	for (;it != mymap.end();it++)
+		std::cout << "it->first : " << it->first << std::endl;
 
 	std::cout << "\nRELATIONAL OP" << std::endl;
 	std::cout << "TRUE  " << (mymap == mymap) << std::endl;
 	std::cout << "FALSE " << (ft_mp2 == mymap) << std::endl;
+
+
 
 	return (0);
 }
