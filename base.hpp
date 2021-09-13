@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 12:01:41 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/13 17:52:09 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,8 @@ namespace ft
 		while (ret->left != NULL)
 		{
 			ret = ret->left;
-
 		}
+		// std::cout << "CHECK fullleft" << std::endl;
 		return ret;
 	}
 
@@ -170,6 +170,7 @@ namespace ft
 		
 		while (ret->right != NULL)
 			ret = ret->right;
+		// std::cout << "CHECK fullright" << std::endl;
 		return ret;
 	}
 
@@ -182,7 +183,7 @@ namespace ft
 			ret = ret->parent;
 		while (ret->right != NULL)
 			ret = ret->right;
-		if (ret == n)
+		if (ret == n) // obliger de remonter d'un pour eviter _lastEle
 			return true;
 		return false;
 	}

@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 15:17:41 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/13 18:13:21 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ namespace	ft	{
             {
                 _lastEle = _createNode(pair<key_type, mapped_type>());
                 _tree = _lastEle;
-                _lastEle->left = _lastEle;
-                _lastEle->right = _lastEle;
+                _lastEle->left = NULL;
+                _lastEle->right = NULL;
             }
 
             template <class Ite>
@@ -82,8 +82,8 @@ namespace	ft	{
             {
                 _lastEle = _createNode(pair<key_type, mapped_type>());
                 _tree = _lastEle;
-                _lastEle->left = _lastEle;
-                _lastEle->right = _lastEle;
+                _lastEle->left = NULL;
+                _lastEle->right = NULL;
                 while (first != last)
                 {
                     insert(make_pair(first->first, first->second));
@@ -96,12 +96,19 @@ namespace	ft	{
             map& operator= (const map& x)
             {
                 clear();
+                _lastEle = createNode(ft::pair<const key_type, mapped_type>());
+                _tree = _lastEle;
+                _lastEle->left = NULL;
+                _lastEle->right = NULL;
                 insert(make_pair(x.begin(), x.end()));
                 return (*this); 
             }
 
             /* DESTRUCTOR */
-            ~map() { clear(); }
+            ~map() { 
+                clear(); 
+                // std::cout << "CHECK destrcut" << std::endl;
+                }
             
             /* ITERATOR */
             iterator begin() { return iterator(fullLeft(_tree)); }
@@ -117,7 +124,7 @@ namespace	ft	{
             /* CAPACITY */
             bool empty() const { return (_size == 0 ? 1 : 0); }
             size_type size() const { return _size; }
-            size_type max_size() const { return (_alloc.max_size()); }
+            size_type max_size() const { return (std::numeric_limits<difference_type>::max() / (sizeof(node_type) / 2 ?: 1)); }
 
             /* ELMT ACCESS */
             mapped_type& operator[] (const key_type& k) {return((*((this->insert(make_pair(k,mapped_type()))).first)).second);}
@@ -130,45 +137,48 @@ namespace	ft	{
 
                 node_ptr    newNode = _createNode(val);
                 node_ptr    checker = _tree;
-
                 if (_size == 0)
                 {
+                    newNode->right = _lastEle;
+                    _lastEle->parent = newNode;
                     _tree = newNode;
                     _size++;
                 }
                 else
                     while (checker != NULL)
                     {
-                        if (val.first < checker->data.first)
+                        if (val.first < checker->data.first) // aller dans la branche left
                         {
                             if (checker->left == NULL)
                             {
                                 newNode->parent = checker;
                                 checker->left = newNode;
                                 _size++;
-
                                 return (make_pair(iterator(newNode), true));
                             }
                             checker = checker->left;
                         }
-                        else if (val.first > checker->data.first)
+                        else if (val.first > checker->data.first) // aller dans la branche right
                         {
+                            if (checker->right == _lastEle)
+                            {
+                                checker->right = newNode;
+                                newNode->right = _lastEle;
+                                newNode->parent = checker;
+                                _lastEle->parent = newNode;
+                                _size++;
+                                return (make_pair(newNode, true));
+                            }
                             if (checker->right == NULL)
                             {
                                 newNode->parent = checker;
                                 checker->right = newNode;
                                 _size++;
-
                                 return (make_pair(newNode, true));
                             }
                             checker = checker->right;
                         }
                     }
-
-                // fullRight(_tree)->right = ghost;
-                // ghost->left = NULL;
-                // ghost->right = NULL;
-                // ghost->parent = fullRight(_tree);
                 return (make_pair(newNode, true));
             }
 
@@ -307,6 +317,8 @@ namespace	ft	{
                 while (tmp != last)
                 {
                     tmp++;
+                // std::cout << "ERASE " << tmp->first << tmp->second << std::endl;
+                // std::cout << "ERASE " << last->first << last->second << std::endl;
                     erase(first);
                     first = tmp;
                 }
@@ -324,7 +336,8 @@ namespace	ft	{
 
             void clear()
             {
-                if (_tree != NULL)
+                    // std::cout << "CHECK clear" << std::endl;
+                if (_tree != _lastEle)
                     erase(begin(), end());
             }
 
@@ -407,23 +420,24 @@ namespace	ft	{
 
                 while (it != ite)
                 {
-                    if (this->_key_cmp(it->first, k))
+                    if (this->_key_cmp(k, it->first))
                         break;
                     ++it;
                 }
                 return (it);
             }
+            
             const_iterator upper_bound (const key_type& k) const
             {
-                const_iterator it = this->begin(), ite = this->end();
+              	const_iterator it = this->begin(), ite = this->end();
 
                 while (it != ite)
                 {
-                    if (this->_key_cmp(it->first, k))
+                    if (this->_key_cmp(k, it->first))
                         break;
                     ++it;
                 }
-                return (it);                
+                return (it);
             }
 
             pair<const_iterator,const_iterator> equal_range (const key_type& k) const { return (make_pair<const_iterator, const_iterator>(lower_bound(k),  upper_bound(k))); }
