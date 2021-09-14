@@ -71,13 +71,3 @@ Content is:
 - key: 4 | value: EE
 - key: 10 | value: Hi there
 ###############################################
-	-- [5] --
-ret: 1
-size: 3
-max_size: 288230376151711743
-
-Content is:
-- key: -1 | value: Hello
-- key: 4 | value: EE
-- key: 10 | value: Hi there
-###############################################

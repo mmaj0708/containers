@@ -25,6 +25,7 @@ int		main(void)
 		it->second = ++i * 7;
 
 	std::cout << "\t-- PART ONE --" << std::endl;
+	
 	printSize(mp);
 	printSize(mp_range);
 	printSize(mp_copy);

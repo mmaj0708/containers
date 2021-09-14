@@ -35,8 +35,9 @@ int		main(void)
 	mp[10] = "Hi there";
 	printSize(mp);
 
+// mp.showTree();
 	ft_erase(mp, 0);
-	ft_erase(mp, 1);
+	// ft_erase(mp, 1);
 
 	return (0);
 }
