@@ -22,7 +22,8 @@ int		main(void)
 	mp[12] = "no";
 	mp[27] = "bee";
 	mp[90] = "8";
-	printSize(mp);
+	std::cout << "TEST " << mp.begin()->first << std::endl;
+	// printSize(mp);
 
 	return (0);
 }

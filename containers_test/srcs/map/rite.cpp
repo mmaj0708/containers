@@ -15,13 +15,13 @@ int		main(void)
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
 	TESTED_NAMESPACE::map<T1, T2>::iterator it_ = mp.begin();
 	TESTED_NAMESPACE::map<T1, T2>::reverse_iterator it(it_), ite;
-	printSize(mp);
+	// printSize(mp);
 
 	std::cout << (it_ == it.base()) << std::endl;
 	std::cout << (it_ == dec(it, 3).base()) << std::endl;
 
-	printPair(it.base());
-	printPair(inc(it.base(), 1));
+	// printPair(it.base());
+	// printPair(inc(it.base(), 1));
 
 	std::cout << "TEST OFFSET" << std::endl;
 	--it;

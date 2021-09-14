@@ -20,8 +20,16 @@ int		main(void)
 	TESTED_NAMESPACE::map<T1, T2> mp1;
 	TESTED_NAMESPACE::map<T1, T2> mp2;
 
-	mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
-	mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
+	TESTED_NAMESPACE::map<T1, T2>::iterator it;
+
+	mp1['a'] = 2;
+	mp1['b'] = 3;
+	mp1['c'] = 4;
+	mp1['d'] = 5;
+	mp2['a'] = 2;
+	mp2['b'] = 3;
+	mp2['c'] = 4;
+	mp2['d'] = 5;
 
 	cmp(mp1, mp1); // 0
 	cmp(mp1, mp2); // 1
@@ -37,6 +45,16 @@ int		main(void)
 	cmp(mp2, mp1); // 5
 
 	swap(mp1, mp2);
+
+	// for (it = mp1.begin(); it != mp1.end(); it++)
+	// {
+	// 	std::cout << it->first << it->second << std::endl;
+	// }
+
+	// for (it = mp2.begin(); it != mp2.end(); it++)
+	// {
+	// 	std::cout << it->first << it->second << std::endl;
+	// }
 
 	cmp(mp1, mp2); // 6
 	cmp(mp2, mp1); // 7

@@ -1,0 +1,16 @@
+1
+0
+TEST OFFSET
+key: b | value: 14
+key: b | value: 14
+[rev] key: e | value: 35
+[rev] key: d | value: 28
+[rev] key: c | value: 21
+[rev] key: b | value: 14
+printReverse:
+-> key: e | value: 35
+-> key: d | value: 28
+-> key: c | value: 21
+-> key: b | value: 14
+-> key: a | value: 7
+_______________________________________________
