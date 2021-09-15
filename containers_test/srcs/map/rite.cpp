@@ -24,13 +24,20 @@ int		main(void)
 	// printPair(inc(it.base(), 1));
 
 	std::cout << "TEST OFFSET" << std::endl;
-	--it;
+	// --it;
+	// --it;
+	// --it;
+
+	std::cout << "IT   " << it->first << "/" << it->second << std::endl;
+	std::cout << "BASE " << it.base()->first << "/" << it.base()->second << std::endl;
 	printPair(it);
 	printPair(it.base());
 
 	it = mp.rbegin(); ite = mp.rend();
 	while (it != ite)
 		std::cout << "[rev] " << printPair(it++, false) << std::endl;
+	std::cout << "[rev] " << printPair(it++, false) << std::endl;
+	
 	printReverse(mp);
 
 	return (0);
