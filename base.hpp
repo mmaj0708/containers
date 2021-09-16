@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 17:52:09 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/16 10:50:45 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,6 @@ namespace ft
 	{
 		node<T>	*ret = root;
 	
-// std::cout << "CHECK" << std::endl;
 		while (ret->left != NULL)
 		{
 			ret = ret->left;

@@ -35,29 +35,33 @@ int main()
 	
 	std::cout << "\nFT" << std::endl;
 	ft::map<char, int>		ft_mp;
-	ft::map<char, int>		ft_mp2;
+	// ft::map<char, int>		ft_mp2;
+	// ft::map<char, int>::const_iterator const_it = ft_mp2.begin();
 
 	ft_mp.insert( ft::pair<char, int>('e', 5) );
 	ft_mp.insert( ft_mp.begin(), ft::pair<char, int>('b', 2) );
 	ft_mp.insert( ft::pair<char, int>('h', 8) );
 	ft_mp.insert( ft::pair<char, int>('f', 6) );
-	ft_mp.insert( ft::pair<char, int>('j', 10) );
-	ft_mp.insert( ft::pair<char, int>('a', 1) );
-	ft_mp.insert( ft::pair<char, int>('c', 3) );
-	ft_mp.insert( ft::pair<char, int>('d', 4) );
-	ft_mp.insert( ft::pair<char, int>('x', 5) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('j', 10) );
+	// ft_mp.insert( ft::pair<char, int>('a', 1) );
+	// ft_mp.insert( ft::pair<char, int>('c', 3) );
+	// ft_mp.insert( ft::pair<char, int>('d', 4) );
+	// ft_mp.insert( ft::pair<char, int>('x', 5) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+ft_mp.showTree();
+	// ft_mp2.insert(ft_mp.begin(), ft_mp.end());
+	std::cout << ft_mp.begin()->first << std::endl;
 
-	ft_mp2.insert(ft_mp.begin(), ft_mp.end());
+	// ft::map<char, int>::iterator		ft_it = ft_mp.begin();
 
-	ft::map<char, int>::iterator		ft_it = ft_mp.begin();
+	// ft_mp2 = ft_mp;
 
-	for (;ft_it != ft_mp.end();ft_it++)
-	std::cout << ft_it->first << ft_it->second << std::endl;
+	// for (;ft_it != ft_mp.end();ft_it++)
+	// std::cout << ft_it->first << ft_it->second << std::endl;
 	// // ft_it++;
 	// // std::cout << ft_it->first << ft_it->second << std::endl;
 	// // ft_it++;

@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 16:20:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 11:35:05 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/15 10:39:02 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,18 @@ namespace ft
 	template <class U> reverse_iterator(const reverse_iterator<U>& u) : _current(u.base()) {}
 	template <class U> reverse_iterator& operator=(const reverse_iterator<U>& _u) { _current = _u.base(); return *this; }
 	
-	iterator base() const {return _current;}
+	iterator base() const {return this->_current;}
 	
 	reference			operator*() const {iterator tmp = _current; return *tmp;}
 	pointer				operator->() const {return &this->operator*();}
 	reference			operator[](difference_type n) {return *(*this + n);}
 
 	reverse_iterator&	operator++() { this->_current.operator--(); return *this; }
-    reverse_iterator	operator++(int) { return reverse_iterator(this->_base.operator--(0)); }
-    reverse_iterator&	operator--() {++_current; return *this;}
-    reverse_iterator	operator--(int) {reverse_iterator tmp(*this); ++_current; return tmp;}
+    reverse_iterator	operator++(int) { return reverse_iterator(this->_current.operator--(0)); }
+    // reverse_iterator&	operator--() {++_current; return *this;}
+    reverse_iterator&	operator--() {this->_current.operator++(); return *this;}
+    // reverse_iterator	operator--(int) {reverse_iterator tmp(*this); ++_current; return tmp;}
+    reverse_iterator	operator--(int) {return (reverse_iterator(this->_current.operator++(0)));}
     
 	template <class U>
 	difference_type		operator-(const reverse_iterator<U> &u) { return u.base().operator-(this->_current); }

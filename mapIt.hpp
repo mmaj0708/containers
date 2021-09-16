@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 18:00:18 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/15 11:23:33 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ class mapIt
         mapIt() : _node(NULL) {}
         mapIt(node_type *src) { _node = src; }
         mapIt(const mapIt &src) { *this = src; }
-        mapIt&   operator=(const mapIt &src) {_node = src._node; return *this;}
+        mapIt&   operator=(mapIt const &src) {_node = src._node; return *this;}
 
-        ~mapIt() {}
+        virtual ~mapIt() {}
 
         bool    operator==(const mapIt &src) { return (_node == src._node ? 1 : 0); }
-        bool    operator!=(const mapIt &src) { return (_node != src._node ? 1 : 0); }
+        bool    operator!=(const mapIt &src) const { return (_node != src._node ? 1 : 0); }
 
         reference      operator*(void) const { return (this->_node->data); }
         pointer        operator->(void) const { return (&this->operator*()); }
@@ -65,13 +65,13 @@ class mapIt
             }
         }
         mapIt           operator++(int) {mapIt	tmp(*this); ++(*this); return (tmp);}
-        mapIt          operator--(void)
+        mapIt          &operator--(void)
         {
             if (is_begin(_node))
                 return (*this);
             if (_node->left == NULL)
             {
-                while (_node->parent->right != _node) // est ce un parent dont il est la branche left ?
+                while (_node->parent->right != _node) // est ce un parent dont il est la branche right ?
                 {
                     _node = _node->parent;
                 }
@@ -88,6 +88,10 @@ class mapIt
         }
         mapIt           operator--(int) {mapIt	tmp(*this); --(*this); return (tmp);}
 
+		operator mapIt<const T, node_type>(void) const {
+			return mapIt<const T, node_type>(this->_node);
+        }
+        
         template <class, class, class, class>
 		friend class map;
         
