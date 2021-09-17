@@ -6,12 +6,12 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 16:20:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 11:35:05 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/17 16:57:58 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef REVERSEITE_HPP
-# define REVERSEITE_HPP
+#ifndef REVERSEITEMAP_HPP
+# define REVERSEITEMAP_HPP
 
 #include "base.hpp"
 #include <iostream>

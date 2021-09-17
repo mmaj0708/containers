@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 17:52:09 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/17 14:47:15 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ namespace ft
 			ret = ret->parent;
 		while (ret->right != NULL)
 			ret = ret->right;
-		if (ret == n) // obliger de remonter d'un pour eviter _lastEle
+		if (ret == n)
 			return true;
 		return false;
 	}

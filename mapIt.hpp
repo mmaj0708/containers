@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 18:00:18 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/17 16:02:11 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 #include "base.hpp"
 #include <cstddef>
+
+// regler le probleme de const dans la fct end() implementer un ghost qd on arrive a la fin
+// GO POKEMON
 
 namespace ft {
 
@@ -47,7 +50,14 @@ class mapIt
         mapIt          operator++(void)
         {
             if (is_end(_node))
+            {
+                node_type *ghost_node = std::allocator<node_type>().allocate(1);
+
+                ghost_node->parent = _node;
+                // set_is_ghost(true);
+                _node = ghost_node;
                 return (*this);
+            }
             // std::cout << "CHECK ++" << std::endl;
             if (_node->right == NULL)
             {
@@ -87,6 +97,10 @@ class mapIt
             }
         }
         mapIt           operator--(int) {mapIt	tmp(*this); --(*this); return (tmp);}
+
+		operator mapIt<const T, node_type>(void) const {
+			return mapIt<const T, node_type>(this->_node);
+		}
 
         template <class, class, class, class>
 		friend class map;

@@ -30,7 +30,7 @@ int main()
 	// 	std::cout << "KEY   " << mp_it->first << std::endl;
 	// 	std::cout << "VALUE " << mp_it->second << std::endl;
 	// }
-	// std::cout << "KEY   " << (mp_it = mp.begin())->first << std::endl;
+	std::cout << "KEY   " << (mp_it = mp.begin())->first << std::endl;
 	// std::cout << "VALUE   " << (*mp_it).second << std::endl;
 	
 	std::cout << "\nFT" << std::endl;

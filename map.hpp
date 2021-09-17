@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/13 18:13:21 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/17 16:58:41 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ namespace	ft	{
                 return;
                 }
                 inOrder(node->left);
-                std::cout << "KEY " << node->data.first << std::endl;
+                std::cout << "KEY " << node->data.first << " " << node->data.second << std::endl;
                 inOrder(node->right);
             }
 
@@ -68,27 +68,18 @@ namespace	ft	{
 
             /* CONSTRUCTOR */
             explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-            : _size(0), _key_cmp(comp), _alloc(alloc)
-            {
-                _lastEle = _createNode(pair<key_type, mapped_type>());
-                _tree = _lastEle;
-                _lastEle->left = NULL;
-                _lastEle->right = NULL;
-            }
+            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL) {}
 
             template <class Ite>
             map (Ite first, Ite last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-            : _size(0), _key_cmp(comp), _alloc(alloc)
+            : _size(0), _key_cmp(comp), _alloc(alloc), _tree(NULL)
             {
-                _lastEle = _createNode(pair<key_type, mapped_type>());
-                _tree = _lastEle;
-                _lastEle->left = NULL;
-                _lastEle->right = NULL;
                 while (first != last)
                 {
                     insert(make_pair(first->first, first->second));
                     first++;
                 }
+                // insert(make_pair(first->first, first->second));
             }
 
             map (const map& x) { *this = x; }
@@ -96,11 +87,7 @@ namespace	ft	{
             map& operator= (const map& x)
             {
                 clear();
-                _lastEle = createNode(ft::pair<const key_type, mapped_type>());
-                _tree = _lastEle;
-                _lastEle->left = NULL;
-                _lastEle->right = NULL;
-                insert(make_pair(x.begin(), x.end()));
+                insert(x.begin(), x.end());
                 return (*this); 
             }
 
@@ -113,8 +100,16 @@ namespace	ft	{
             /* ITERATOR */
             iterator begin() { return iterator(fullLeft(_tree)); }
             const_iterator begin() const { return const_iterator(fullLeft(_tree)); }
-            iterator end() { return iterator(fullRight(_tree)); }
-            const_iterator end() const { return const_iterator(fullRight(_tree)); }
+            iterator end()
+            {
+                return (_get_fake_ite());
+            }
+            const_iterator end() const
+            {
+                // iterator i(_get_fake_ite());
+		        const_iterator ci(fullRight(_tree));
+                return ci;
+            }
 
             reverse_iterator rbegin() { return reverse_iterator(fullRight(_tree)); }
             const_reverse_iterator rbegin() const { return const_reverse_iterator(fullRight(_tree)); }
@@ -132,22 +127,22 @@ namespace	ft	{
             /* MODIFIERS */
             pair<iterator,bool> insert (const value_type& val)
             {
-                if (_tree != _lastEle && count(val.first))
+                // std::cout << "INSERT " << val.first << " " << val.second << std::endl;
+                if (_tree != NULL && count(val.first))
                     return (make_pair(find(val.first), false));
+
 
                 node_ptr    newNode = _createNode(val);
                 node_ptr    checker = _tree;
                 if (_size == 0)
                 {
-                    newNode->right = _lastEle;
-                    _lastEle->parent = newNode;
                     _tree = newNode;
                     _size++;
                 }
                 else
                     while (checker != NULL)
                     {
-                        if (val.first < checker->data.first) // aller dans la branche left
+                        if (_key_cmp(val.first, checker->data.first)) // aller dans la branche left
                         {
                             if (checker->left == NULL)
                             {
@@ -158,17 +153,8 @@ namespace	ft	{
                             }
                             checker = checker->left;
                         }
-                        else if (val.first > checker->data.first) // aller dans la branche right
+                        else if (!_key_cmp(val.first, checker->data.first)) // aller dans la branche right
                         {
-                            if (checker->right == _lastEle)
-                            {
-                                checker->right = newNode;
-                                newNode->right = _lastEle;
-                                newNode->parent = checker;
-                                _lastEle->parent = newNode;
-                                _size++;
-                                return (make_pair(newNode, true));
-                            }
                             if (checker->right == NULL)
                             {
                                 newNode->parent = checker;
@@ -190,12 +176,15 @@ namespace	ft	{
             
             template <class InputIterator> void insert (InputIterator first, InputIterator last)
             {
+
+                // std::cout << "LAST  " << last->first << std::endl;
                 while (first != last)
                 {
-                    insert(*first);
+                std::cout << "FIRST " << first->first << std::endl;
+                    // insert(*first);
                     first++;
                 }
-                // insert(*first); 
+                // insert(*first);
             }
 
             void erase (iterator pos)
@@ -314,6 +303,7 @@ namespace	ft	{
             void erase (iterator first, iterator last)
             {
                 iterator    tmp = first;
+                // last--;
                 while (tmp != last)
                 {
                     tmp++;
@@ -322,7 +312,7 @@ namespace	ft	{
                     erase(first);
                     first = tmp;
                 }
-                // erase(tmp);
+                erase(tmp);
             }
 
             void swap (map& x)
@@ -337,7 +327,7 @@ namespace	ft	{
             void clear()
             {
                     // std::cout << "CHECK clear" << std::endl;
-                if (_tree != _lastEle)
+                if (_tree != NULL)
                     erase(begin(), end());
             }
 
@@ -453,7 +443,6 @@ namespace	ft	{
             allocator_type	            _alloc;
             std::allocator<node_type>   _allocNode;
             node_ptr   		            _tree;
-            node_ptr                    _lastEle;
 
             node_ptr    _createNode(const value_type &val)
             {
@@ -471,6 +460,26 @@ namespace	ft	{
                 U tmp = a;
                 a = b;
                 b = tmp;
+            }
+
+            iterator	_get_fake_ite(void)
+            {
+                node_ptr	ghost_node = _new_node();
+                iterator	rightmostnode = fullRight(_tree);
+                
+                ghost_node->parent = rightmostnode._node;
+
+                iterator	fake_ite(ghost_node);
+
+                // fake_ite.set_is_ghost(true);
+                return (fake_ite);
+            }
+
+            node_ptr	_new_node(void) const
+            {
+                node_ptr	new_node = _allocNode.allocate(1);
+
+                return (new_node);
             }
 
             void        _deleteNode(node_ptr n)
