@@ -6,12 +6,12 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/17 16:58:41 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/17 17:05:56 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_HPP
-# define VECTOR_HPP
+#ifndef MAP_HPP
+# define MAP_HPP
 
 # include <limits>
 # include <memory>
