@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 12:58:34 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/20 12:35:16 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/20 14:48:01 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,21 @@ namespace	ft	{
                 }
             
             /* ITERATOR */
-            iterator begin() { return iterator(fullLeft(_tree)); }
             const_iterator begin() const { return const_iterator(fullLeft(_tree)); }
-            // iterator end()
-            // {
-            //     iterator ghost_it =  _get_fake_ite(_ghost_node);
-            //     return (ghost_it);
-            // }
+            iterator begin() { return iterator(fullLeft(_tree)); }
+            iterator end()
+            {
+                iterator ghost_it(_get_fake_ite(_const_ghost_node));
+		        iterator ci = ghost_it;
+                ci.set_is_ghost(ghost_it.getIsGhost());
+                // std::cout << "GHOST " << ci.getIsGhost() << std::endl;
+                return ci;
+            }
             const_iterator end() const
             {
                 iterator ghost_it(_get_fake_ite(_const_ghost_node));
 		        const_iterator ci = ghost_it;
                 ci.set_is_ghost(ghost_it.getIsGhost());
-                // std::cout << "GHOST " << ci.getIsGhost() << std::endl;
                 return ci;
             }
 

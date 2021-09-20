@@ -31,8 +31,9 @@ int main()
 	// if (mp2.end()->first != mp.end()->first)
 	// 	std::cout << "MP2 == MP" << std::endl;
 	
-	std::cout << "MP  END " << mp.end()->first << std::endl;
-	std::cout << "MP2 END " << mp2.end()->first << std::endl;
+	// std::map<char, int>::const_iterator		const_it = mp.begin();
+	// if (const_it == mp.end())
+	
 	// for (mp_it = mp.begin() ; mp_it != mp.end() ; mp_it++)
 	// {
 	// 	std::cout << "KEY   " << mp_it->first << std::endl;
@@ -67,25 +68,24 @@ int main()
 	ft::map<char, int>::const_iterator		ft_it = ft_mp.begin();
 	// ft::map<char, int>::iterator		ft_ite = ft_mp.end();
 
-
-	for (;ft_it != ft_mp.end();ft_it++)
+	// for (;ft_it != ft_mp.end();ft_it++)
 	std::cout << ft_it->first << ft_it->second << std::endl;
-	// ft_it++;
-	// std::cout << ft_it->first << ft_it->second << std::endl;
-	// ft_it++;
-	// std::cout << ft_it->first << ft_it->second << std::endl;
-	// ft_it++;
-	// std::cout << ft_it->first << ft_it->second << std::endl;
-	// ft_it++;
-	// std::cout << ft_it->first << ft_it->second << std::endl;
-	// ft_it++;
-	// std::cout << ft_it->first << ft_it->second << std::endl;
-	// ft_it++;
-	// std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
+	ft_it++;
+	std::cout << ft_it->first << ft_it->second << std::endl;
 
 	// std::cout << "  " << ft_mp.end().getIsGhost() << std::endl;
-	// if (ft_it == ft_mp.end())
-	// 	std::cout << "==" << std::endl;
+	if (ft_it == ft_mp.end())
+		std::cout << "==" << std::endl;
 
 	// for (;ft_it != ft_mp.begin();ft_it--)
 	// std::cout << ft_it->first << ft_it->second << std::endl;

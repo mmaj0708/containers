@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/27 12:11:00 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/20 12:35:32 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/20 15:02:23 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include "base.hpp"
 #include <cstddef>
 
-// regler le probleme de const dans la fct end() implementer un ghost qd on arrive a la fin
-// GO POKEMON
+// probleme sur fonctions end()
+// probleme sur equal range()
 
 namespace ft {
 
@@ -53,9 +53,9 @@ class mapIt
 	        // std::cout << this->getIsGhost() << " " << src.getIsGhost() << std::endl;
             if (this->_is_ghost == true && src._is_ghost == true)
                 return (true);
-            else if (this->_is_ghost == true || src._is_ghost == true)
-                return (false);
-            return (_node == src._node ? 1 : 0);
+            // else if (this->_is_ghost == true || src._is_ghost == true)
+            //     return (false);
+            return (_node == src._node);
         }
         bool    operator!=(const mapIt &src) { return (!(*this == src)); }
 
