@@ -6,7 +6,7 @@
 /*   By: mmaj <mmaj@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 10:43:33 by mmaj              #+#    #+#             */
-/*   Updated: 2021/09/17 14:47:15 by mmaj             ###   ########.fr       */
+/*   Updated: 2021/09/20 10:14:20 by mmaj             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,9 @@ namespace ft
 	bool		is_end(node<T> *n)
 	{
 		node<T>	*ret = n;
+
+		if (n == NULL)
+			return (false);
 
 		while (ret->parent != NULL) // get root
 			ret = ret->parent;

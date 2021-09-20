@@ -9,6 +9,7 @@ int main()
 {
 	std::cout << "***MAP TEST***\n" << std::endl;
 	std::map<char, int>				mp;
+	std::map<char, int>				mp2;
 
 	// std::cout << "END : "<< mp.end()->first << std::endl; // quand rien, cas indeterminé
 	// std::cout << mp.find('x')->first << std::endl;
@@ -25,6 +26,13 @@ int main()
 	std::cout << (++mp_it)->first << std::endl;
 	std::cout << (++mp_it)->first << std::endl;
 	std::cout << (++mp_it)->first << std::endl;
+
+	mp2.insert(std::pair<char, int>('d', 4));
+	// if (mp2.end()->first != mp.end()->first)
+	// 	std::cout << "MP2 == MP" << std::endl;
+	
+	std::cout << "MP  END " << mp.end()->first << std::endl;
+	std::cout << "MP2 END " << mp2.end()->first << std::endl;
 	// for (mp_it = mp.begin() ; mp_it != mp.end() ; mp_it++)
 	// {
 	// 	std::cout << "KEY   " << mp_it->first << std::endl;
@@ -43,43 +51,54 @@ int main()
 	ft_mp.insert( ft::pair<char, int>('f', 6) );
 	ft_mp.insert( ft::pair<char, int>('j', 10) );
 	ft_mp.insert( ft::pair<char, int>('a', 1) );
-	ft_mp.insert( ft::pair<char, int>('c', 3) );
-	ft_mp.insert( ft::pair<char, int>('d', 4) );
-	ft_mp.insert( ft::pair<char, int>('x', 5) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
-	ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('c', 3) );
+	// ft_mp.insert( ft::pair<char, int>('d', 4) );
+	// ft_mp.insert( ft::pair<char, int>('x', 5) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
+	// ft_mp.insert( ft::pair<char, int>('b', 2) );
 
-	ft_mp2.insert(ft_mp.begin(), ft_mp.end());
+	// ft_mp2.insert(ft_mp.begin(), ft_mp.end());
 
-	ft::map<char, int>::iterator		ft_it = ft_mp.begin();
+	// ft_mp.showTree();
+	
+	ft::map<char, int>::const_iterator		ft_it = ft_mp.begin();
+	// ft::map<char, int>::iterator		ft_ite = ft_mp.end();
+
 
 	for (;ft_it != ft_mp.end();ft_it++)
 	std::cout << ft_it->first << ft_it->second << std::endl;
-	// // ft_it++;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
-	// // ft_it++;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
-	// // ft_it++;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
-	// // ft_it++;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
-	// // ft_it++;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
-	// // ft_it++;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// ft_it++;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
 
+	// std::cout << "  " << ft_mp.end().getIsGhost() << std::endl;
+	// if (ft_it == ft_mp.end())
+	// 	std::cout << "==" << std::endl;
 
-	// // --ft_it;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
-	// // --ft_it;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
-	// // --ft_it;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
-	// // --ft_it;
-	// // std::cout << ft_it->first << ft_it->second << std::endl;
+	// for (;ft_it != ft_mp.begin();ft_it--)
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
+	// --ft_it;
+	// std::cout << ft_it->first << ft_it->second << std::endl;
 
 	return 0;
 

@@ -51,16 +51,16 @@ int		main(void)
 	ft_const_bound(mp, -10);
 	ft_const_bound(mp, 1);
 	ft_const_bound(mp, 5);
-	ft_const_bound(mp, 10);
-	ft_const_bound(mp, 50);
+	// ft_const_bound(mp, 10);
+	// ft_const_bound(mp, 50);
 
-	printSize(mp);
+	// printSize(mp);
 
-	mp.lower_bound(3)->second = 404;
-	mp.upper_bound(7)->second = 842;
-	ft_bound(mp, 5);
-	ft_bound(mp, 7);
+	// mp.lower_bound(3)->second = 404;
+	// mp.upper_bound(7)->second = 842;
+	// ft_bound(mp, 5);
+	// ft_bound(mp, 7);
 
-	printSize(mp);
+	// printSize(mp);
 	return (0);
 }
